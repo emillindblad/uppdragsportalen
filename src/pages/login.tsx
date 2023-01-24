@@ -8,8 +8,8 @@ const Login: NextPage = () => {
             <Head>
                 <title>Uppdragsportalen - Mottagningskommittén</title>
             </Head>
-            <main className="flex flex-col min-h-screen items-center bg-mk-bg bg-no-repeat bg-cover">
-                <Navbar/>
+            <Navbar/>
+            <main className="flex flex-col items-center mt-14 bg-mk-bg bg-no-repeat bg-cover">
                 <div className="container flex flex-col items-center w-fit">
                     <h1 className="text-mk-yellow text-6xl font-bold m-3 drop-shadow-2xl">Godmorgon gemene teknolog!</h1>
                     <div className="bg-white p-5">
