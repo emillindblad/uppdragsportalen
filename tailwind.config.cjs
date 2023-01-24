@@ -9,10 +9,16 @@ module.exports = {
             },
             backgroundImage: {
               'mk-bg': "url('/img/mk.jpg')",
-            }
+            },
+            fontFamily: {
+              sans: [
+                "Inter semibold, sans-serif",
+                { fontFeatureSettings: '"cv11", "ss01"' },
+              ],
         },
   },
   plugins: [
      require('@tailwindcss/forms'),
     ],
+  },
 };
