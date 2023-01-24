@@ -1,6 +1,8 @@
 import { type NextPage } from "next"
 import Head from "next/head"
 import Image from "next/image"
+import Navbar from "../components/Navbar";
+
 import mkLogo from "../../public/img/mk.jpg"
 
 const Login: NextPage = () => {
@@ -10,13 +12,11 @@ const Login: NextPage = () => {
                 <title>Uppdragsportalen - Mottagningskommittén</title>
             </Head>
             <Image src={mkLogo} className="absolute -z-50 h-full w-full blur-[8px]" alt={""} />
-            <header className="flex align-middle h-14 py-2 px-4 bg-mk-blue">
-                <p className="flex items-center text-white text-xl">Mottagningskommittén</p>
-            </header>
-            <main className="">
-                <div className="bg-white w-fit">
-                    <h1 className="text-mk-yellow text-6xl font-bold">Godmorgon gemene teknolog!</h1>
-                    <div className="card p-5">
+            <Navbar/>
+            <main className="flex justify-center min-h-screen">
+                <div className="container w-fit">
+                    <h1 className="text-mk-yellow text-6xl font-bold m-3 drop-shadow-2xl">Godmorgon gemene teknolog!</h1>
+                    <div className="bg-white p-5">
                         <form>
                             <label className="fw-bold" >Email:</label>
                             <input className="form-control form-control-lg bg-primary text-white" type="text" id="mail" placeholder="name@example.com" name="mail"/>
