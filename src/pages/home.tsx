@@ -1,8 +1,10 @@
 import { type NextPage } from "next";
 import Head from "next/head";
+import Navbar from "../components/Navbar";
 import { Component } from "react";
 import Image from "next/image";
 import placeholderImg from "../../public/img/logo-new.png"
+import SideButton from "../components/SideButton";
 
 const Home: NextPage = () => {
     return (
@@ -13,7 +15,7 @@ const Home: NextPage = () => {
         </Head>
             <nav className="">
                 <div className="grid grid-cols-3 gap-4">
-                    <div className="col-span-1 mk-blue h-screen">
+                    <div className="col-span-1 bg-mk-blue h-screen">
                         <div className="grid grid-cols-3">
                             <a href="login.html" className="col-span-1 ms-2">
                             <img className="h-[40px]" src="img/logo-new.png" />
@@ -23,16 +25,16 @@ const Home: NextPage = () => {
                             <p className="text-end text-white">nollkit@chalmers.it</p>
                             </div>
                         </div>
-                        <div className="d-grid gap-2">
-                        <button className="btn btn-primary">
+                        <div className="grid grid-rows-3 gap-5">
+                        <SideButton>
                             Nolluppdrag
-                        </button>
-                        <button className="btn btn-primary">
+                        </SideButton>
+                        <SideButton>
                             Arkiv
-                        </button>
-                        <button className="btn btn-primary ">
+                        </SideButton>
+                        <SideButton>
                             Dokument
-                        </button>
+                        </SideButton>
                         </div>
                     </div>
                     <div className="col-span-2">
