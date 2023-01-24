@@ -7,15 +7,15 @@ const Login: NextPage = () => {
     return (
         <>
             <Head>
-                <title>Mottagningskommiten</title>
+                <title>Uppdragsportalen - Mottagningskommittén</title>
             </Head>
-            <header className="navbar bg-mk-blue">
-                <span className="navbar-brand text-white p-2">Mottagningskommittèn</span>
+            <Image src={mkLogo} className="absolute -z-50 h-full w-full blur-[8px]" alt={""} />
+            <header className="flex align-middle h-14 py-2 px-4 bg-mk-blue">
+                <p className="flex items-center text-white text-xl">Mottagningskommittén</p>
             </header>
-            <main>
-                <Image src={mkLogo} className="bg-mk" alt={""} />
-                <div className="container">
-                    <h1 className="p-3 text-center text-secondary fw-bold fs-1">Godmorgon gemene teknolog!</h1>
+            <main className="">
+                <div className="bg-white w-fit">
+                    <h1 className="text-mk-yellow text-6xl font-bold">Godmorgon gemene teknolog!</h1>
                     <div className="card p-5">
                         <form>
                             <label className="fw-bold" >Email:</label>
