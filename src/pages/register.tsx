@@ -1,8 +1,16 @@
 import { NextPage } from 'next';
+import Navbar from '../components/Navbar';
+import Page from '../components/Page';
 
 const Register: NextPage = () => {
     return (
-        <div></div>
+        <>
+        <Navbar></Navbar>
+        <Page>
+            test
+        </Page>
+        
+        </>
     )
 }
 
