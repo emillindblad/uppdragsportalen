@@ -1,5 +1,6 @@
 import { type NextPage } from "next";
 import Head from "next/head";
+import { Component } from "react";
 import Image from "next/image";
 import placeholderImg from "../../public/img/logo-new.png"
 
