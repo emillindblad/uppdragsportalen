@@ -1,20 +1,22 @@
 import { type NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link"
+import Navbar from "../components/Navbar";
 import { Component } from "react";
 import Image from "next/image";
 import placeholderImg from "../../public/img/logo-new.png"
+import SideButton from "../components/SideButton";
 
 const Home: NextPage = () => {
     return (
-        <>
-         <Head>
+    <>
+        <Head>
              <title>Mottagningskommittén</title>
              <meta name="viewport" content="width=device-width, initial-scale=1" />
         </Head>
             <nav className="">
                 <div className="grid grid-cols-3 gap-4">
-                    <div className="col-span-1 mk-blue h-screen">
+                    <div className="col-span-1 bg-mk-blue h-screen">
                         <div className="grid grid-cols-3">
                             <a href="login.html" className="col-span-1 ms-2">
                             <img className="h-[40px]" src="img/logo-new.png" />
@@ -24,32 +26,35 @@ const Home: NextPage = () => {
                             <p className="text-end text-white">nollkit@chalmers.it</p>
                             </div>
                         </div>
-                        <div className="d-grid gap-2">
-                        <button className="btn btn-primary">
+                        <div className="grid grid-rows-3 gap-5">
+                        <SideButton>
                             Nolluppdrag
-                        </button>
-                        <button className="btn btn-primary">
+                        </SideButton>
+                        <SideButton>
                             Arkiv
-                        </button>
-                        <button className="btn btn-primary ">
+                        </SideButton>
+                        <SideButton>
                             Dokument
-                        </button>
+                        </SideButton>
                         </div>
                     </div>
-                    <div className="col-span-2">
-                        <div className="topnav">
-                            <input type="text" placeholder="Search.." />
+                    <div className="col-span-2 m-3">
+                        <div className="topnav p-4">
+                            <div className="search-container ">
+                                <input className="w-full h-15 placeholder-black text-3xl" type="text" placeholder="Search.." name="search" />
+                            </div>
+                            <div className="w-full border-b-2 border-black"></div>
                         </div>
-                        <div> 
-                            <div className="grid grid-cols-3 gap-1">
+                        <div className="container w-full shadow">
+                            <div className="grid grid-cols-3 p-3 grid-flow text-xl">
                                 <div className="col-span-1">
                                     Nolluppdrag
                                 </div>
                                 <div className="col-span-1">
-                                    Status
+                                    Sektion
                                 </div>
                                 <div className="col-span-1">
-                                    Inskickad
+                                    Status
                                 </div>
                             </div>
                         </div>
