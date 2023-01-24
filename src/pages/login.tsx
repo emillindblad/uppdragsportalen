@@ -1,6 +1,7 @@
 import { type NextPage } from "next"
 import Head from "next/head"
 import Image from "next/image"
+import Link from 'next/link'
 import Navbar from "../components/Navbar";
 
 import mkLogo from "../../public/img/mk.jpg"
@@ -25,8 +26,10 @@ const Login: NextPage = () => {
                                 <label className="text-secondary">Glömt lösenordet?</label>
                             </div>
                             <input className="form-control form-control-lg bg-primary text-white" type="text" id="passw" placeholder="lösenord" name="passw"/>
-                            <button type="submit" className="form-control btn bg-secondary" formAction="index.html">Logga in</button>
-                            <a className="float-right" href="register.html">Registrera dig</a>
+                            <Link href="/home">
+                                <button type="submit" className="form-control btn bg-secondary">Logga in</button>
+                            </Link>
+                            <Link className="float-right" href="/register">Registrera dig</Link>
                             <label className="me-1 float-right">Inget konto?</label>
                         </form>
                     </div>
