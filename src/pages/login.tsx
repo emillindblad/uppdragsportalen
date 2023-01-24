@@ -8,7 +8,6 @@ const Login: NextPage = () => {
                 <meta charSet="utf-8" />
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
             </head>
-            <body className="bg-dark h-screen">
                 <header className="navbar bg-primary" >
                     <span className="navbar-brand text-white p-2">Mottagningskommittèn</span>
                 </header>
@@ -30,7 +29,6 @@ const Login: NextPage = () => {
                                 <label className="me-1 h-[float:right]">Inget konto?</label>
                         </div>
                 </main>
-            </body>
         </>
     );
 };
