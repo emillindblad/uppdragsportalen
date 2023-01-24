@@ -1,3 +1,4 @@
+import { type SubmitHandler } from 'react-hook-form';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { type  FC } from 'react';
@@ -5,7 +6,7 @@ import * as z from 'zod';
 import Link from 'next/link';
 
 const schema = z.object({
-    email: z.string().email({message: 'Vänligen skriv in din Email'}),
+    email: z.string().email({message: 'Vänligen skriv in din email'}),
     password: z.string().min(1, { message: 'Vänligen skriv in ditt lösenord' })
 });
 
@@ -13,18 +14,19 @@ type FormSchemaType = z.infer<typeof schema>;
 
 const LoginForm: FC = () => {
     const { register, handleSubmit, formState: { errors }, } = useForm<FormSchemaType>({ resolver: zodResolver(schema), });
+    const onSubmit: SubmitHandler<FormSchemaType> = data => console.log(data);
 
     return (
-        <form className="w-80" onSubmit={handleSubmit((d) => console.log(d))}>
+        <form className="w-80" onSubmit={handleSubmit(onSubmit)}>
             <div className="mb-2">
                 <label className="block text-sm font-medium text-gray-700" htmlFor="">Email</label>
-                <input className="w-full mt-1 block rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-sky-500 sm:text-sm" type="text" {...register('email')} />
+                <input required className="w-full mt-1 block rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-sky-500 sm:text-sm" type="text" {...register('email')} />
                 {errors.email?.message && <ErrorText text={errors.email?.message}/>}
             </div>
 
             <div className="mb-4">
                 <label className="block text-sm font-medium text-gray-700" htmlFor="">Lösenord</label>
-                <input className="w-full mt-1 block rounded-md border-gray-300 shadow-sm focus:border-b-mk-blue focus:ring-sky-500 sm:text-sm" type="password" {...register('password')} />
+                <input required className="w-full mt-1 block rounded-md border-gray-300 shadow-sm focus:border-b-mk-blue focus:ring-sky-500 sm:text-sm" type="password" {...register('password')} />
                 {errors.password?.message && <ErrorText text={errors.password.message}/>}
             </div>
             <div className="flex flex-col items-center gap-3">
