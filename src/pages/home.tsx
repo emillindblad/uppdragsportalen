@@ -1,5 +1,6 @@
 import { type NextPage } from "next";
 import Head from "next/head";
+import Link from "next/link"
 import Navbar from "../components/Navbar";
 import { Component } from "react";
 import Image from "next/image";
@@ -9,8 +10,8 @@ import SideButton from "../components/SideButton";
 
 const Home: NextPage = () => {
     return (
-        <>
-         <Head>
+    <>
+        <Head>
              <title>Mottagningskommittén</title>
              <meta name="viewport" content="width=device-width, initial-scale=1" />
         </Head>
@@ -45,20 +46,26 @@ const Home: NextPage = () => {
                             <button className="bg-mk-yellow text-white">Logga ut</button>
                         </div>
                     </div>
-                    <div className="col-span-2">
-                    <div> 
-                        <div className="grid grid-cols-3 gap-1">
-                            <div className="col-span-1">
-                                Nolluppdrag
+                    <div className="col-span-2 m-3">
+                        <div className="topnav p-4">
+                            <div className="search-container ">
+                                <input className="w-full h-15 placeholder-black text-3xl" type="text" placeholder="Search.." name="search" />
                             </div>
-                            <div className="col-span-1">
-                                Status
-                            </div>
-                            <div className="col-span-1">
-                                Inskickad
+                            <div className="w-full border-b-2 border-black"></div>
+                        </div>
+                        <div className="container w-full shadow">
+                            <div className="grid grid-cols-3 p-3 grid-flow text-xl">
+                                <div className="col-span-1">
+                                    Nolluppdrag
+                                </div>
+                                <div className="col-span-1">
+                                    Sektion
+                                </div>
+                                <div className="col-span-1">
+                                    Status
+                                </div>
                             </div>
                         </div>
-                    </div>
                     </div>
                 </div>
             </nav>
