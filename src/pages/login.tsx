@@ -1,34 +1,37 @@
 import { type NextPage } from "next"
+import Head from "next/head"
+import Image from "next/image"
+import mkLogo from "../../public/img"
 
 const Login: NextPage = () => {
     return (
         <>
-            <head>
-                <title>Mottagningskommittén</title>
-                <meta charSet="utf-8" />
-                <meta name="viewport" content="width=device-width, initial-scale=1" />
-            </head>
-                <header className="navbar bg-primary" >
-                    <span className="navbar-brand text-white p-2">Mottagningskommittèn</span>
-                </header>
-                <main>
-                    {/* <img src="img/mk.jpg" className="bg-mk" /> */}
-                    <div className="container" />
-                        <h1 className="p-3 text-center text-secondary fw-bold fs-1">Godmorgon gemene teknolog!</h1>
-                        <div className="card p-5">
-                            <form />
-                                <label className="fw-bold" htmlFor="mail">Email:</label><br />
-                                <input className="form-control form-control-lg bg-primary text-white" type="text" id="mail" placeholder="name@example.com" name="mail" /><br />
-                                <div className="d-flex justify-content-between">
-                                    <label className="fw-bold" htmlFor="passw">Lösenord:</label>
-                                    <label className="text-secondary">Glömt lösenordet?</label>
-                                </div>
-                                <input className="form-control form-control-lg bg-primary text-white" type="text" id="passw" placeholder="lösenord" name="passw" /><br />
-                                <button type="submit" className="form-control btn bg-secondary" formAction="index.html">Logga in</button><br />
-                                <a className="h-[float:right]" href="register.html">Registrera dig</a>
-                                <label className="me-1 h-[float:right]">Inget konto?</label>
-                        </div>
-                </main>
+            <Head>
+                <title>Mottagningskommiten</title>
+            </Head>
+            <header className="navbar bg-primary">
+                <span className="navbar-brand text-white p-2">Mottagningskommittèn</span>
+            </header>
+            <main>
+                <Image src="img/mk.jpg" className="bg-mk" alt={""} />
+                <div className="container">
+                    <h1 className="p-3 text-center text-secondary fw-bold fs-1">Godmorgon gemene teknolog!</h1>
+                    <div className="card p-5">
+                        <form>
+                            <label className="fw-bold" >Email:</label>
+                            <input className="form-control form-control-lg bg-primary text-white" type="text" id="mail" placeholder="name@example.com" name="mail"/>
+                            <div className="d-flex justify-content-between">
+                                <label className="fw-bold" >Lösenord:</label>
+                                <label className="text-secondary">Glömt lösenordet?</label>
+                            </div>
+                            <input className="form-control form-control-lg bg-primary text-white" type="text" id="passw" placeholder="lösenord" name="passw"/>
+                            <button type="submit" className="form-control btn bg-secondary" formAction="index.html">Logga in</button>
+                            {/*<a style="float:right" href="register.html">Registrera dig</a>*/}
+                            <label className="me-1 float-right">Inget konto?</label>
+                        </form>
+                    </div>
+                </div>
+            </main>
         </>
     );
 };
