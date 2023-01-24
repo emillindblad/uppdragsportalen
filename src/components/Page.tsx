@@ -1,6 +1,6 @@
 
 interface PageProps {
-    children: React.ReactNode;
+    children: React.ReactNode,
 }
 
 const Page = (props: PageProps) => {
