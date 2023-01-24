@@ -1,9 +1,6 @@
 import { type NextPage } from "next"
 import Head from "next/head"
-import Image from "next/image"
 import Navbar from "../components/Navbar";
-
-import mkLogo from "../../public/img/mk.jpg"
 
 const Login: NextPage = () => {
     return (
@@ -11,10 +8,9 @@ const Login: NextPage = () => {
             <Head>
                 <title>Uppdragsportalen - Mottagningskommittén</title>
             </Head>
-            <Image src={mkLogo} className="absolute -z-50 h-full w-full blur-[8px]" alt={""} />
-            <Navbar/>
-            <main className="flex justify-center min-h-screen">
-                <div className="container w-fit">
+            <main className="flex flex-col min-h-screen items-center bg-mk-bg bg-no-repeat bg-cover">
+                <Navbar/>
+                <div className="container flex flex-col items-center w-fit">
                     <h1 className="text-mk-yellow text-6xl font-bold m-3 drop-shadow-2xl">Godmorgon gemene teknolog!</h1>
                     <div className="bg-white p-5">
                         <form>
