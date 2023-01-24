@@ -1,5 +1,6 @@
 import { type NextPage } from "next";
 import Head from "next/head";
+import Link from "next/link"
 import { Component } from "react";
 import Image from "next/image";
 import placeholderImg from "../../public/img/logo-new.png"
@@ -36,19 +37,22 @@ const Home: NextPage = () => {
                         </div>
                     </div>
                     <div className="col-span-2">
-                    <div> 
-                        <div className="grid grid-cols-3 gap-1">
-                            <div className="col-span-1">
-                                Nolluppdrag
-                            </div>
-                            <div className="col-span-1">
-                                Status
-                            </div>
-                            <div className="col-span-1">
-                                Inskickad
+                        <div className="topnav">
+                            <input type="text" placeholder="Search.." />
+                        </div>
+                        <div> 
+                            <div className="grid grid-cols-3 gap-1">
+                                <div className="col-span-1">
+                                    Nolluppdrag
+                                </div>
+                                <div className="col-span-1">
+                                    Status
+                                </div>
+                                <div className="col-span-1">
+                                    Inskickad
+                                </div>
                             </div>
                         </div>
-                    </div>
                     </div>
                 </div>
             </nav>
