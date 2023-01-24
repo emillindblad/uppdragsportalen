@@ -1,6 +1,7 @@
 import { type NextPage } from "next"
 import Head from "next/head"
 import Navbar from "../components/Navbar";
+import Page from "../components/Page";
 
 const Login: NextPage = () => {
     return (
@@ -9,9 +10,8 @@ const Login: NextPage = () => {
                 <title>Uppdragsportalen - Mottagningskommittén</title>
             </Head>
             <Navbar/>
-            <main className="flex flex-col items-center mt-14 bg-mk-bg bg-no-repeat bg-cover">
+            <Page>
                 <div className="container flex flex-col items-center w-fit">
-                    <h1 className="text-mk-yellow text-6xl font-bold m-3 drop-shadow-2xl">Godmorgon gemene teknolog!</h1>
                     <div className="bg-white p-5">
                         <form>
                             <label className="fw-bold" >Email:</label>
@@ -27,7 +27,7 @@ const Login: NextPage = () => {
                         </form>
                     </div>
                 </div>
-            </main>
+            </Page>
         </>
     );
 };
