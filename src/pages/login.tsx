@@ -13,7 +13,7 @@ const Login: NextPage = () => {
             </Head>
             <Navbar/>
             <Page>
-                <div className="container flex flex-col ">
+                <div className="h-full p-6 mx-auto container flex flex-col items-center justify-center">
                         <LoginForm/>
                         {/*
                         <form>
