@@ -47,10 +47,10 @@ const Home: NextPage = () => {
                             <button className="bg-mk-yellow hover:bg-mk-yellow-hover text-white rounded-2xl font-bold px-6 py-2 absolute bottom-3">Logga ut</button>
                         </a>
                     </div>
-                    <div className="col-span-2 m-3 mt-7">
+                    <div className="col-span-2 mr-6 mt-7">
                         <div className="topnav p-4">
-                            <div className="search-container ">
-                                <input className="w-full h-15 placeholder-black text-3xl" type="text" placeholder="Search.." name="search" />
+                            <div className="search-container shadow rounded-lg">
+                                <input className="px-4 w-full h-15 placeholder-[#737373] text-3xl" type="text" placeholder="Sök.." name="search" />
                             </div>
                             <div className="w-full border-b-1 border-black"></div>
                         </div>
@@ -67,28 +67,34 @@ const Home: NextPage = () => {
                                 </div>
                             </div>
                         </div> */}
-                        <div className="overflow-x shadow-md sm:rounded-lg">
-                            <table className="table-auto overflow-scroll w-full m-3 mt-6">
-                                <thead className="container w-full">
-                                    <tr className="p-3 text-2xl text-left ">
-                                        <th>Nolluppdrag</th>
-                                        <th>Sektion</th>
-                                        <th>Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody className="text-xl">
-                                    <tr className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                                        <td>Vasaloppet</td>
-                                        <td>ITNollK</td>
-                                        <td className=" text-[#00FF00] font-bold">Godkänd</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Dela ut deo till Data</td>
-                                        <td>ITNollK</td>
-                                        <td className=" text-[#FFFF00] font-bold">Under granskning</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                        <div className="flex flex-col">
+                            <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
+                                <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
+                                    <div className="overflow-hidden rounded-lg shadow">
+                                        <table className="min-w-full">
+                                            <thead className="bg-gray-50 border-b">
+                                                <tr className="indent-3 text-2xl text-left">
+                                                    <th scope="col">Nolluppdrag</th>
+                                                    <th scope="col">Sektion</th>
+                                                    <th scope="col">Status</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr className="indent-3 bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
+                                                    <td className="py-3">Vasaloppet</td>
+                                                    <td className="py-3">ITNollK</td>
+                                                    <td className="py-3 text-[#00FF00] font-bold">Godkänd</td>
+                                                </tr>
+                                                <tr className="indent-3 bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
+                                                    <td className="py-3">Dela ut deo till Data</td>
+                                                    <td className="py-3">ITNollK</td>
+                                                    <td className="py-3 text-[#FFFF00] font-bold">Under granskning</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
