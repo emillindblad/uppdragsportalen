@@ -11,10 +11,7 @@ module.exports = {
               'mk-bg': "url('/img/mk.jpg')",
             },
             fontFamily: {
-              sans: [
-                "Inter semibold, sans-serif",
-                { fontFeatureSettings: '"cv11", "ss01"' },
-              ],
+              sans: ['var(--font-inter)', ...fontFamily.sans],
         },
   },
   plugins: [
