@@ -46,14 +46,14 @@ const Home: NextPage = () => {
                             <button className="bg-mk-yellow text-white">Logga ut</button>
                         </div>
                     </div>
-                    <div className="col-span-2 m-3">
+                    <div className="col-span-2 m-3 mt-7">
                         <div className="topnav p-4">
                             <div className="search-container ">
                                 <input className="w-full h-15 placeholder-black text-3xl" type="text" placeholder="Search.." name="search" />
                             </div>
-                            <div className="w-full border-b-2 border-black"></div>
+                            <div className="w-full border-b-1 border-black"></div>
                         </div>
-                        <div className="container w-full shadow">
+                        {/* <div className="container w-full shadow overflow-y-hidden overflow-x-scroll">
                             <div className="grid grid-cols-3 p-3 grid-flow text-xl">
                                 <div className="col-span-1">
                                     Nolluppdrag
@@ -65,6 +65,29 @@ const Home: NextPage = () => {
                                     Status
                                 </div>
                             </div>
+                        </div> */}
+                        <div className="overflow-x shadow-md sm:rounded-lg">
+                            <table className="table-auto overflow-scroll w-full m-3 mt-6">
+                                <thead className="container w-full">
+                                    <tr className="p-3 text-2xl text-left ">
+                                        <th>Nolluppdrag</th>
+                                        <th>Sektion</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody className="text-xl">
+                                    <tr className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                                        <td>Vasaloppet</td>
+                                        <td>ITNollK</td>
+                                        <td className=" text-[#00FF00] font-bold">Godkänd</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Dela ut deo till Data</td>
+                                        <td>ITNollK</td>
+                                        <td className=" text-[#FFFF00] font-bold">Under granskning</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
