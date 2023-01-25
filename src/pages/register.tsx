@@ -29,35 +29,41 @@ const Register: NextPage = () => {
         <>
             <Navbar></Navbar>
             <Page>
+                <div className='m-4'>
+                Registreringen går till så att du först fyller i några uppgifter om dig själv, därefter kommer informationen att granskas av MK (för att verifiera att du sitter i årets NollK). När detta är färdigt kan du logga in och utnyttja de tjänster som Uppdragsportalen har att erbjuda.
+                </div>
                 <form className='m-12' action="/api/register" method="post">
                     <div className='flex flex-row justify-evenly my-4 flex-wrap'>
                         <div className="flex flex-col min-w-[200px] w-[40%] m-2">
                             <label className="text-l" htmlFor="first">För- och efternamn:</label>
-                            <input className="p-4 rounded-lg bg-slate-50 focus:border-red-400 focus:border transition-all" placeholder='Namn efternamn' type="text" id="first" name="first" />
+                            <input required className="p-4 rounded-lg bg-slate-50 focus:border-red-400 border transition-all" placeholder='Namn efternamn' type="text" id="first" name="first" />
                         </div>
                         <div className='flex flex-col w-[40%] min-w-[200px] m-2'>
                             <label className="text-l" htmlFor="email">E-mail:</label>
-                            <input className="p-4 rounded-lg bg-slate-50 focus:border-red-400 focus:border transition-all" placeholder='Email' type="email" id="email" name="email" />
+                            <input required className="p-4 rounded-lg bg-slate-50 focus:border-red-400 border transition-all" placeholder='Email' type="email" id="email" name="email" />
                         </div>
                         <div className="flex flex-col w-[40%] min-w-[200px] m-2">
                             <label className="text-l" htmlFor="pass">Lösenord:</label>
-                            <input className="p-4 rounded-lg bg-slate-50 focus:border-red-400 focus:border transition-all" placeholder='Lösenord' type="password" id="pass" name="pass" />
+                            <input required className="p-4 rounded-lg bg-slate-50 focus:border-red-400 border transition-all" placeholder='Lösenord' type="password" id="pass" name="pass" />
                         </div>
                         <div className='flex flex-col w-[40%] min-w-[200px] m-2'>
                             <label className="text-l" htmlFor="passconf">E-mail:</label>
-                            <input className="p-4 rounded-lg bg-slate-50 focus:border-red-400 focus:border transition-all" placeholder='Bekräfta lösenord' type="password" id="passconf" name="passconf" />
+                            <input required className="p-4 rounded-lg bg-slate-50 focus:border-red-400 border transition-all" placeholder='Bekräfta lösenord' type="password" id="passconf" name="passconf" />
                         </div>
                         <div className='flex justify-self-start flex-col w-[40%] min-w-[200px] m-2'>
                             <label className="text-l" htmlFor="first">NollK:</label>
-                            <select className="p-4 rounded-lg bg-slate-50 focus:border-red-400 focus:border transition-all"  id="nollk" name="nollk">
+                            <select required className="p-2 rounded-lg bg-slate-50 appearance-none focus:border-red-400 border transition-all"  id="nollk" name="nollk">
                                 {nollkn.map((nollk) => {
                                     return <option value={nollk}>{nollk}</option>
                                 })}
                             </select>
                         </div>
                     </div>
-                    <div className='flex justify-end  m-12'>
-                        <button type="submit">Submit</button>
+                    <div className="flex justify-end m-12">
+                        <div className='max-w-[200px] bg-mk-yellow hover:bg-sky-900 text-white text-center font-bold text-xl py-5 px-6 rounded-2xl'>
+                            <button className='text-white' type="submit">Submit</button>
+                        </div>
+
                     </div>
                 </form>
             </Page>
