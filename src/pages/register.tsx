@@ -8,7 +8,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 
-const nollkn = [
+const nollkn: string[] = [
     "AØK",
     "ÆØK",
     "bØf",
@@ -29,9 +29,10 @@ const nollkn = [
 ]
 
 const schema = z.object({
-    fullname: z.string().min(3,{message: 'Vänligen skriv in ditt för och efternamn'}),
-    email: z.string().email({message: 'Vänligen skriv in din email'}),
-    password: z.string().min(1, { message: 'Vänligen skriv in ditt lösenord' })
+    fullname: z.string().min(3,{message: 'Vänligen skriv in ditt för och efternamn!'}),
+    email: z.string().email({message: 'Vänligen skriv in din email!'}),
+    password: z.string().min(1, { message: 'Vänligen skriv in ditt lösenord!' }),
+    nollk: z.string().min(1,{ message: 'Välj vilket NollK du tillhör!' })
 });
 
 type FormSchemaType = z.infer<typeof schema>;
@@ -72,7 +73,7 @@ const Register: NextPage = () => {
                         </div>
                         <div className='flex justify-self-start flex-col w-[40%] min-w-[200px] m-2'>
                             <label className="text-l" htmlFor="first">NollK:</label>
-                            <select required className="p-2 rounded-lg bg-slate-50 appearance-none focus:border-red-400 border transition-all"  id="nollk" name="nollk">
+                            <select required className="p-2 rounded-lg bg-slate-50 appearance-none focus:border-red-400 border transition-all"  id="nollk" {...register('nollk')} >
                                 {nollkn.map((nollk) => {
                                     return <option value={nollk}>{nollk}</option>
                                 })}
