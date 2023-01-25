@@ -1,12 +1,12 @@
 import type { NextPage } from 'next';
 import Navbar from '../components/Navbar';
 import Page from '../components/Page';
+import { ErrorText } from '../components/LoginForm';
 
 import { type SubmitHandler } from 'react-hook-form';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { ErrorText } from '../components/LoginForm';
 
 const nollkn = [
     "AØK",
