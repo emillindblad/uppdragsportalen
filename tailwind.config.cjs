@@ -6,7 +6,8 @@ module.exports = {
         extend: {
             colors: {
                 'mk-blue': '#034169',
-                'mk-yellow': '#DEDC00'
+                'mk-yellow': '#DEDC00',
+                'mk-yellow-hover' : '#b0ae02'
             },
             backgroundImage: {
               'mk-bg': "url('/img/mk.jpg')",
