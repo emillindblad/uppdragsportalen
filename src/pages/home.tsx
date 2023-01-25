@@ -6,6 +6,7 @@ import { Component } from "react";
 import Image from "next/image";
 import placeholderImg from "../../public/img/logo-new.png"
 import SideButton from "../components/SideButton";
+import itLogo from "../../public/img/it-logo.png"
 
 
 const Home: NextPage = () => {
@@ -21,7 +22,7 @@ const Home: NextPage = () => {
                         <div className="grid grid-cols-3 m-7 row-span-1">
                             <a href="login.html" className="col-span-1 ms-2">
                             {/* Hardcoded image values, replace later */}
-                            <Image src={placeholderImg} alt="" className="h-[70px] w-[65px]" />
+                            <Image src={itLogo} alt="" className="max-w-[80px]" />
                             </a>
                             <div className="col-span-2 items-center ml-3 mb-0">
                             <p className=" text-white font-bold text-xl tracking-wide">Julia Böckert</p>
