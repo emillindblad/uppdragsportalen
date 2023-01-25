@@ -43,9 +43,9 @@ const Home: NextPage = () => {
                                 Dokument
                             </SideButton>
                         </div>
-                        <div className="row-span-1">
-                            <button className="bg-mk-yellow text-white">Logga ut</button>
-                        </div>
+                        <a href="login" className="row-span-1 ml-6">
+                            <button className="bg-mk-yellow hover:bg-mk-yellow-hover text-white rounded-2xl font-bold px-6 py-2 absolute bottom-3">Logga ut</button>
+                        </a>
                     </div>
                     <div className="col-span-2 m-3">
                         <div className="topnav p-4">
