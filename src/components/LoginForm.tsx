@@ -37,11 +37,11 @@ const LoginForm: FC = () => {
     );
 };
 
-export default LoginForm;
-
 
 const ErrorText: FC<{text: string}> = ({ text }) => {
     return (
         <p className="mt-1 text-sm text-red-500">{text}</p>
     )
 }
+
+export {LoginForm, ErrorText}
