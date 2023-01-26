@@ -47,10 +47,10 @@ const Home: NextPage = () => {
                             <button className="bg-mk-yellow hover:bg-mk-yellow-hover text-white rounded-2xl font-bold px-6 py-2 absolute bottom-3">Logga ut</button>
                         </a>
                     </div>
-                    <div className="col-span-2 mr-6 mt-7">
-                        <div className="topnav p-4">
-                            <div className="search-container shadow rounded-lg">
-                                <input className="px-4 w-full h-15 placeholder-[#737373] text-3xl" type="text" placeholder="Sök.." name="search" />
+                    <div className="col-span-2  m-4">
+                        <div className="topnav my-4">
+                            <div className="search-container shadow rounded-2xl overflow-hidden">
+                                <input className="px-4 py-2 w-full h-15 placeholder-[#737373] text-3xl" type="text" placeholder="Sök.." name="search" />
                             </div>
                             <div className="w-full border-b-1 border-black"></div>
                         </div>
@@ -70,25 +70,28 @@ const Home: NextPage = () => {
                         <div className="flex flex-col">
                             <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
                                 <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
-                                    <div className="overflow-hidden rounded-lg shadow">
+                                    <div className="overflow-hidden rounded-2xl shadow">
                                         <table className="min-w-full">
-                                            <thead className="bg-gray-50 border-b">
-                                                <tr className="indent-3 text-2xl text-left">
-                                                    <th scope="col">Nolluppdrag</th>
-                                                    <th scope="col">Sektion</th>
-                                                    <th scope="col">Status</th>
+                                            <thead className="bg-mk-blue border-b">
+                                                <tr className="indent-5 text-2xl text-white text-left">
+                                                    <th className="py-2" scope="col">Nolluppdrag</th>
+                                                    <th className="py-2" scope="col">Sektion</th>
+                                                    <th className="py-2" scope="col">Status</th>
+                                                    <th className="py-2" scope="col">Övrigt</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr className="indent-3 bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
-                                                    <td className="py-3">Vasaloppet</td>
-                                                    <td className="py-3">ITNollK</td>
-                                                    <td className="py-3 text-[#00FF00] font-bold">Godkänd</td>
+                                                <tr className="indent-5 bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
+                                                    <td className="py-2">Vasaloppet</td>
+                                                    <td className="py-2">ITNollK</td>
+                                                    <td className="py-2 text-[#00FF00] font-bold">Godkänd</td>
+                                                    <td className="py-2"></td>
                                                 </tr>
-                                                <tr className="indent-3 bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
-                                                    <td className="py-3">Dela ut deo till Data</td>
-                                                    <td className="py-3">ITNollK</td>
-                                                    <td className="py-3 text-[#FFFF00] font-bold">Under granskning</td>
+                                                <tr className="indent-5 bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
+                                                    <td className="py-2">Dela ut deo till Data</td>
+                                                    <td className="py-2">ITNollK</td>
+                                                    <td className="py-2 text-[#FFFF00] font-bold">Under granskning</td>
+                                                    <td className="py-2 font-bold">SÅKLART!</td>
                                                 </tr>
                                             </tbody>
                                         </table>
