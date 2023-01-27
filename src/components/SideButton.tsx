@@ -6,7 +6,7 @@ interface ButtonProps {
 
 const SideButton = (props: ButtonProps) => {
     return (
-        <button className="bg-mk-blue hover:bg-sky-900 text-white text-start font-bold tracking-wide text-xl py-5 px-6 rounded-2xl">
+        <button className="bg-mk-blue hover:bg-sky-900 text-white text-start font-bold tracking-wide text-lg py-4 px-4 rounded-2xl">
             {props.children}
         </button>
     );

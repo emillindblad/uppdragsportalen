@@ -17,19 +17,19 @@ const Home: NextPage = () => {
              <meta name="viewport" content="width=device-width, initial-scale=1" />
         </Head>
             <nav className="">
-                <div className="grid grid-cols-3 gap-4">
-                    <div className="col-span-1 bg-mk-blue h-screen mx-4 my-4 rounded-3xl grid grid-rows-4">
-                        <div className="grid grid-cols-3 m-7 row-span-1">
+                <div className="grid grid-cols-4 gap-4">
+                    <div className="col-span-1 bg-mk-blue mx-1 my-4 rounded-3xl grid grid-rows-5 h-full">
+                        <div className="grid grid-cols-3 m-5 row-span-1 mb-7">
                             <a href="login.html" className="col-span-1 ms-2">
                             {/* Hardcoded image values, replace later */}
-                            <Image src={itLogo} alt="" className="max-w-[80px]" />
+                            <Image src={itLogo} alt="" className="max-w-[60px]" />
                             </a>
-                            <div className="col-span-2 items-center ml-3 mb-0">
-                            <p className=" text-white font-bold text-xl tracking-wide">Julia Böckert</p>
-                            <p className=" text-white text-lg font-semibold tracking-wide">phadder.nollkit@chalmers.it</p>
+                            <div className="col-span-2 items-center ml-1 mb-0">
+                            <p className=" text-white font-bold text-lg tracking-wide">Julia Böckert</p>
+                            <p className=" text-white text-s font-semibold tracking-wide">phadder.nollkit@chalmers.it</p>
                             </div>
                         </div>
-                        <div className="grid grid-rows-4 items-center mx-8 row-span-2">
+                        <div className="grid grid-rows-4 items-center mx-8 mt-5 row-span-2">
                             <SideButton>
                                 Mina nolluppdrag
                             </SideButton>
@@ -43,11 +43,14 @@ const Home: NextPage = () => {
                                 Dokument
                             </SideButton>
                         </div>
-                        <a href="login" className="row-span-1 ml-6">
-                            <button className="bg-mk-yellow hover:bg-mk-yellow-hover text-white text-lg rounded-2xl font-bold px-6 py-2 absolute bottom-3">Logga ut</button>
-                        </a>
+                        
+                        <div className="row-span-2 ml-6 mb-4 flex items-end">
+                            <a href="login">
+                                <button className="bg-mk-yellow hover:bg-mk-yellow-hover text-white text-lg rounded-2xl font-bold px-6 py-2">Logga ut</button>
+                            </a>
+                        </div>
                     </div>
-                    <div className="col-span-2  m-4">
+                    <div className="col-span-3  m-4">
                         <div className="topnav my-4">
                             <div className="search-container shadow rounded-2xl overflow-hidden">
                                 <input className="px-4 py-2 w-full h-15 placeholder-[#737373] text-3xl" type="text" placeholder="Sök.." name="search" />
