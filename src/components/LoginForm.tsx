@@ -14,7 +14,7 @@ type FormSchemaType = z.infer<typeof schema>;
 
 const LoginForm: FC = () => {
     const { register, handleSubmit, formState: { errors }, } = useForm<FormSchemaType>({ resolver: zodResolver(schema), });
-    const onSubmit: SubmitHandler<FormSchemaType> = data => console.log(data);
+    const onSubmit: SubmitHandler<FormSchemaType> = data => getLogin();
 
     return (
         <form className="w-80" onSubmit={handleSubmit(onSubmit)}>
@@ -37,6 +37,13 @@ const LoginForm: FC = () => {
     );
 };
 
+export default LoginForm;
+
+async function getLogin() {
+    const res = await fetch("./api/getLogin")
+    console.log(res.body)
+    return console.log(res);
+}
 
 const ErrorText: FC<{text: string}> = ({ text }) => {
     return (
