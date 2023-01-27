@@ -20,7 +20,7 @@ const Home: NextPage = () => {
                 <div className="grid grid-cols-4 gap-4">
                     <div className="col-span-1 bg-mk-blue mx-1 my-4 rounded-3xl grid grid-rows-5 h-full">
                         <div className="grid grid-cols-3 m-5 row-span-1 mb-7">
-                            <a href="login.html" className="col-span-1 ms-2">
+                            <a href="/login" className="col-span-1 ms-2">
                             {/* Hardcoded image values, replace later */}
                             <Image src={itLogo} alt="" className="max-w-[60px]" />
                             </a>
