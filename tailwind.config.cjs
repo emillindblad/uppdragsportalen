@@ -13,13 +13,11 @@ module.exports = {
                 'mk-bg': "url('/img/mk.jpg')",
             },
             fontFamily: {
-              sans: ['var(--font-inter)', ...fontFamily.sans],
+                sans: ['var(--font-inter)', ...fontFamily.sans],
+            },
         },
-  },
-  plugins: [
-     require('@tailwindcss/forms'),
+    },
+    plugins: [
+        require('@tailwindcss/forms'),
     ],
-
-
-  },
 };
