@@ -89,7 +89,7 @@ const Home: NextPage = () => {
                             </div>
                         </div> */}
 
-                        <div className="relative">
+                        <div className="relative overflow-x-auto">
                             <table className="w-full text-sm text-left text-black">
                                 <thead className="text-lg text-[#737373] bg-white border-b-2 border-black">
                                     <tr>
@@ -151,11 +151,14 @@ const Home: NextPage = () => {
                                 </tbody>
                             </table>
                         </div>
-
+                        <div className="absolute bottom-3 right-3 py-2">
+                            <button className="bg-mk-blue hover:bg-sky-900 text-white text-3xl text-center rounded-full w-[50px] h-[50px]" type="button">
+                                +
+                            </button>
+                        </div>
                     </div>
                 </div>
             </nav>
-        
         </>
     );
 };
