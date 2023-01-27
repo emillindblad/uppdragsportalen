@@ -7,6 +7,7 @@ import Image from "next/image";
 import placeholderImg from "../../public/img/logo-new.png"
 import SideButton from "../components/SideButton";
 import itLogo from "../../public/img/it-logo.png"
+import AssignmentData from "../components/AssignmentData";
 
 
 const Home: NextPage = () => {
@@ -100,54 +101,7 @@ const Home: NextPage = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr className="bg-white border-b">
-                                        <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap" scope="row">Vasaloppet</td>
-                                        <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">NollKIT</td>
-                                        <td className="px-6 py-4 font-medium whitespace-nowrap text-[#00FF00] font-bold">Godkänd</td>
-                                        <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"></td>
-                                    </tr>
-                                    <tr className="bg-white border-b">
-                                        <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap" scope="row">Uppdrag</td>
-                                        <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">NollKIT</td>
-                                        <td className="px-6 py-4 font-medium whitespace-nowrap text-[#FFFF00] font-bold">Retur</td>
-                                        <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"></td>
-                                    </tr>
-                                    <tr className="bg-white border-b">
-                                        <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap" scope="row">Uppdrag</td>
-                                        <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">ITNollK</td>
-                                        <td className="px-6 py-4 font-medium whitespace-nowrap text-black font-bold">Ej granskad</td>
-                                        <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"></td>
-                                    </tr>
-                                    <tr className="bg-white border-b">
-                                        <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap" scope="row">Uppdrag</td>
-                                        <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">ITNollK</td>
-                                        <td className="px-6 py-4 font-medium whitespace-nowrap text-[#FF0000] font-bold">Nekad</td>
-                                        <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"></td>
-                                    </tr>
-                                    <tr className="bg-white border-b">
-                                        <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap" scope="row">Uppdrag</td>
-                                        <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">ITNollK</td>
-                                        <td className="px-6 py-4 font-medium whitespace-nowrap text-black font-bold">Ej granskad</td>
-                                        <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"></td>
-                                    </tr>
-                                    <tr className="bg-white border-b">
-                                        <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap" scope="row">Uppdrag</td>
-                                        <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">ITNollK</td>
-                                        <td className="px-6 py-4 font-medium whitespace-nowrap text-black font-bold">Ej granskad</td>
-                                        <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"></td>
-                                    </tr>
-                                    <tr className="bg-white border-b">
-                                        <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap" scope="row">Uppdrag</td>
-                                        <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">ITNollK</td>
-                                        <td className="px-6 py-4 font-medium whitespace-nowrap text-black font-bold">Ej granskad</td>
-                                        <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"></td>
-                                    </tr>
-                                    <tr className="bg-white border-b">
-                                        <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap" scope="row">Uppdrag</td>
-                                        <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">ITNollK</td>
-                                        <td className="px-6 py-4 font-medium whitespace-nowrap text-black font-bold">Ej granskad</td>
-                                        <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"></td>
-                                    </tr>
+                                    <AssignmentData></AssignmentData>
                                 </tbody>
                             </table>
                         </div>
