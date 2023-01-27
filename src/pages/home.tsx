@@ -44,7 +44,7 @@ const Home: NextPage = () => {
                                 Dokument
                             </SideButton>
                         </div>
-                        
+
                         <div className="row-span-2 ml-6 mb-4 flex items-end">
                             <a href="login">
                                 <button className="bg-mk-yellow hover:bg-mk-yellow-hover text-white text-lg rounded-2xl font-bold px-6 py-2">Logga ut</button>
@@ -106,8 +106,10 @@ const Home: NextPage = () => {
                             </table>
                         </div>
                         <div className="absolute bottom-3 right-3 py-2">
-                            <button className="bg-mk-blue hover:bg-sky-900 text-white text-3xl text-center rounded-full w-[50px] h-[50px]" type="button">
-                                +
+                            <button className="bg-mk-blue hover:bg-sky-900 text-white rounded-full p-3 " type="button">
+                                <svg className="fill-white w-6 h-6" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"></path>
+                                </svg>
                             </button>
                         </div>
                     </div>
