@@ -1,7 +1,7 @@
 import { type NextPage } from "next"
 import Head from "next/head"
 import Link from "next/link";
-import LoginForm from "../components/LoginForm";
+import { LoginForm } from "../components/LoginForm";
 import Navbar from "../components/Navbar";
 import Page from "../components/Page";
 
@@ -13,7 +13,7 @@ const Login: NextPage = () => {
             </Head>
             <Navbar/>
             <Page>
-                <div className="container flex flex-col ">
+                <div className="h-full p-6 mx-auto container flex flex-col items-center justify-center">
                         <LoginForm/>
                         {/*
                         <form>
