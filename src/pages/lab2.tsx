@@ -1,24 +1,23 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 
 import { api } from "../utils/api";
 
 const Lab2Api: NextPage = () => {
-    const [tasks, setTasks] = useState("");
+    const [tasks, setTasks] = useState<string | undefined>("");
 
-    const { data, refetch } = api.example.hello.useQuery({ text: "Just testing" }, {
+    const { data, refetch } = api.lab2.getTasks.useQuery(undefined, {
         refetchOnWindowFocus: false,
         enabled: false
     });
 
-    const handleClick = () => {
-        void refetch();
-        setTasks(data.greeting);
-    };
+    useEffect(() => {
+        setTasks(data?.task)
+    },[data]);
 
-
+    const handleClick = () => { void refetch() };
 
     return (
         <>
