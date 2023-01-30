@@ -9,7 +9,7 @@ const AssignmentData = () => {
     return (
         <>
         {[Assignment,Assignment,Assignment,Assignment,Assignment,Assignment,Assignment].map((value) => 
-            <tr className="bg-white border-b">{value}</tr>)}
+            <tr className="bg-white border-b border-gray-300">{value}</tr>)}
         </>
     );
 };
