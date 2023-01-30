@@ -95,13 +95,13 @@ const Home: NextPage = () => {
                                 <thead className="text-lg text-[#737373] bg-white border-b-2 border-black">
                                     <tr>
                                         <th className="px-6 py-4" scope="col">Nolluppdrag</th>
-                                        <th className="px-6 py-4" scope="col">Sektion</th>
+                                        <th className="px-6 py-4" scope="col">NollK</th>
                                         <th className="px-6 py-4" scope="col">Status</th>
                                         <th className="px-6 py-4" scope="col">Övrigt</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <AssignmentData></AssignmentData>
+                                    <AssignmentData/>
                                 </tbody>
                             </table>
                         </div>
