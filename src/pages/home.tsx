@@ -7,6 +7,7 @@ import Image from "next/image";
 import placeholderImg from "../../public/img/logo-new.png"
 import SideButton from "../components/SideButton";
 import itLogo from "../../public/img/it-logo.png"
+import AssignmentData from "../components/AssignmentData";
 
 
 const Home: NextPage = () => {
@@ -43,7 +44,7 @@ const Home: NextPage = () => {
                                 Dokument
                             </SideButton>
                         </div>
-                        
+
                         <div className="row-span-2 ml-6 mb-4 flex items-end">
                             <a href="login">
                                 <button className="bg-mk-yellow hover:bg-mk-yellow-hover text-white text-lg rounded-2xl font-bold px-6 py-2">Logga ut</button>
@@ -53,24 +54,10 @@ const Home: NextPage = () => {
                     <div className="col-span-3  m-4">
                         <div className="topnav my-4">
                             <div className="search-container shadow rounded-2xl overflow-hidden">
-                                <input className="px-4 py-2 w-full h-15 placeholder-[#737373] text-3xl" type="text" placeholder="Sök.." name="search" />
+                                <input className="px-4 py-2 w-full h-15 border-white placeholder-[#737373] text-2xl" type="text" placeholder="Sök.." name="search" />
                             </div>
-                            <div className="w-full border-b-1 border-black"></div>
                         </div>
-                        {/* <div className="container w-full shadow overflow-y-hidden overflow-x-scroll">
-                            <div className="grid grid-cols-3 p-3 grid-flow text-xl">
-                                <div className="col-span-1">
-                                    Nolluppdrag
-                                </div>
-                                <div className="col-span-1">
-                                    Sektion
-                                </div>
-                                <div className="col-span-1">
-                                    Status
-                                </div>
-                            </div>
-                        </div> */}
-                        <div className="flex flex-col">
+                        {/* <div className="flex flex-col">
                             <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
                                 <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
                                     <div className="overflow-hidden rounded-2xl shadow">
@@ -101,11 +88,33 @@ const Home: NextPage = () => {
                                     </div>
                                 </div>
                             </div>
+                        </div> */}
+
+                        <div className="relative overflow-x-auto">
+                            <table className="w-full text-sm text-left text-black">
+                                <thead className="text-lg text-[#737373] bg-white border-b-2 border-black">
+                                    <tr>
+                                        <th className="px-6 py-4" scope="col">Nolluppdrag</th>
+                                        <th className="px-6 py-4" scope="col">NollK</th>
+                                        <th className="px-6 py-4" scope="col">Status</th>
+                                        <th className="px-6 py-4" scope="col">Övrigt</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <AssignmentData/>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div className="absolute bottom-3 right-3 py-2">
+                            <button className="bg-mk-blue hover:bg-sky-900 text-white rounded-full p-3 " type="button">
+                                <svg className="fill-white w-6 h-6" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"></path>
+                                </svg>
+                            </button>
                         </div>
                     </div>
                 </div>
             </nav>
-        
         </>
     );
 };
