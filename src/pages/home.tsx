@@ -3,7 +3,6 @@ import AssignmentData from "../components/AssignmentData";
 import MainPage from "../components/MainPage";
 
 
-
 const Home: NextPage = () => {
     return (
         <>
