@@ -17,16 +17,16 @@ const SideMenu = () => {
                 </div>
             </div>
             <div className="grid grid-rows-4 items-center mx-8 mt-5 row-span-2">
-                <SideButton>
+                <SideButton link={'home'}>
                     Mina nolluppdrag
                 </SideButton>
-                <SideButton>
+                <SideButton link={'home'}>
                     Arkiv
-                </SideButton>
-                <SideButton>
+                </SideButton >
+                <SideButton link={'home'}>
                     Chalmers nolluppdrag
                 </SideButton>
-                <SideButton>
+                <SideButton link={'home'}>
                     Dokument
                 </SideButton>
             </div>
