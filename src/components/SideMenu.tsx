@@ -5,7 +5,7 @@ import itLogo from "../../public/img/it-logo.png";
 const SideMenu = () => {
     return (
         <>
-        <nav className="col-span-1 bg-mk-blue mx-1 my-4 rounded-3xl grid grid-rows-5 h-full max-w-fit">
+        <nav className="col-span-1 bg-mk-blue mx-1 my-auto rounded-3xl grid grid-rows-5 h-[95vh] max-w-fit">
             <div className="grid grid-cols-3 m-5 row-span-1 mb-7">
                 <a href="/login" className="col-span-1 ms-2">
                 {/* Hardcoded image values, replace later */}
