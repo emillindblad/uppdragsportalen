@@ -31,13 +31,13 @@ const Lab2Api: NextPage = () => {
 
                 {uppdragData?.map( (uppdrag) => {
                     return (
-                        <div className="flex justify-around" key={uppdrag.id}>
-                            <p>{uppdrag.nollk}</p>
-                            <p>{uppdrag.title}</p>
-                            <p>{uppdrag.desc}</p>
-                            <p>{uppdrag.place}</p>
-                            <p>{uppdrag.time}</p>
-                            <p>{uppdrag.participants}</p>
+                        <div className="flex justify-start space-x-8 max-w-screen-2xl border-b-2 border-indigo-400 " key={uppdrag.id}>
+                            <p className="flex-initial max-w-[180px]">{uppdrag.nollk}</p>
+                            <p className="flex-initial max-w-[140px]">{uppdrag.title}</p>
+                            <p className="flex-initial max-w-[180px]">{uppdrag.desc}</p>
+                            <p className="flex-initial max-w-[180px]">{uppdrag.place}</p>
+                            <p className="flex-initial max-w-[180px]">{uppdrag.time}</p>
+                            <p className="flex-initial max-w-[180px]">{uppdrag.participants}</p>
                         </div>
                     )
                     })
