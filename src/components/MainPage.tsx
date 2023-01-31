@@ -13,10 +13,10 @@ const MainPage = (props: MainPageProps) => {
                 <title>{props.title}</title>
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
             </Head>
-            <div>
-                <div className="grid grid-cols-4 gap-4 h-screen">
+            <div className="mx-4">
+                <div className="grid grid-cols-5 gap-5 h-screen">
                     <SideMenu/>
-                    <div className="col-start-2 col-end-5 m-4 max-w-full">
+                    <div className="col-span-4 m-4 max-w-full">
                         {props.children}
                     </div>
                 </div>
