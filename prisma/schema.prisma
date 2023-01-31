@@ -14,10 +14,30 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
+model Uppdrag {
+    id              String      @id @default(cuid())
+    nollk           String
+    title           String
+    desc            String
+    place           String
+    time            String
+    participants    Int
+    motivation      String
+    private         Boolean
+    //status          UStatus     @default(SUBMITTED)
+}
+
+//enum UStatus {
+//    APPROVED
+//    DENIED
+//    RETURN
+//    SUBMITTED
+//}
+
 model Example {
-    id        String   @id @default(cuid())
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+    id          String      @id @default(cuid())
+    createdAt   DateTime    @default(now())
+    updatedAt   DateTime    @updatedAt
 }
 
 // Necessary for Next auth
