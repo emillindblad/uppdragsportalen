@@ -27,7 +27,7 @@ const Lab2Api: NextPage = () => {
             </Head>
             <Navbar/>
             <div className="pt-20 px-8">
-                <button onClick={handleClick} className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Get tasks</button>
+                <button onClick={handleClick} className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Hämta uppdrag</button>
 
                 {uppdragData?.map( (uppdrag) => {
                     return (
