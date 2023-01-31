@@ -5,13 +5,13 @@ import itLogo from "../../public/img/it-logo.png";
 const SideMenu = () => {
     return (
         <>
-        <nav className="col-span-1 bg-mk-blue mx-1 my-auto rounded-3xl grid grid-rows-5 h-[95vh] max-w-fit">
+        <nav className="col-span-1 bg-mk-blue ml-3 my-auto rounded-3xl grid grid-rows-5 h-[95vh] max-w-fit">
             <div className="grid grid-cols-4 m-5 row-span-1 mb-7">
                 <a href="/login" className="col-span-1 ms-2">
                 {/* Hardcoded image values, replace later */}
                 <Image src={itLogo} alt="" className="max-w-[60px]" />
                 </a>
-                <div className="col-span-3 items-start mb-0">
+                <div className="col-span-3 items-start mr-7 mb-0">
                 <p className=" text-white font-bold text-lg tracking-wide">Julia Böckert</p>
                 <p className=" text-white text-s font-semibold tracking-wide">phadder.nollkit@chalmers.it</p>
                 </div>
