@@ -38,6 +38,8 @@ const Lab2Api: NextPage = () => {
                             <p className="flex-initial max-w-[180px]">{uppdrag.place}</p>
                             <p className="flex-initial max-w-[180px]">{uppdrag.time}</p>
                             <p className="flex-initial max-w-[180px]">{uppdrag.participants}</p>
+                            <p className="flex-initial max-w-[180px]">{uppdrag.motivation}</p>
+                            <p className="flex-initial max-w-[180px]">{String(uppdrag.private)}</p>
                         </div>
                     )
                     })

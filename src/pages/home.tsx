@@ -7,12 +7,12 @@ const Home: NextPage = () => {
     return (
         <>
             <MainPage title={"Mottagningskommittén"}>
-                <div className="topnav my-4">
-                    <div className="search-container border-b-2 border-gray-300 overflow-hidden">
+                <div className="my-4">
+                    <div className="border-b-2 border-gray-300 overflow-hidden">
                         <input className="px-4 py-2 w-full h-15 border-none placeholder-[#737373] text-2xl" type="text" placeholder="Sök.." name="search" />
                     </div>
                 </div>
-                <div className="relative overflow-x-auto">
+                <div className="overflow-x-auto">
                     <table className="w-full text-sm text-left text-black">
                         <thead className="text-lg text-[#737373] bg-white border-b-2 border-black">
                             <tr>
