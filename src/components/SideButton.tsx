@@ -11,6 +11,7 @@ interface ButtonProps {
 }
 
 // alla knappar i en lista, onClick setAll hook
+// hover-färg blir också gul
 
 const SideButton = (
     props: ButtonProps
@@ -20,7 +21,7 @@ const SideButton = (
     return (
         <div>
             <Link href={`${props.link}`}>
-                <button onClick={handleClick} className={`bg-mk-blue hover:bg-sky-900 text-white text-start font-bold tracking-wide w-full text-lg py-4 px-4 rounded-2xl ${active ? "bg-mk-yellow" : ""}`}>
+                <button onClick={handleClick} className={`bg-mk-blue hover:bg-sky-900 text-white text-start font-bold tracking-wide w-full text-lg py-4 px-4 rounded-2xl ${active ? "bg-mk-yellow hover:bg-mk-yellow-hover" : ""}`}>
                     {props.children}
                 </button>
             </Link>

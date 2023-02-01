@@ -7,8 +7,6 @@ import { proseWrap } from "../../prettier.config.cjs";
 
 
 const SideMenu = () => {
-     
-    // loopa listan och setAll till inactive
     return (
         <>
         <nav className="col-span-1 bg-mk-blue ml-3 my-auto rounded-3xl grid grid-rows-5 h-[95vh] min-w-[300px]">
@@ -26,7 +24,7 @@ const SideMenu = () => {
                 <SideButton link={'home'}>
                     Mina nolluppdrag
                 </SideButton>
-                <SideButton link={'home'} >
+                <SideButton link={'login'} >
                     Arkiv
                 </SideButton >
                 <SideButton link={'home'}>
