@@ -5,6 +5,7 @@ async function main() {
 
     await prisma.uppdrag.create({
         data: {
+            year: 2023,
             nollk: 'NollKIT',
             title: 'Ännu ett uppdrag',
             desc: 'Nollan gör något roligt',
@@ -18,6 +19,7 @@ async function main() {
 
     await prisma.uppdrag.create({
         data: {
+            year: 2023,
             nollk: 'NollKIT',
             title: 'BrITney Spears',
             desc: 'Nollan ska göra en parido på Britney spears musikvideo Oops I did it again.',
@@ -31,6 +33,7 @@ async function main() {
 
     await prisma.uppdrag.create({
         data: {
+            year: 2023,
             nollk: 'DNollK',
             title: 'Pranka IT Nollan',
             desc: 'Data gör något dumt som vanligt',
@@ -44,6 +47,7 @@ async function main() {
 
     await prisma.uppdrag.create({
         data: {
+            year: 2023,
             nollk: 'FNollK',
             title: 'Hemligt uppdrag',
             desc: 'Ja man vet inte riktigt vad som håller på med där borta på F, därför är detta uppdrag very secret :O',
@@ -57,6 +61,7 @@ async function main() {
 
     await prisma.uppdrag.create({
         data: {
+            year: 2023,
             nollk: 'NollKIT',
             title: 'Hängigt uppdrag',
             desc: 'Sven hittar säkert på något som blir rent av nekat',
@@ -70,6 +75,7 @@ async function main() {
 
     await prisma.uppdrag.create({
         data: {
+            year: 2023,
             nollk: 'NollKIT',
             title: 'Komma på dessa fake uppdrag',
             desc: 'Att seeda en databas innebär att man slänger in en massa fakedata så man kan göra olika queries samt se hur datan kommer att se ut i ens wap. Och jag valde att skriva dessa för hand istället för att typ hitta något package som gjorde det åt mig, aja så kan de gå.',
@@ -77,6 +83,20 @@ async function main() {
             time: '22:13:30 | 2023-01-31',
             participants: 1,
             motivation: 'Fick bra flow på beskrivningen',
+            private: false
+        },
+    })
+
+    await prisma.uppdrag.create({
+        data: {
+            year: 2022,
+            nollk: 'NollKIT',
+            title: 'Gammalt uppdrag',
+            desc: 'Lorem ipsum',
+            place: 'Japp',
+            time: '123456789',
+            participants: 100,
+            motivation: 'dab',
             private: false
         },
     })

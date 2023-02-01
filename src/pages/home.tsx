@@ -1,9 +1,13 @@
 import { type NextPage } from "next";
 import AssignmentData from "../components/AssignmentData";
 import MainPage from "../components/MainPage";
+import { api } from "../utils/api";
 
 
-const Home: NextPage = () => {
+const UppdragBrowser: NextPage = () => {
+
+    const uppdrag = api.uppdrag.getCurrentYearUppdrag.useQuery({ year: 2023 });
+
     return (
         <>
             <MainPage title={"Mottagningskommittén"}>
@@ -23,13 +27,13 @@ const Home: NextPage = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            <AssignmentData/>
+                            {uppdrag.data ? <AssignmentData data={uppdrag.data}/> : <tr><td>Loading...</td></tr> }
                         </tbody>
                     </table>
                 </div>
-                <div className="absolute bottom-3 right-3 py-2">
+                <div className="absolute bottom-4 right-8 ">
                     <button className="bg-mk-blue hover:bg-sky-900 text-white rounded-full p-3 " type="button">
-                        <svg className="fill-white w-6 h-6" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
+                        <svg className="fill-white w-8 h-8" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
                             <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"></path>
                         </svg>
                     </button>
@@ -39,4 +43,4 @@ const Home: NextPage = () => {
     );
 };
 
-export default Home;
+export default UppdragBrowser;

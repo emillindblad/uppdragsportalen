@@ -9,7 +9,7 @@ import { api } from "../utils/api";
 const Lab2Api: NextPage = () => {
     const [uppdragData, setUppdragData] = useState<Uppdrag[] | undefined>();
 
-    const { data, refetch } = api.uppdrag.getUppdrag.useQuery(undefined, {
+    const { data, refetch } = api.uppdrag.getAllUppdrag.useQuery(undefined, {
         refetchOnWindowFocus: false,
         enabled: false
     });
@@ -33,6 +33,7 @@ const Lab2Api: NextPage = () => {
                     return (
                         <div className="flex justify-start space-x-8 max-w-screen-2xl border-b-2 border-indigo-400 " key={uppdrag.id}>
                             <p className="flex-initial max-w-[180px]">{uppdrag.nollk}</p>
+                            <p className="flex-initial max-w-[180px]">{uppdrag.year}</p>
                             <p className="flex-initial max-w-[140px]">{uppdrag.title}</p>
                             <p className="flex-initial max-w-[180px]">{uppdrag.desc}</p>
                             <p className="flex-initial max-w-[180px]">{uppdrag.place}</p>
