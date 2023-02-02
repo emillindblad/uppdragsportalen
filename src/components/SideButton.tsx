@@ -2,7 +2,6 @@ import Link from "next/link.js";
 import { Url } from "url";
 import { useState } from "react";
 
-
 interface ButtonProps {
     children: React.ReactNode;
     link: String;
@@ -10,9 +9,6 @@ interface ButtonProps {
     id: number;
     hoverColor: String;
 }
-
-// alla knappar i en lista, onClick setAll hook
-// hover-färg blir också gul
 
 const SideButton = (
     props: ButtonProps
