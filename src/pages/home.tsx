@@ -1,77 +1,46 @@
 import { type NextPage } from "next";
-import Head from "next/head";
-import Link from "next/link"
-import Navbar from "../components/Navbar";
-import { Component } from "react";
-import Image from "next/image";
-import placeholderImg from "../../public/img/logo-new.png"
-import SideButton from "../components/SideButton";
+import AssignmentData from "../components/AssignmentData";
+import MainPage from "../components/MainPage";
+import { api } from "../utils/api";
 
 
-const Home: NextPage = () => {
+const UppdragBrowser: NextPage = () => {
+
+    const uppdrag = api.uppdrag.getCurrentYearUppdrag.useQuery({ year: 2023 });
+
     return (
-    <>
-        <Head>
-             <title>Mottagningskommittén</title>
-             <meta name="viewport" content="width=device-width, initial-scale=1" />
-        </Head>
-            <nav className="">
-                <div className="grid grid-cols-3 gap-4">
-                    <div className="col-span-1 bg-mk-blue h-screen mx-4 my-4 rounded-3xl grid grid-rows-4">
-                        <div className="grid grid-cols-3 m-7 row-span-1">
-                            <a href="login.html" className="col-span-1 ms-2">
-                            {/* Hardcoded image values, replace later */}
-                            <Image src={placeholderImg} alt="" className="h-[70px] w-[65px]" />
-                            </a>
-                            <div className="col-span-2 items-center ml-3 mb-0">
-                            <p className=" text-white font-bold text-xl tracking-wide">Julia Böckert</p>
-                            <p className=" text-white text-lg font-semibold tracking-wide">phadder.nollkit@chalmers.it</p>
-                            </div>
-                        </div>
-                        <div className="grid grid-rows-4 items-center mx-8 row-span-2">
-                            <SideButton>
-                                Mina nolluppdrag
-                            </SideButton>
-                            <SideButton>
-                                Arkiv
-                            </SideButton>
-                            <SideButton>
-                                Chalmers nolluppdrag
-                            </SideButton>
-                            <SideButton>
-                                Dokument
-                            </SideButton>
-                        </div>
-                        <div className="row-span-1">
-                            <button className="bg-mk-yellow text-white">Logga ut</button>
-                        </div>
-                    </div>
-                    <div className="col-span-2 m-3">
-                        <div className="topnav p-4">
-                            <div className="search-container ">
-                                <input className="w-full h-15 placeholder-black text-3xl" type="text" placeholder="Search.." name="search" />
-                            </div>
-                            <div className="w-full border-b-2 border-black"></div>
-                        </div>
-                        <div className="container w-full shadow">
-                            <div className="grid grid-cols-3 p-3 grid-flow text-xl">
-                                <div className="col-span-1">
-                                    Nolluppdrag
-                                </div>
-                                <div className="col-span-1">
-                                    Sektion
-                                </div>
-                                <div className="col-span-1">
-                                    Status
-                                </div>
-                            </div>
-                        </div>
+        <>
+            <MainPage title={"Mottagningskommittén"}>
+                <div className="my-4">
+                    <div className="border-b-2 border-gray-300 overflow-hidden">
+                        <input className="px-4 py-2 w-full h-15 border-none placeholder-[#737373] text-2xl" type="text" placeholder="Sök.." name="search" />
                     </div>
                 </div>
-            </nav>
-        
+                <div className="overflow-x-auto">
+                    <table className="w-full text-sm text-left text-black">
+                        <thead className="text-lg text-[#737373] bg-white border-b-2 border-black">
+                            <tr>
+                                <th className="px-6 py-4" scope="col">Nolluppdrag</th>
+                                <th className="px-6 py-4" scope="col">NollK</th>
+                                <th className="px-6 py-4" scope="col">Status</th>
+                                <th className="px-6 py-4" scope="col">Övrigt</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {uppdrag.data ? <AssignmentData data={uppdrag.data}/> : <tr><td>Loading...</td></tr> }
+                        </tbody>
+                    </table>
+                </div>
+                <div className="absolute bottom-4 right-8 ">
+                    <button className="bg-mk-blue hover:bg-sky-900 text-white rounded-full p-3 " type="button">
+                        <svg className="fill-white w-8 h-8" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"></path>
+                        </svg>
+                    </button>
+                </div>
+            </MainPage>
         </>
     );
 };
 
-export default Home;
+export default UppdragBrowser;
