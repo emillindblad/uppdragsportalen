@@ -3,11 +3,12 @@ import { Url } from "url";
 import { useState } from "react";
 
 
-
 interface ButtonProps {
     children: React.ReactNode;
     link: String;
-    onClick?: () => void;
+    onClick: () => void
+    id: number;
+    hoverColor: String;
 }
 
 // alla knappar i en lista, onClick setAll hook
@@ -16,12 +17,10 @@ interface ButtonProps {
 const SideButton = (
     props: ButtonProps
     ) => {
-    const [active, setActive] = useState(false);
-    const handleClick = () =>  setActive(!active);
     return (
         <div>
             <Link href={`${props.link}`}>
-                <button onClick={handleClick} className={`bg-mk-blue hover:bg-sky-900 text-white text-start font-bold tracking-wide w-full text-lg py-4 px-4 rounded-2xl ${active ? "bg-mk-yellow hover:bg-mk-yellow-hover" : ""}`}>
+            <button id={`${props.id}`} onClick={props.onClick} className={`${props.hoverColor}  text-white text-start font-bold tracking-wide w-full text-lg py-4 px-4 rounded-2xl`}>
                     {props.children}
                 </button>
             </Link>
