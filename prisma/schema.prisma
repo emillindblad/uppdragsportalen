@@ -16,6 +16,7 @@ datasource db {
 
 model Uppdrag {
     id              String      @id @default(cuid())
+    year            Int
     nollk           String
     title           String
     desc            String
