@@ -10,10 +10,10 @@ const NewAssignment: NextPage = () => {
     return (
         <>
             <MainPage title={"Nytt uppdrag"}>
-            <div className="my-4 relative h-full">
-                <div className="border-b-2 border-black p-2 my-4">
+                <div className="my-4 relative h-full">
+                    <div className="border-b-2 border-black p-2 my-4">
                         <h1 className="text-4xl text-left text-black font-bold">Skapa nytt uppdrag</h1>
-                </div>
+                    </div>
                     <input id="assignmentTitle" className="rounded-2xl w-full block p-3.5 text-2xl bg-white border border-gray-300 focus:ring-mk-blue focus:border-mk-blue resize-none" placeholder="Titel" />
                     <div className="flex mt-6 gap-4">
                         <input id="assignmentPlace" className="rounded-2xl w-full block p-3.5 text-2xl bg-white border border-gray-300 focus:ring-mk-blue focus:border-mk-blue resize-none" placeholder="Plats" />
