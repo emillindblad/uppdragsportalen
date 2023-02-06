@@ -18,7 +18,17 @@ const Lab2Api: NextPage = () => {
         setUppdragData(data)
     },[data]);
 
-    const handleClick = () => { void refetch() };
+    const mutation = api.uppdrag.demoRemoveUppdrag.useMutation()
+
+    const handleMutation = () => {
+        mutation.mutate({ nollk: "DNollK" })
+    };
+
+    if (mutation.isSuccess) {
+        void refetch()
+    }
+
+    const handleFetch = () => { void refetch() };
 
     return (
         <>
@@ -27,7 +37,8 @@ const Lab2Api: NextPage = () => {
             </Head>
             <Navbar/>
             <div className="pt-20 px-8">
-                <button onClick={handleClick} className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Hämta uppdrag</button>
+                <button onClick={handleFetch} className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Hämta uppdrag</button>
+                <button onClick={handleMutation} className="ml-5 inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Delete DNollKs uppdrag</button>
 
                 {uppdragData?.map( (uppdrag) => {
                     return (

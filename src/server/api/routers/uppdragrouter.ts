@@ -21,6 +21,15 @@ export const uppdragrouter = createTRPCRouter({
             where: { id: input.id }
         });
     }),
+    
+    demoRemoveUppdrag: publicProcedure
+    .input(z.object({ nollk: z.string() }))
+    .mutation(({ ctx, input }) => {
+        return ctx.prisma.uppdrag.deleteMany({
+            where: { nollk: input.nollk }
+        })
+    })
+
 
     //addUppdrag: publicProcedure.query(({ ctx }) => {
     //return ctx.prisma.uppdrag.create({
