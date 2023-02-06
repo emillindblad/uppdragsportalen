@@ -1,16 +1,16 @@
 import { NextPage } from "next";
 import MainPage from "../components/MainPage";
 import Image from "next/image";
-import itLogo from "../../public/img/it-logo.png";
+import dataLogo from "../../public/img/dnollk.png";
 import { Uppdrag } from "@prisma/client";
 import { api } from "../utils/api";
 import { useEffect, useState } from "react";
-import { prisma } from "../../src/server/db";
 
 interface MainPageProps {
     title: React.ReactNode,
     children: React.ReactNode,
 }
+
 
 const NewAssignment: NextPage = () => {
     const [uppdragData, setUppdragData] = useState<Uppdrag[] | undefined>();
@@ -25,35 +25,27 @@ const NewAssignment: NextPage = () => {
     },[data]);
 
     void refetch();
-    
 
     return (
         <>
             <MainPage title={"Titel"}>
                 <div className="my-4 relative h-full">
                     <div className="border-b-2 border-black p-2 h-20 flex items-center">
-                        {uppdragData?.map( (uppdrag) => {
-                            return (uppdrag.nollk
-                                )
-                            })
-                        }
+                        <div className="text-4xl font-bold text-left">
+                            {uppdragData?.filter( (uppdrag) => uppdrag.nollk === "DNollK" ).map((uppdrag) => uppdrag.title)}
+                        </div>
                         {/* Hardcoded now, change to author + nollk pic + email */}
                         <div className="flex absolute right-0">
-                            <Image src={itLogo} alt="" className="max-w-[60px] mr-4 mb-2" />
+                            <Image src={dataLogo} alt="" className="max-w-[60px] mr-4 mb-2" />
                             <div className="items-start min-w-[150px]">
-                                <p className=" text-black font-bold text-lg tracking-wide">Escape</p>
-                                <p className=" text-black text-s font-semibold tracking-wide">uppdrag.nollkit@chalmers.it</p>
+                                <p className=" text-black font-bold text-lg tracking-wide">Lippo</p>
+                                <p className=" text-black text-s font-semibold tracking-wide">nolluppdrag@dnollk.dtek.se</p>
                             </div>
                         </div>
                     </div>
-                    {uppdragData?.map( (uppdrag) => {
-                            return (
-                                <div className="mt-6">
-                                    {uppdrag.nollk}
-                                </div>
-                                )
-                            })
-                        }
+                    <div className="text-2xl font-bold text-left py-6">
+                        {uppdragData?.filter( (uppdrag) => uppdrag.nollk === "DNollK" ).map((uppdrag) => uppdrag.desc)}
+                    </div>
                 </div>
                 <div className="relative bottom-10">
                     <div className="absolute bottom-3 left-0 py-2">
