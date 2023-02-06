@@ -5,12 +5,12 @@
   "scripts": {
     "build": "next build",
     "dev": "next dev",
-    "dev-no-val": "NODE_ENV=SKIP_ENV_VALIDATION next dev",
     "postinstall": "prisma generate",
     "lint": "next lint",
     "start": "next start",
     "db-seed": "NODE_ENV=development prisma db seed",
-    "test": "NODE_ENV=development vitest --config vitest/vitest.config.ts"
+    "test": "SKIP_ENV_VALIDATION=1 vitest run --config vitest.config.ts",
+    "coverage": "SKIP_ENV_VALIDATION=1 vitest run --coverage --config vitest.config.ts"
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"
@@ -41,6 +41,7 @@
     "@types/react-dom": "^18.0.10",
     "@typescript-eslint/eslint-plugin": "^5.47.1",
     "@typescript-eslint/parser": "^5.47.1",
+    "@vitest/coverage-c8": "^0.28.4",
     "autoprefixer": "^10.4.7",
     "eslint": "^8.30.0",
     "eslint-config-next": "13.1.1",
