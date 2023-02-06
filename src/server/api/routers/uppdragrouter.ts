@@ -14,6 +14,14 @@ export const uppdragrouter = createTRPCRouter({
         return ctx.prisma.uppdrag.findMany();
     }),
 
+    getOneUppdrag: publicProcedure
+    .input(z.object({ id: z.string() }))
+    .query(({ ctx, input }) => {
+        return ctx.prisma.uppdrag.findUnique({
+            where: { id: input.id }
+        });
+    }),
+
     //addUppdrag: publicProcedure.query(({ ctx }) => {
     //return ctx.prisma.uppdrag.create({
     //data: undefined

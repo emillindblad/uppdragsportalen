@@ -13,26 +13,19 @@ interface MainPageProps {
 
 
 const NewAssignment: NextPage = () => {
-    const [uppdragData, setUppdragData] = useState<Uppdrag[] | undefined>();
+    {/* Hardcoded for now until we have changed AssignmentData.tsx */}
+    const uppdragId = 'cldsnmh590004g1vo4o54uxxa';
 
-    const { data, refetch } = api.uppdrag.getAllUppdrag.useQuery(undefined, {
-        refetchOnWindowFocus: false,
-        enabled: false
-    });
+    const { data } = api.uppdrag.getOneUppdrag.useQuery({id: uppdragId});
 
-    useEffect(() => {
-        setUppdragData(data)
-    },[data]);
-
-    void refetch();
 
     return (
         <>
-            <MainPage title={"Titel"}>
+            <MainPage title={data?.title}>
                 <div className="my-4 relative h-full">
                     <div className="border-b-2 border-black p-2 h-20 flex items-center">
                         <div className="text-4xl font-bold text-left">
-                            {uppdragData?.filter( (uppdrag) => uppdrag.nollk === "DNollK" ).map((uppdrag) => uppdrag.title)}
+                            {data?.title}
                         </div>
                         {/* Hardcoded now, change to author + nollk pic + email */}
                         <div className="flex absolute right-0">
@@ -44,7 +37,7 @@ const NewAssignment: NextPage = () => {
                         </div>
                     </div>
                     <div className="text-2xl font-bold text-left py-6">
-                        {uppdragData?.filter( (uppdrag) => uppdrag.nollk === "DNollK" ).map((uppdrag) => uppdrag.desc)}
+                        {data?.desc}                    
                     </div>
                 </div>
                 <div className="relative bottom-10">
