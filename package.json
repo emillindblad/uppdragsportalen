@@ -8,7 +8,8 @@
     "postinstall": "prisma generate",
     "lint": "next lint",
     "start": "next start",
-    "db-seed": "NODE_ENV=development prisma db seed"
+    "db-seed": "NODE_ENV=development prisma db seed",
+    "test": "NODE_ENV=test vitest run"
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"
