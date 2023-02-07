@@ -17,7 +17,7 @@ env:
   DISCORD_CLIENT_SECRET: ${{secrets.DISCORD_CLIENT_SECRET}}
 
 jobs:
-  build:
+  test:
 
     runs-on: ubuntu-latest
 
@@ -34,4 +34,5 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - run: npm ci
+    - run: npm run db-seed
     - run: npm run test
