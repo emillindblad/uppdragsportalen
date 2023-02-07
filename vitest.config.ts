@@ -3,8 +3,6 @@ import { configDefaults, defineConfig } from 'vitest/config'
 
 loadEnvConfig(process.cwd());
 
-console.log(process.env)
-
 export default defineConfig({
   test: {
     environment: "jsdom",
