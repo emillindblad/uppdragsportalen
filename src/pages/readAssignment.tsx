@@ -14,7 +14,7 @@ interface MainPageProps {
 
 const NewAssignment: NextPage = () => {
     {/* Hardcoded for now until we have changed AssignmentData.tsx */}
-    const uppdragId = 'cldsnmh590004g1vo4o54uxxa';
+    const uppdragId = 'cldsnyk2n0000g1ksge9bjg96';
 
     const { data } = api.uppdrag.getOneUppdrag.useQuery({id: uppdragId});
 
@@ -22,29 +22,51 @@ const NewAssignment: NextPage = () => {
     return (
         <>
             <MainPage title={data?.title}>
-                <div className="my-4 relative h-full">
-                    <div className="border-b-2 border-black p-2 h-20 flex items-center">
-                        <div className="text-4xl font-bold text-left">
+                <div className="grid grid-cols-6 grid-rows-6 h-full">
+                    <div className="flex col-start-1 col-end-7 row-start-1 row-span-1 border-b-2 border-black p-2 h-20 items-center justify-between">
+                        <div className="flex items-start text-4xl font-bold text-left">
                             {data?.title}
                         </div>
-                        {/* Hardcoded now, change to author + nollk pic + email */}
-                        <div className="flex absolute right-0">
-                            <Image src={dataLogo} alt="" className="max-w-[60px] mr-4 mb-2" />
-                            <div className="items-start min-w-[150px]">
-                                <p className=" text-black font-bold text-lg tracking-wide">Lippo</p>
-                                <p className=" text-black text-s font-semibold tracking-wide">nolluppdrag@dnollk.dtek.se</p>
+                            {/* Hardcoded now, change to author + nollk pic + email */}
+                        <div className="flex flex-row-reverse">
+                            <Image src={dataLogo} alt="" className="max-w-[60px]" />
+                            <div className="mr-4">
+                                <p className="text-black font-bold text-lg tracking-wide text-right">Lippo</p>
+                                <p className="text-black text-s font-semibold tracking-wide text-right">nolluppdrag@dnollk.dtek.se</p>
                             </div>
                         </div>
                     </div>
-                    <div className="text-2xl font-bold text-left py-6">
+                    <div className="rows-start-2 rows-span-6 col-start-1 col-span-7 text-2xl font-bold text-left px-2">
                         {data?.desc}                    
                     </div>
-                </div>
-                <div className="relative bottom-10">
-                    <div className="absolute bottom-3 left-0 py-2">
-                        <a href="home">
-                            <button className="bg-mk-yellow hover:bg-mk-yellow-hover text-white text-lg rounded-2xl font-bold px-6 py-2" type="button">Tillbaka</button>
-                        </a>
+                    <div className="flex row-start-6 row-end-7 col-start-1 col-end-7 items-end justify-between pb-4 px-2">
+                        <div className="col-start-1 col-span-1">
+                            <a href="home">
+                                <button className="bg-mk-yellow hover:bg-mk-yellow-hover text-white text-lg rounded-2xl font-bold px-6 py-2" type="button">Tillbaka</button>
+                            </a>
+                        </div>
+                        {/* Only for MK */}
+                        <div className="flex col-end-7 col-span-4">
+                            <div className="flex justify-between mr-6">
+                                <div className="flex items-center mr-6">
+                                    <input type="radio" id="neka" value="" name="default-radio" className="w-4 h-4 text-mk-blue bg-gray-100 border-gray-300 focus:ring-mk-blue"/>
+                                    <label htmlFor="neka" className="ml-2 text-lg font-bold text-black">Neka</label>
+                                </div>
+                                <div className="flex items-center mr-6">
+                                    <input type="radio" id="retur" value="" name="default-radio" className="w-4 h-4 text-mk-blue bg-gray-100 border-gray-300 focus:ring-mk-blue"/>
+                                    <label htmlFor="retur" className="ml-2 text-lg font-bold text-black">Retur</label>
+                                </div>
+                                <div className="flex items-center mr-6">
+                                    <input type="radio" id="ok" value="" name="default-radio" className="w-4 h-4 text-mk-blue bg-gray-100 border-gray-300 focus:ring-mk-blue"/>
+                                    <label htmlFor="ok"className="ml-2 text-lg font-bold text-black">Godkänn</label>
+                                </div>
+                            </div>
+                            <div className="flex">
+                                <a href="home">
+                                    <button className="bg-mk-blue hover:bg-mk-blue-hover text-white text-lg rounded-2xl font-bold px-6 py-2" type="button">Skicka</button>
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </MainPage>
