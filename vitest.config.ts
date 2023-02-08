@@ -8,7 +8,6 @@ export default defineConfig({
         exclude: [...configDefaults.exclude, 'packages/template/*'],
         environment: "jsdom",
         globals: true,
-        //deps: { interopDefault: false, inline: true },
         coverage: {
             provider: 'istanbul',
             reportsDirectory: './__tests__/coverage'
