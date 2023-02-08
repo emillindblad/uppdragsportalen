@@ -14,7 +14,7 @@ interface MainPageProps {
 
 const NewAssignment: NextPage = () => {
     {/* Hardcoded for now until we have changed AssignmentData.tsx */}
-    const uppdragId = 'cldsnyk2n0000g1ksge9bjg96';
+    const uppdragId = 'cldnd4cbo0000vivomteaqj53';
 
     const { data } = api.uppdrag.getOneUppdrag.useQuery({id: uppdragId});
 
@@ -22,7 +22,7 @@ const NewAssignment: NextPage = () => {
     return (
         <>
             <MainPage title={data?.title}>
-                <div className="grid grid-cols-6 auto-rows-fr h-full">
+                <div className="grid grid-cols-6 grid-rows-[100px_minmax(300px,auto)] h-full">
                     <div className="flex col-start-1 col-end-7 row-start-1 row-span-1 border-b-2 border-black p-2 h-20 items-center justify-between">
                         <div className="flex items-start text-4xl font-bold text-left">
                             {data?.title}
@@ -36,10 +36,10 @@ const NewAssignment: NextPage = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="rows-start-2 col-start-1 col-span-7 text-2xl font-bold text-left px-2">
+                    <div className="row-start-2 col-start-1 col-span-7 text-2xl font-bold text-left px-2">
                         {data?.desc}                    
                     </div>
-                    <div className="flex row-start-3 col-start-1 col-end-7 items-end justify-between pb-4 px-2">
+                    <div className="flex row-start-7 col-start-1 col-end-7 items-end justify-between pb-4 px-2">
                         <div className="col-start-1 col-span-1">
                             <a href="home">
                                 <button className="bg-mk-yellow hover:bg-mk-yellow-hover text-white text-lg rounded-2xl font-bold px-6 py-2" type="button">Tillbaka</button>
