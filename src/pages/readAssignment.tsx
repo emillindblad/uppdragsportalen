@@ -16,7 +16,7 @@ const NewAssignment: NextPage = () => {
     {/* Hardcoded for now until we have changed AssignmentData.tsx */}
     const uppdragId = 'cldsnmh590004g1vo4o54uxxa';
 
-    const { data } = api.uppdrag.getOneUppdrag.useQuery({id: uppdragId});
+    const { data } = api.uppdrag.getUppdragFromId.useQuery({id: uppdragId});
 
 
     return (
@@ -37,7 +37,7 @@ const NewAssignment: NextPage = () => {
                         </div>
                     </div>
                     <div className="text-2xl font-bold text-left py-6">
-                        {data?.desc}                    
+                        {data?.desc}
                     </div>
                 </div>
                 <div className="relative bottom-10">
