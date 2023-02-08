@@ -4,11 +4,14 @@ import { configDefaults, defineConfig } from 'vitest/config'
 loadEnvConfig(process.cwd());
 
 export default defineConfig({
-  test: {
-    environment: "jsdom",
-    globals: true,
-    //deps: { interopDefault: false, inline: true },
-    exclude: [...configDefaults.exclude, 'packages/template/*'],
-  },
+    test: {
+        exclude: [...configDefaults.exclude, 'packages/template/*'],
+        environment: "jsdom",
+        globals: true,
+        coverage: {
+            provider: 'istanbul',
+            reportsDirectory: './__tests__/coverage'
+        },
+    },
 })
 
