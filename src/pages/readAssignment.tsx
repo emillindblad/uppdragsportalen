@@ -10,6 +10,7 @@ const NewAssignment: NextPage = () => {
     const uppdragId = 'cldsnyk340004g1kspms1fq8o';
     const { data } = api.uppdrag.getOneUppdrag.useQuery({id: uppdragId});
 
+
     const isMK = true;
 
     return (

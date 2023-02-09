@@ -4,7 +4,7 @@ import MainPage from "../components/MainPage";
 import { api } from "../utils/api";
 
 
-const UppdragBrowser: NextPage = () => {
+const Home: NextPage = () => {
 
     const uppdrag = api.uppdrag.getCurrentYearUppdrag.useQuery({ year: 2023 });
 
@@ -43,4 +43,4 @@ const UppdragBrowser: NextPage = () => {
     );
 };
 
-export default UppdragBrowser;
+export default Home;
