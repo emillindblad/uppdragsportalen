@@ -1,15 +1,17 @@
-import { NextPage } from "next";
-import MainPage from "../components/MainPage";
+import type { NextPage } from "next";
 import Image from "next/image";
-import dataLogo from "../../public/img/dnollk.png";
-import { api } from "../utils/api";
+import MainPage from "../../components/MainPage";
+import dataLogo from "../../../public/img/dnollk.png";
+import { api } from "../../utils/api";
 
+interface UppdragProps {
+    id: string
+}
 
-const NewAssignment: NextPage = () => {
+const ViewUppdrag: NextPage<UppdragProps> = (props: UppdragProps) => {
     {/* Hardcoded for now until we have changed AssignmentData.tsx */}
-    const uppdragId = 'cldsnyk340004g1kspms1fq8o';
-    const { data } = api.uppdrag.getOneUppdrag.useQuery({id: uppdragId});
-
+    const uppdragId = props.id;
+    const { data } = api.uppdrag.getUppdragFromId.useQuery({id: uppdragId});
 
     const isMK = true;
 
@@ -31,7 +33,7 @@ const NewAssignment: NextPage = () => {
                         </div>
                     </div>
                     <div className="row-start-2 col-start-1 col-span-7 text-2xl font-bold text-left px-2">
-                        {data?.desc}                    
+                        {data?.desc}
                     </div>
                     {/* Only for MK */}
                     {isMK ? (<div className="flex row-start-6 col-start-1 col-span-7 items-end px-2">
@@ -75,4 +77,4 @@ const NewAssignment: NextPage = () => {
     );
 };
 
-export default NewAssignment;
+export default ViewUppdrag;
