@@ -46,7 +46,7 @@ export const authOptions: NextAuthOptions = {
 
         console.log(credentials)
 
-        if (!credentials) {
+        if (credentials == null ) {
           return null
         }
         
@@ -55,16 +55,15 @@ export const authOptions: NextAuthOptions = {
             email: credentials.email
           }
         })
-        console.log(user)
-        if (user === null) {
+        
+        if (!user) {
           return null
         }
 
         const hashedPass = await hash(credentials.password, 10)
-
-        console.log(await compare(credentials.password, hashedPass))
-
+        
         if (await compare(credentials.password, user.password)) {
+          console.log("yeees")
           return user
         }
 

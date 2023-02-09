@@ -15,7 +15,7 @@ type FormSchemaType = z.infer<typeof schema>;
 
 const LoginForm: FC = () => {
     const { register, handleSubmit, formState: { errors }, } = useForm<FormSchemaType>({ resolver: zodResolver(schema), });
-    const onSubmit: SubmitHandler<FormSchemaType> = data => signIn('credentials', { redirect: false, email: data.email, password: data.password });
+    const onSubmit: SubmitHandler<FormSchemaType> = data => signIn('credentials', {callbackUrl: "/home", email: data.email, password: data.password });
 
     return (
         <form className="w-80" onSubmit={handleSubmit(onSubmit)}>
