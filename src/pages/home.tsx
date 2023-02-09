@@ -7,6 +7,7 @@ import { api } from "../utils/api";
 const Home: NextPage = () => {
 
     const uppdrag = api.uppdrag.getCurrentYearUppdrag.useQuery({ year: 2023 });
+    const isMK = false;
 
     return (
         <>
@@ -31,13 +32,15 @@ const Home: NextPage = () => {
                         </tbody>
                     </table>
                 </div>
-                <div className="absolute bottom-4 right-8 ">
-                    <button className="bg-mk-blue hover:bg-sky-900 text-white rounded-full p-3 " type="button">
-                        <svg className="fill-white w-8 h-8" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
-                            <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"></path>
-                        </svg>
-                    </button>
-                </div>
+                {isMK ? null : 
+                    (<div className="absolute bottom-4 right-8 ">
+                        <button className="bg-mk-blue hover:bg-sky-900 text-white rounded-full p-3 " type="button">
+                            <svg className="fill-white w-8 h-8" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"></path>
+                            </svg>
+                        </button>
+                    </div>)
+                }
             </MainPage>
         </>
     );

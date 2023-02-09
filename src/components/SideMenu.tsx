@@ -2,11 +2,11 @@ import SideButton from "../components/SideButton";
 import Image from "next/image";
 import itLogo from "../../public/img/it-logo.png";
 import Link from "next/link";
-import { proseWrap } from "../../prettier.config.cjs";
 import { useState } from "react";
 
 const SideMenu = () => {
     const [activeButtonIndex, setActiveButtonIndex] = useState(0);
+    const isMK = false;
 
     return (
         <>
@@ -23,9 +23,14 @@ const SideMenu = () => {
             </div>
 
             <div className="grid grid-rows-4 items-center mx-8 mt-5 row-span-2">
-                <SideButton link={'home'} id={0} onClick={() => setActiveButtonIndex(0)} hoverColor={(activeButtonIndex === 0 ? "bg-mk-blue-select hover:bg-mk-blue-select" : "bg-mk-blue hover:bg-mk-blue-hover")}>
-                    Mina nolluppdrag
-                </SideButton>
+                {isMK ? 
+                    (<SideButton link={'home'} id={0} onClick={() => setActiveButtonIndex(0)} hoverColor={(activeButtonIndex === 0 ? "bg-mk-blue-select hover:bg-mk-blue-select" : "bg-mk-blue hover:bg-mk-blue-hover")}>
+                        Granksa
+                    </SideButton>) :
+                    (<SideButton link={'home'} id={0} onClick={() => setActiveButtonIndex(0)} hoverColor={(activeButtonIndex === 0 ? "bg-mk-blue-select hover:bg-mk-blue-select" : "bg-mk-blue hover:bg-mk-blue-hover")}>
+                        Mina nolluppdrag
+                    </SideButton>) 
+                }
                 <SideButton link={'login'} id={1} onClick={() => setActiveButtonIndex(1)} hoverColor={(activeButtonIndex === 1 ? "bg-mk-blue-select hover:bg-mk-blue-select" : "bg-mk-blue hover:bg-mk-blue-hover")}>
                     Arkiv
                 </SideButton >
