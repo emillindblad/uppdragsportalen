@@ -10,7 +10,6 @@ const schema = z.object({
     fullname: z.string().min(3, { message: 'Vänligen skriv in ditt för och efternamn!' }),
     email: z.string().email({ message: 'Vänligen skriv in din email!' }),
     password: z.string().min(1, { message: 'Vänligen skriv in ditt lösenord!' }),
-    nollk: z.string().min(1, { message: 'Välj vilket NollK du tillhör!' })
 });
 
 type FormSchemaType = z.infer<typeof schema>;
