@@ -3,6 +3,7 @@ import DiscordProvider from "next-auth/providers/discord";
 import CredentialsProvider from "next-auth/providers/credentials"
 // Prisma adapter for NextAuth, optional and can be removed
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
+import {compare, hash} from "bcryptjs"
 
 import { env } from "../../../env/server.mjs";
 import { prisma } from "../../../server/db";
@@ -41,7 +42,32 @@ export const authOptions: NextAuthOptions = {
         // e.g. return { id: 1, name: 'J Smith', email: 'jsmith@example.com' }
         // You can also use the `req` object to obtain additional parameters
         // (i.e., the request IP address)
+
+
         console.log(credentials)
+
+        if (!credentials) {
+          return null
+        }
+        
+        const user = await prisma.user.findUnique({
+          where: {
+            email: credentials.email
+          }
+        })
+        console.log(user)
+        if (user === null) {
+          return null
+        }
+
+        const hashedPass = await hash(credentials.password, 10)
+
+        console.log(await compare(credentials.password, hashedPass))
+
+        if (await compare(credentials.password, user.password)) {
+          return user
+        }
+
         // console.log(req.body)
         // const res = await fetch("/api/getLogin", {
         //   method: 'POST',
