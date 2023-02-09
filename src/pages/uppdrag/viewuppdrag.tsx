@@ -3,14 +3,16 @@ import Image from "next/image";
 import MainPage from "../../components/MainPage";
 import dataLogo from "../../../public/img/dnollk.png";
 import { api } from "../../utils/api";
+import { type NextRouter, withRouter } from "next/router";
 
-interface UppdragProps {
+interface Props {
     id: string
+    router: NextRouter
 }
 
-const ViewUppdrag: NextPage<UppdragProps> = (props: UppdragProps) => {
-    {/* Hardcoded for now until we have changed AssignmentData.tsx */}
-    const uppdragId = props.id;
+const ViewUppdrag: NextPage<Props> = (props: Props) => {
+    const uppdragId = props.router.query.id?.toString() as string
+
     const { data } = api.uppdrag.getUppdragFromId.useQuery({id: uppdragId});
 
     const isMK = true;
@@ -77,4 +79,4 @@ const ViewUppdrag: NextPage<UppdragProps> = (props: UppdragProps) => {
     );
 };
 
-export default ViewUppdrag;
+export default withRouter(ViewUppdrag);
