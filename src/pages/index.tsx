@@ -5,7 +5,7 @@ import { signIn, signOut, useSession } from "next-auth/react";
 
 import { api } from "../utils/api";
 
-const Home: NextPage = () => {
+const T3Home: NextPage = () => {
   const hello = api.example.hello.useQuery({ text: "dab" });
 
   return (
@@ -56,7 +56,7 @@ const Home: NextPage = () => {
   );
 };
 
-export default Home;
+export default T3Home;
 
 const AuthShowcase: React.FC = () => {
   const { data: sessionData } = useSession();
