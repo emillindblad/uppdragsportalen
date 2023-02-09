@@ -39,7 +39,7 @@ const SideMenu = () => {
 
             <div className="row-span-2 ml-6 mb-4 flex items-end">
                 <a href="login">
-                    <button className="bg-mk-yellow hover:bg-mk-yellow-hover text-white text-lg rounded-2xl font-bold px-6 py-2">Logga ut</button>
+                    <button className="w-[125px] h-[44px] bg-mk-yellow hover:bg-mk-yellow-hover text-white text-lg rounded-2xl font-bold px-6 py-2">Logga ut</button>
                 </a>
             </div>
         </nav>
