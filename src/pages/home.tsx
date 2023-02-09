@@ -18,12 +18,12 @@ const Home: NextPage = () => {
                 </div>
                 <div className="overflow-x-auto">
                     <table className="w-full text-sm text-left text-black">
-                        <thead className="text-lg text-[#737373] bg-white border-b-2 border-black">
+                        <thead className="text-xl text-[#737373] bg-white border-b-2 border-black">
                             <tr>
-                                <th className="px-6 py-4" scope="col">Nolluppdrag</th>
-                                <th className="px-6 py-4" scope="col">NollK</th>
-                                <th className="px-6 py-4" scope="col">Status</th>
-                                <th className="px-6 py-4" scope="col">Övrigt</th>
+                                <th className="py-4" scope="col">Nolluppdrag</th>
+                                <th className="py-4" scope="col">NollK</th>
+                                <th className="py-4" scope="col">Status</th>
+                                <th className="py-4" scope="col">Övrigt</th>
                             </tr>
                         </thead>
                         <tbody>
