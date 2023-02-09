@@ -24,12 +24,12 @@ const SideMenu = () => {
 
             <div className="grid grid-rows-4 items-center mx-8 mt-5 row-span-2">
                 {isMK ? 
-                    <SideButton link={'home'} id={0} onClick={() => setActiveButtonIndex(0)} hoverColor={(activeButtonIndex === 0 ? "bg-mk-blue-select hover:bg-mk-blue-select" : "bg-mk-blue hover:bg-mk-blue-hover")}>
+                    (<SideButton link={'home'} id={0} onClick={() => setActiveButtonIndex(0)} hoverColor={(activeButtonIndex === 0 ? "bg-mk-blue-select hover:bg-mk-blue-select" : "bg-mk-blue hover:bg-mk-blue-hover")}>
                         Granksa
-                    </SideButton> :
-                    <SideButton link={'home'} id={0} onClick={() => setActiveButtonIndex(0)} hoverColor={(activeButtonIndex === 0 ? "bg-mk-blue-select hover:bg-mk-blue-select" : "bg-mk-blue hover:bg-mk-blue-hover")}>
+                    </SideButton>) :
+                    (<SideButton link={'home'} id={0} onClick={() => setActiveButtonIndex(0)} hoverColor={(activeButtonIndex === 0 ? "bg-mk-blue-select hover:bg-mk-blue-select" : "bg-mk-blue hover:bg-mk-blue-hover")}>
                         Mina nolluppdrag
-                    </SideButton> 
+                    </SideButton>) 
                 }
                 <SideButton link={'login'} id={1} onClick={() => setActiveButtonIndex(1)} hoverColor={(activeButtonIndex === 1 ? "bg-mk-blue-select hover:bg-mk-blue-select" : "bg-mk-blue hover:bg-mk-blue-hover")}>
                     Arkiv
