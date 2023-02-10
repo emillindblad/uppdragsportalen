@@ -1,4 +1,5 @@
 import { NextPage } from "next";
+import Link from "next/link";
 import MainPage from "../components/MainPage";
 
 interface MainPageProps {
@@ -25,17 +26,17 @@ const NewAssignment: NextPage = () => {
                 </div>
                 <div className="relative bottom-10">
                     <div className="absolute bottom-3 left-0">
-                        <a href="home">
+                        <Link href="/home">
                             <button className="bg-mk-yellow hover:bg-mk-yellow-hover text-white text-lg rounded-2xl font-bold px-6 py-2" type="button">Tillbaka</button>
-                        </a>
-                        <a href="home" className="px-2">
+                        </Link>
+                        <Link href="/home" className="px-2">
                             <button className="  bg-mk-blue hover:bg-mk-blue-hover text-white text-lg rounded-2xl font-bold px-6 py-2" type="button">Spara</button>
-                        </a>
+                        </Link>
                     </div>
                     <div className="absolute bottom-3 right-0">
-                        <a href="home">
+                        <Link href="/home">
                             <button className="  bg-mk-blue hover:bg-mk-blue-hover text-white text-lg rounded-2xl font-bold px-6 py-2" type="button">Skicka in</button>
-                        </a>
+                        </Link>
                     </div>
                 </div>
             </MainPage>

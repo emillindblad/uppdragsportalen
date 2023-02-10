@@ -5,6 +5,7 @@ import dataLogo from "../../../public/img/dnollk.png";
 import { api } from "../../utils/api";
 import { type NextRouter, withRouter, useRouter } from "next/router";
 import { useEffect } from "react";
+import Link from "next/link";
 
 interface Props {
     id: string
@@ -54,9 +55,9 @@ const ViewUppdrag: NextPage<Props> = (props: Props) => {
                     }
                     <div className="flex row-start-7 col-start-1 col-end-7 items-end justify-between pb-4 px-2">
                         <div className="col-start-1 col-span-1">
-                            <a href="home">
+                            <Link href="/home">
                                 <button className="h-[44px] w-[125px] bg-mk-yellow hover:bg-mk-yellow-hover text-white text-lg rounded-2xl font-bold px-6 py-2" type="button">Tillbaka</button>
-                            </a>
+                            </Link>
                         </div>
                         {/* Only for MK */}
                         {isMK ? (
@@ -76,9 +77,9 @@ const ViewUppdrag: NextPage<Props> = (props: Props) => {
                                     </div>
                                 </div>
                                 <div className="flex">
-                                    <a href="home">
+                                    <Link href="/home">
                                         <button className="h-[44px] w-[125px] bg-mk-blue hover:bg-mk-blue-hover text-white text-lg rounded-2xl font-bold px-6 py-2" type="button">Skicka</button>
-                                    </a>
+                                    </Link>
                                 </div>
                             </div>) : null
                         }
