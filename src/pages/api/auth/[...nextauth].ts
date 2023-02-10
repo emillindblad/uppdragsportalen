@@ -5,7 +5,6 @@ import CredentialsProvider from "next-auth/providers/credentials"
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import {compare, hash} from "bcryptjs"
 
-import { env } from "../../../env/server.mjs";
 import { prisma } from "../../../server/db";
 
 export const authOptions: NextAuthOptions = {
@@ -49,19 +48,19 @@ export const authOptions: NextAuthOptions = {
         if (credentials == null ) {
           return null
         }
-        
+
         const user = await prisma.user.findUnique({
           where: {
             email: credentials.email
           }
         })
-        
+
         if (!user) {
           return null
         }
 
         const hashedPass = await hash(credentials.password, 10)
-        
+
         if (await compare(credentials.password, user.password)) {
           console.log("yeees")
           return user
@@ -74,7 +73,7 @@ export const authOptions: NextAuthOptions = {
         //   headers: { "Content-Type": "application/json" }
         // })
         // const user = await res.json()
-  
+
         // // If no error and we have user data, return it
         // if (res.ok && user) {
         //   return user

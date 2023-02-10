@@ -1,10 +1,18 @@
 import { type NextPage } from "next";
+import { useSession } from "next-auth/react";
 import AssignmentData from "../components/AssignmentData";
 import MainPage from "../components/MainPage";
 import { api } from "../utils/api";
+import Login from "./login";
 
 
 const Home: NextPage = () => {
+
+    const { data: session } = useSession();
+
+    if (!session) {
+        return <Login/>
+    }
 
     const uppdrag = api.uppdrag.getCurrentYearUppdrag.useQuery({ year: 2023 });
     const isMK = false;
@@ -32,7 +40,7 @@ const Home: NextPage = () => {
                         </tbody>
                     </table>
                 </div>
-                {isMK ? null : 
+                {isMK ? null :
                     (<div className="absolute bottom-4 right-8 ">
                         <button className="bg-mk-blue hover:bg-sky-900 text-white rounded-full p-3 " type="button">
                             <svg className="fill-white w-8 h-8" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
