@@ -17,8 +17,6 @@ const SideButton = (
     ) => {
     const router = useRouter();
     const isActive = router.asPath === "/" + props.link;
-    console.log(router.asPath)
-    console.log(props.link)
     return (
         <div>
             <Link href={`${props.link}`}>
