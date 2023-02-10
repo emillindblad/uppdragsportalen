@@ -3,7 +3,8 @@ import Image from "next/image";
 import MainPage from "../../components/MainPage";
 import dataLogo from "../../../public/img/dnollk.png";
 import { api } from "../../utils/api";
-import { type NextRouter, withRouter } from "next/router";
+import { type NextRouter, withRouter, useRouter } from "next/router";
+import { useEffect } from "react";
 
 interface Props {
     id: string
@@ -11,6 +12,15 @@ interface Props {
 }
 
 const ViewUppdrag: NextPage<Props> = (props: Props) => {
+
+    const router = useRouter();
+
+    useEffect(() => {
+        if (Object.keys(props.router.query).length === 0) {
+            void router.push('/home');
+        }
+    }, [props.router.query, router]);
+
     const uppdragId = props.router.query.id?.toString() as string
 
     const { data } = api.uppdrag.getUppdragFromId.useQuery({id: uppdragId});
