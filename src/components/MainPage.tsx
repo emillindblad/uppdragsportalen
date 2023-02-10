@@ -1,12 +1,15 @@
 import SideMenu from "../components/SideMenu";
 import Head from "next/head";
+import useIsMK from "../hooks/useIsMK"
 
 interface MainPageProps {
     title: React.ReactNode,
     children: React.ReactNode,
 }
 
+
 const MainPage = (props: MainPageProps) => {
+    const isMK = useIsMK();
     return(
         <>
             <Head>
@@ -15,7 +18,7 @@ const MainPage = (props: MainPageProps) => {
             </Head>
             <div className="px-4 py-4 h-screen">
                 <div className="grid grid-cols-5 gap-5 h-full">
-                    <SideMenu/>
+                    <SideMenu isMK={isMK}/>
                     <div className="col-span-4 max-w-full">
                         {props.children}
                     </div>
@@ -26,3 +29,5 @@ const MainPage = (props: MainPageProps) => {
 };
 
 export default MainPage;
+
+
