@@ -30,13 +30,13 @@ const SideMenu = (
             </div>
 
             <div className="grid grid-rows-4 items-center mx-8 mt-5 row-span-2">
-                {props.isMK ? 
+                {props.isMK ?
                     (<SideButton link={'home'}>
                         Granska
                     </SideButton>) :
                     (<SideButton link={'home'}>
                         Mina nolluppdrag
-                    </SideButton>) 
+                    </SideButton>)
                 }
                 {props.isMK ?
                 (<SideButton link={'accounts'}>
@@ -44,7 +44,7 @@ const SideMenu = (
                 </SideButton >) :
                 (<SideButton link={'accounts'}>
                 Arkiv
-                 </SideButton>) 
+                 </SideButton>)
                 }
                 <SideButton link={'login'}>
                     Chalmers nolluppdrag
@@ -55,9 +55,9 @@ const SideMenu = (
             </div>
 
             <div className="row-span-2 ml-6 mb-4 flex items-end">
-                <a href="login">
+                <Link href="/login">
                     <button className="w-[125px] h-[44px] bg-mk-yellow hover:bg-mk-yellow-hover text-white text-lg rounded-2xl font-bold px-6 py-2">Logga ut</button>
-                </a>
+                </Link>
             </div>
         </nav>
         </>
