@@ -1,13 +1,8 @@
 import { NextPage } from "next";
+import React from "react";
 import MainPage from "../components/MainPage";
 
-
-
-
-
 const Accounts: NextPage = () => {
-    const isMK = true;
-
     return (
         <>
             <MainPage title={"Konton"}>
