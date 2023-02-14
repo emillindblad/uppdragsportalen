@@ -8,9 +8,7 @@ interface MenuProps {
     isMK : boolean
 };
 
-const SideMenu = (
-    props: MenuProps
-) => {
+const SideMenu = (props: MenuProps) => {
     const [activeButtonIndex, setActiveButtonIndex] = useState(0);
 
 //TODO En check på vilken sida man är inne på (kan typ också va en hook) och setActiveButtonIndex därefter
@@ -21,7 +19,7 @@ const SideMenu = (
             <div className="flex m-5 row-span-1 mb-7 flex-wrap">
                 <Link href="/login" className="col-span-1 ms-2">
                 {/* Hardcoded image values, replace later */}
-                <Image src={itLogo} alt="" className="max-w-[60px] mr-4 mb-2" />
+                <Image src={itLogo} height="60" width="60" alt="" className="max-w-[60px] mr-4 mb-2" />
                 </Link>
                 <div className="items-start min-w-[150px]">
                 <p className=" text-white font-bold text-lg tracking-wide">Julia Böckert</p>

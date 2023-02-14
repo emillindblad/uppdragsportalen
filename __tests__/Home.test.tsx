@@ -1,16 +1,20 @@
 import { render, screen, within } from '@testing-library/react'
-import { describe, expect, test } from "vitest";
+import { describe, expect, test, vi } from "vitest";
 import Navbar from '../src/components/Navbar';
+import SideMenu from '../src/components/SideMenu';
+import mockRouter from 'next-router-mock'
+
+vi.mock('next/router', () => require('next-router-mock')); //Needed for componens that use next/router
 
 test('home', () => {
-    //expect(1).equals(1);
     render(<Navbar />)
     expect(screen.getByText( "MOTTAGNINGSKOMMITTÉN")).toBeDefined()
-    //const main = within(screen.getByRole('main'))
-    //expect(
-        //main.getByRole('heading', { level: 1, name: /welcome to next\.js!/i })
-    //).toBeDefined()
-    //const footer = within(screen.getByRole('contentinfo'))
-    //const link = within(footer.getByRole('link'))
-    //expect(link.getByRole('img', { name: /vercel logo/i })).toBeDefined()
+})
+
+describe("SideMenu isMk=true test button", () => {
+    test("should show button Granska all the time", () => {
+        render(<SideMenu isMK = {true}/>);
+        const sideMenu = within(screen.getByRole('navigation'))
+        expect(sideMenu.getByRole('button', { name: /Granska/i })).toBeDefined()
+    })
 })
