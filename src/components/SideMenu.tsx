@@ -37,12 +37,12 @@ const SideMenu = (props: MenuProps) => {
                     </SideButton>)
                 }
                 {props.isMK ?
-                (<SideButton link={'accounts'}>
-                    Konton
-                </SideButton >) :
-                (<SideButton link={'accounts'}>
-                Arkiv
-                 </SideButton>)
+                    (<SideButton link={'accounts'}>
+                        Konton
+                    </SideButton >) :
+                    (<SideButton link={'accounts'}>
+                        Arkiv
+                    </SideButton>)
                 }
                 <SideButton link={'login'}>
                     Chalmers nolluppdrag
