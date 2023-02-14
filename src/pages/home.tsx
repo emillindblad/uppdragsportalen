@@ -1,13 +1,52 @@
-import { type NextPage } from "next";
+import { GetServerSideProps, type NextPage } from "next";
+import { getSession, useSession } from "next-auth/react";
+import { useEffect } from "react";
 import AssignmentData from "../components/AssignmentData";
 import MainPage from "../components/MainPage";
+import { getServerAuthSession } from "../server/auth";
 import { api } from "../utils/api";
+
+
+// export const getServerSideProps: GetServerSideProps = async (ctx) => {
+//     const session = await getServerAuthSession({
+//       req: ctx.req,
+//       res: ctx.res,
+//     });
+//     console.log("serverside")
+//     console.log(session)
+//     if (!session) {
+//       return {
+//         redirect: {
+//           destination: "/login",
+//           permanent: false,
+//         },
+//       };
+//     }
+//     return { props: {session} };
+// };
 
 
 const Home: NextPage = () => {
 
+    const { data: session, status } = useSession();
+    console.log(status)
+    console.log(session)
+
+
     const uppdrag = api.uppdrag.getCurrentYearUppdrag.useQuery({ year: 2023 });
     const isMK = false;
+
+    if (status === "loading") {
+        console.log("loading in status")
+        return <p>Loading...</p>;
+    }
+
+    if (!session) {
+        // Handle unauthenticated state, e.g. render a SignIn component
+        console.log("client side")
+        console.log(session)
+        return <p>lol</p>;
+    }
 
     return (
         <>
@@ -28,11 +67,11 @@ const Home: NextPage = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {uppdrag.data ? <AssignmentData data={uppdrag.data}/> : <tr><td>Loading...</td></tr> }
+                            {uppdrag.data ? <AssignmentData data={uppdrag.data} /> : <tr><td>Loading...</td></tr>}
                         </tbody>
                     </table>
                 </div>
-                {isMK ? null : 
+                {isMK ? null :
                     (<div className="absolute bottom-4 right-8 ">
                         <button className="bg-mk-blue hover:bg-sky-900 text-white rounded-full p-3 " type="button">
                             <svg className="fill-white w-8 h-8" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
