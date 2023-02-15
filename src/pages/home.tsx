@@ -1,46 +1,21 @@
-import { GetServerSideProps, type NextPage } from "next";
-import { getSession, useSession } from "next-auth/react";
-import { useEffect } from "react";
+import { type NextPage } from "next";
+import { signOut, useSession } from "next-auth/react";
 import AssignmentData from "../components/AssignmentData";
 import MainPage from "../components/MainPage";
-import { getServerAuthSession } from "../server/auth";
 import { api } from "../utils/api";
-import Login from "./login";
-
-
-// export const getServerSideProps: GetServerSideProps = async (ctx) => {
-//     const session = await getServerAuthSession({
-//       req: ctx.req,
-//       res: ctx.res,
-//     });
-//     console.log("serverside")
-//     console.log(session)
-//     if (!session) {
-//       return {
-//         redirect: {
-//           destination: "/login",
-//           permanent: false,
-//         },
-//       };
-//     }
-//     return { props: {session} };
-// };
-
 
 const Home: NextPage = () => {
 
-    const { data: session, status } = useSession();
-    console.log(status)
-    console.log(session)
+    const {data: session} = useSession()
+    //const session = useSession()
+
+    //console.log(status)
 
 
     const uppdrag = api.uppdrag.getCurrentYearUppdrag.useQuery({ year: 2023 });
     const isMK = false;
 
-    if (status === "loading") {
-        console.log("loading in status")
-        return <p>Loading...</p>;
-    }
+    console.log(session)
 
     if (!session) {
         // Handle unauthenticated state, e.g. render a SignIn component
@@ -53,6 +28,8 @@ const Home: NextPage = () => {
         <>
             <MainPage title={"Mottagningskommittén"}>
                 <div className="my-4">
+                    <p>{JSON.stringify(session)}</p>
+                    <button onClick={() => signOut()} className="rounded border py-1 px-4" > Logout </button>
                     <div className="border-b-2 border-gray-300 overflow-hidden">
                         <input className="px-4 py-2 w-full h-15 border-none placeholder-[#737373] text-2xl" type="text" placeholder="Sök.." name="search" />
                     </div>

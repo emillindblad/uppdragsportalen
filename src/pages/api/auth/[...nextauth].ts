@@ -1,10 +1,6 @@
 import NextAuth, { type NextAuthOptions } from "next-auth";
-import DiscordProvider from "next-auth/providers/discord";
 import Credentials from "next-auth/providers/credentials";
-
-// Prisma adapter for NextAuth, optional and can be removed
-import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import bcrypt from "bcrypt"
+import bcrypt from "bcrypt";
 
 import { env } from "../../../env/server.mjs";
 import { prisma } from "../../../server/db";
@@ -16,42 +12,33 @@ export const authOptions: NextAuthOptions = {
       if (user) {
         token.id = user.id;
         token.email = user.email;
+        token.name = user.name;
       }
 
       return token;
     },
     session({ session, token }) {
-      console.log("session", session, token)
-      console.log("token", token)
       if (token && session.user) {
-        console.log("inside session", session, token)
         session.user.id = token.id as string;
       }
       return session;
-    }
+    },
   },
-
-  // Configure one or more authentication providers
   secret: env.NEXTAUTH_SECRET,
-  adapter: PrismaAdapter(prisma),
+  //jwt: { maxAge: 60 * 60 * 24 * 30, },
   pages: {
     signIn: "/login",
     newUser: "/register",
-    error: "login"
-  },
-  jwt: {
-    maxAge: 30 * 24 * 60 * 60, // 30 days
+    error: "/login",
   },
   providers: [
     Credentials({
-      // The name to display on the sign in form (e.g. 'Sign in with...')
       name: 'Credentials',
       credentials: {
-        email: { label: "Email", type: "text", placeholder: "?" },
+        email: { label: "Email", type: "text", placeholder: "info@mk.chs.chalmers.se" },
         password: { label: "Password", type: "password" }
       },
-      async authorize(credentials, req) {
-        console.log(credentials)
+      authorize: async (credentials) => {
 
         if (credentials == null ) {
           console.log("credentials null")
@@ -65,9 +52,10 @@ export const authOptions: NextAuthOptions = {
         })
 
         if (!user) {
-          console.log("user not found")
           return null
         }
+
+        console.log(credentials.password)
 
         const isValidPass = bcrypt.compareSync(
             credentials.password,
@@ -82,25 +70,10 @@ export const authOptions: NextAuthOptions = {
         return {
             id: user.id,
             email: user.email,
-            username: user.name,
-        }
-
-        // console.log(req.body)
-        // const res = await fetch("/api/getLogin", {
-        //   method: 'POST',
-        //   body: JSON.stringify(credentials),
-        //   headers: { "Content-Type": "application/json" }
-        // })
-        // const user = await res.json()
-
-        // // If no error and we have user data, return it
-        // if (res.ok && user) {
-        //   return user
-        // }
-        // Return null if user data could not be retrieved
-        //return null
-      }
-    })
+            username: user.name
+        };
+      },
+    }),
     /**
      * ...add more providers here
      *
