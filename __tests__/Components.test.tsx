@@ -42,22 +42,22 @@ describe("SideButtons", () => {
 })
 
 describe("AssignmentData", () => {
-    test("Should print info about a Uppdrag", () => {
-        const testInfo: Uppdrag[] = [
-            {
-                id: "123",
-                year: 2023,
-                nollk: 'NollKIT',
-                title: 'Hängigt uppdrag',
-                desc: 'Sven hittar säkert på något som blir rent av nekat',
-                place: 'Din mamma',
-                time: '12:01',
-                participants: 2,
-                motivation: 'Hej PR!',
-                private: false
-            }
-        ];
+    const testInfo: Uppdrag[] = [
+        {
+            id: "123",
+            year: 2023,
+            nollk: 'NollKIT',
+            title: 'Hängigt uppdrag',
+            desc: 'Sven hittar säkert på något som blir rent av nekat',
+            place: 'Din mamma',
+            time: '12:01',
+            participants: 2,
+            motivation: 'Hej PR!',
+            private: false
+        }
+    ];
 
+    test("Should print info about a Uppdrag for anyone viewing", () => {
         render(<AssignmentData data={testInfo}/>);
         const page = within(screen.getByRole('row'));
         expect(page.getByRole('cell', {name: /NollKIT/i})).toBeDefined();
