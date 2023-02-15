@@ -3,15 +3,14 @@ import Image from "next/image";
 import itLogo from "../../public/img/it-logo.png";
 import Link from "next/link";
 import { useState } from "react";
+import useIsMK from "../hooks/useIsMK";
 
-interface MenuProps {
-    isMK : boolean
-};
+
 
 const SideMenu = (
-    props: MenuProps
 ) => {
     const [activeButtonIndex, setActiveButtonIndex] = useState(0);
+    const isMK = useIsMK();
 
 //TODO En check på vilken sida man är inne på (kan typ också va en hook) och setActiveButtonIndex därefter
 //hook useLocation
@@ -30,7 +29,7 @@ const SideMenu = (
             </div>
 
             <div className="grid grid-rows-4 items-center mx-8 mt-5 row-span-2">
-                {props.isMK ?
+                {isMK ?
                     (<SideButton link={'home'}>
                         Granska
                     </SideButton>) :
@@ -38,7 +37,7 @@ const SideMenu = (
                         Mina nolluppdrag
                     </SideButton>)
                 }
-                {props.isMK ?
+                {isMK ?
                 (<SideButton link={'accounts'}>
                     Konton
                 </SideButton >) :

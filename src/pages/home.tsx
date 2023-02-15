@@ -2,6 +2,7 @@ import { type NextPage } from "next";
 import Link from "next/link";
 import AssignmentData from "../components/AssignmentData";
 import MainPage from "../components/MainPage";
+import useIsMK from "../hooks/useIsMK";
 import { api } from "../utils/api";
 
 
@@ -21,7 +22,7 @@ const Home: NextPage = () => {
                 <div className="overflow-x-auto">
                     <table className="w-full text-sm text-left text-black">
                         <thead className="text-xl text-[#737373] bg-white border-b-2 border-black">
-                            <tr>
+                            <tr className="text-xl font-sans">
                                 <th className="py-4" scope="col">Nolluppdrag</th>
                                 <th className="py-4" scope="col">NollK</th>
                                 <th className="py-4" scope="col">Status</th>
