@@ -12,18 +12,18 @@ const Home: NextPage = () => {
     //console.log(status)
 
 
-    const uppdrag = api.uppdrag.getCurrentYearUppdrag.useQuery({ year: 2023 });
-    const isMK = false;
-
+    
     console.log(session)
-
+    
     if (!session) {
         // Handle unauthenticated state, e.g. render a SignIn component
         console.log("client side")
         console.log(session)
         return <p>lol</p>;
     }
-
+    
+    const uppdrag = api.uppdrag.getCurrentYearUppdrag.useQuery({ year: 2023 });
+    const isMK = false;
     return (
         <>
             <MainPage title={"Mottagningskommittén"}>
