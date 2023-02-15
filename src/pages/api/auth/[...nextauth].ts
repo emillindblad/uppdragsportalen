@@ -1,10 +1,12 @@
 import NextAuth, { type NextAuthOptions } from "next-auth";
 import DiscordProvider from "next-auth/providers/discord";
-import CredentialsProvider from "next-auth/providers/credentials"
+import Credentials from "next-auth/providers/credentials";
+
 // Prisma adapter for NextAuth, optional and can be removed
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import {compare, hash} from "bcryptjs"
+import bcrypt from "bcrypt"
 
+import { env } from "../../../env/server.mjs";
 import { prisma } from "../../../server/db";
 
 export const authOptions: NextAuthOptions = {
@@ -18,7 +20,7 @@ export const authOptions: NextAuthOptions = {
 
       return token;
     },
-    async session({ session, token }) {
+    session({ session, token }) {
       console.log("session", session, token)
       console.log("token", token)
       if (token && session.user) {
@@ -28,37 +30,27 @@ export const authOptions: NextAuthOptions = {
       return session;
     }
   },
-  
+
   // Configure one or more authentication providers
+  secret: env.NEXTAUTH_SECRET,
   adapter: PrismaAdapter(prisma),
   pages: {
     signIn: "/login",
     newUser: "/register",
+    error: "login"
   },
   jwt: {
     maxAge: 30 * 24 * 60 * 60, // 30 days
   },
   providers: [
-    CredentialsProvider({
+    Credentials({
       // The name to display on the sign in form (e.g. 'Sign in with...')
       name: 'Credentials',
-      // The credentials is used to generate a suitable form on the sign in page.
-      // You can specify whatever fields you are expecting to be submitted.
-      // e.g. domain, username, password, 2FA token, etc.
-      // You can pass any HTML attribute to the <input> tag through the object.
       credentials: {
         email: { label: "Email", type: "text", placeholder: "?" },
         password: { label: "Password", type: "password" }
       },
       async authorize(credentials, req) {
-        // You need to provide your own logic here that takes the credentials
-        // submitted and returns either a object representing a user or value
-        // that is false/null if the credentials are invalid.
-        // e.g. return { id: 1, name: 'J Smith', email: 'jsmith@example.com' }
-        // You can also use the `req` object to obtain additional parameters
-        // (i.e., the request IP address)
-
-
         console.log(credentials)
 
         if (credentials == null ) {
@@ -75,14 +67,22 @@ export const authOptions: NextAuthOptions = {
         if (!user) {
           console.log("user not found")
           return null
-
         }
 
-        const hashedPass = await hash(credentials.password, 10)
+        const isValidPass = bcrypt.compareSync(
+            credentials.password,
+            user.password
+        );
 
-        if (await compare(credentials.password, user.password)) {
-          console.log("password match")
-          return user
+        if (!isValidPass) {
+          console.log("passwords dont match")
+          return null;
+        }
+
+        return {
+            id: user.id,
+            email: user.email,
+            username: user.name,
         }
 
         // console.log(req.body)
@@ -98,7 +98,7 @@ export const authOptions: NextAuthOptions = {
         //   return user
         // }
         // Return null if user data could not be retrieved
-        return null
+        //return null
       }
     })
     /**

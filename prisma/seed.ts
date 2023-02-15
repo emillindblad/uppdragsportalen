@@ -1,5 +1,5 @@
-import { hash } from "bcryptjs"
-import { prisma } from "../src/server/db"
+import bcrypt from "bcrypt";
+import { prisma } from "../src/server/db";
 
 async function main() {
     await prisma.uppdrag.deleteMany({})
@@ -119,12 +119,13 @@ async function main() {
         },
     })
 
-    const passw = await hash("1234", 10)
+    const samplePassword = await bcrypt.hash("1234",10)
+
     await prisma.user.create({
         data: {
             name: 'Dadi Andrason',
             email: 'pr@mk.chs.chalmers.se',
-            password: passw,
+            password: samplePassword,
             nollK: 'MK',
             year: 2023,
             accepted: true
