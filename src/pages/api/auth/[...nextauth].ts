@@ -10,17 +10,33 @@ import { prisma } from "../../../server/db";
 export const authOptions: NextAuthOptions = {
   // Include user.id on session
   callbacks: {
-    async session({ session, user }) {
-      if (session.user) {
-        session.user.id = user.id;
+    jwt: async ({ token, user }) => {
+      if (user) {
+        token.id = user.id;
+        token.email = user.email;
+      }
+
+      return token;
+    },
+    async session({ session, token }) {
+      console.log("session", session, token)
+      console.log("token", token)
+      if (token && session.user) {
+        console.log("inside session", session, token)
+        session.user.id = token.id as string;
       }
       return session;
-    },
+    }
   },
+  
   // Configure one or more authentication providers
   adapter: PrismaAdapter(prisma),
   pages: {
     signIn: "/login",
+    newUser: "/register",
+  },
+  jwt: {
+    maxAge: 30 * 24 * 60 * 60, // 30 days
   },
   providers: [
     CredentialsProvider({
@@ -46,6 +62,7 @@ export const authOptions: NextAuthOptions = {
         console.log(credentials)
 
         if (credentials == null ) {
+          console.log("credentials null")
           return null
         }
 
@@ -56,13 +73,15 @@ export const authOptions: NextAuthOptions = {
         })
 
         if (!user) {
+          console.log("user not found")
           return null
+
         }
 
         const hashedPass = await hash(credentials.password, 10)
 
         if (await compare(credentials.password, user.password)) {
-          console.log("yeees")
+          console.log("password match")
           return user
         }
 
