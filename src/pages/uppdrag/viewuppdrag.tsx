@@ -39,7 +39,7 @@ const ViewUppdrag: NextPage<Props> = (props: Props) => {
                         </div>
                             {/* Hardcoded now, change to author + nollk pic + email */}
                         <div className="flex flex-row-reverse">
-                            <Image src={dataLogo} alt="" className="max-w-[60px]" />
+                            <Image src={dataLogo} height={60} width={60} alt="" className="max-w-[60px]" />
                             <div className="mr-4">
                                 <p className="text-black font-bold text-lg tracking-wide text-right">Lippo</p>
                                 <p className="text-black text-s font-semibold tracking-wide text-right">nolluppdrag@dnollk.dtek.se</p>
