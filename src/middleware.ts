@@ -2,13 +2,15 @@ import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 import { getToken } from 'next-auth/jwt';
 
+import { env } from './env/server.mjs';
+
 // This function can be marked `async` if using `await` inside
 export async function middleware(request: NextRequest) {
     const token = await getToken({
         req: request,
-        secret: process.env.NEXTAUTH_SECRET,
+        secret: env.NEXTAUTH_SECRET,
     });
-    
+
     if (!token) {
         console.log('redirecting')
         return NextResponse.redirect(new URL('/login', request.url))
