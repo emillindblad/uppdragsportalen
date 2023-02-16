@@ -26,7 +26,8 @@ const ViewUppdrag: NextPage<Props> = (props: Props) => {
 
     const { data } = api.uppdrag.getUppdragFromId.useQuery({id: uppdragId});
 
-    const isMK = true;
+    const isMK = false;
+    const isLoggedInNollK = true;
 
     return (
         <>
@@ -38,7 +39,7 @@ const ViewUppdrag: NextPage<Props> = (props: Props) => {
                         </div>
                             {/* Hardcoded now, change to author + nollk pic + email */}
                         <div className="flex flex-row-reverse">
-                            <Image src={dataLogo} alt="" className="max-w-[60px]" />
+                            <Image src={dataLogo} height={60} width={60} alt="" className="max-w-[60px]" />
                             <div className="mr-4">
                                 <p className="text-black font-bold text-lg tracking-wide text-right">Lippo</p>
                                 <p className="text-black text-s font-semibold tracking-wide text-right">nolluppdrag@dnollk.dtek.se</p>
@@ -48,6 +49,15 @@ const ViewUppdrag: NextPage<Props> = (props: Props) => {
                     <div className="row-start-2 col-start-1 col-span-7 text-2xl font-bold text-left px-2">
                         {data?.desc}
                     </div>
+                    {isLoggedInNollK ? (
+                            <div className="row-start-3 col-start-1 col-end-7">
+                                    <div className="text-2xl font-bold text-left px-2"> Antal deltagare: {data?.participants} </div>
+                                    <div className="text-2xl font-bold text-left px-2"> Plats: {data?.place} </div>
+                                    <div className="text-2xl font-bold text-left px-2"> Tid: {data?.time} </div>
+                                    <div className="text-2xl font-bold text-left px-2"> Motivation: {data?.motivation} </div>
+                            </div>
+                        ) : null
+                    }
                     {/* Only for MK */}
                     {isMK ? (<div className="flex row-start-6 col-start-1 col-span-7 items-end px-2">
                             <textarea id="mkComment" className="mt-6 h-[20vh] w-full flex-1 rounded-2xl block p-3.5 text-2xl bg-white border border-gray-300 focus:ring-mk-blue focus:border-mk-blue resize-none" placeholder="Kommentarer.."></textarea>
