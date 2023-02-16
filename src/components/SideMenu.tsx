@@ -3,6 +3,7 @@ import Image from "next/image";
 import itLogo from "../../public/img/it-logo.png";
 import Link from "next/link";
 import { useState } from "react";
+import { signOut } from "next-auth/react";
 
 interface MenuProps {
     isMK : boolean
@@ -55,9 +56,9 @@ const SideMenu = (
             </div>
 
             <div className="row-span-2 ml-6 mb-4 flex items-end">
-                <Link href="/login">
-                    <button className="w-[125px] h-[44px] bg-mk-yellow hover:bg-mk-yellow-hover text-white text-lg rounded-2xl font-bold px-6 py-2">Logga ut</button>
-                </Link>
+                <a href="login">
+                    <button onClick={() => signOut()} className="w-[125px] h-[44px] bg-mk-yellow hover:bg-mk-yellow-hover text-white text-lg rounded-2xl font-bold px-6 py-2">Logga ut</button>
+                </a>
             </div>
         </nav>
         </>

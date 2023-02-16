@@ -1,19 +1,25 @@
 import { type NextPage } from "next";
+
+import { signOut, useSession } from "next-auth/react";
+import { NextRequest } from "next/server";
+
 import Link from "next/link";
+
 import AssignmentData from "../components/AssignmentData";
 import MainPage from "../components/MainPage";
 import { api } from "../utils/api";
 
-
 const Home: NextPage = () => {
 
+    const {data: session} = useSession();
+    
     const uppdrag = api.uppdrag.getCurrentYearUppdrag.useQuery({ year: 2023 });
     const isMK = false;
-
     return (
         <>
             <MainPage title={"Mottagningskommittén"}>
                 <div className="my-4">
+                    <p>{JSON.stringify(session)}</p>
                     <div className="border-b-2 border-gray-300 overflow-hidden">
                         <input className="px-4 py-2 w-full h-15 border-none placeholder-[#737373] text-2xl" type="text" placeholder="Sök.." name="search" />
                     </div>
@@ -29,7 +35,7 @@ const Home: NextPage = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {uppdrag.data ? <AssignmentData data={uppdrag.data}/> : <tr><td>Loading...</td></tr> }
+                            {uppdrag.data ? <AssignmentData data={uppdrag.data} /> : <tr><td>Loading...</td></tr>}
                         </tbody>
                     </table>
                 </div>
