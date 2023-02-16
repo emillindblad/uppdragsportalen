@@ -1,6 +1,10 @@
 import { type NextPage } from "next";
+
 import { signOut, useSession } from "next-auth/react";
 import { NextRequest } from "next/server";
+
+import Link from "next/link";
+
 import AssignmentData from "../components/AssignmentData";
 import MainPage from "../components/MainPage";
 import { api } from "../utils/api";
@@ -22,12 +26,12 @@ const Home: NextPage = () => {
                 </div>
                 <div className="overflow-x-auto">
                     <table className="w-full text-sm text-left text-black">
-                        <thead className="text-lg text-[#737373] bg-white border-b-2 border-black">
+                        <thead className="text-xl text-[#737373] bg-white border-b-2 border-black">
                             <tr>
-                                <th className="px-6 py-4" scope="col">Nolluppdrag</th>
-                                <th className="px-6 py-4" scope="col">NollK</th>
-                                <th className="px-6 py-4" scope="col">Status</th>
-                                <th className="px-6 py-4" scope="col">Övrigt</th>
+                                <th className="py-4" scope="col">Nolluppdrag</th>
+                                <th className="py-4" scope="col">NollK</th>
+                                <th className="py-4" scope="col">Status</th>
+                                <th className="py-4" scope="col">Övrigt</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -37,11 +41,13 @@ const Home: NextPage = () => {
                 </div>
                 {isMK ? null :
                     (<div className="absolute bottom-4 right-8 ">
-                        <button className="bg-mk-blue hover:bg-sky-900 text-white rounded-full p-3 " type="button">
-                            <svg className="fill-white w-8 h-8" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
-                                <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"></path>
-                            </svg>
-                        </button>
+                        <Link href="/newAssignment">
+                            <button className="bg-mk-blue hover:bg-sky-900 text-white rounded-full p-3 " type="button">
+                                <svg className="fill-white w-8 h-8" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"></path>
+                                </svg>
+                            </button>
+                        </Link>
                     </div>)
                 }
             </MainPage>

@@ -10,7 +10,6 @@ const AssignmentData: FunctionComponent<UppdragsProps> = (props: UppdragsProps) 
     const router = useRouter();
 
     const nav = (data: string) => {
-        console.log(`id in homepage: ${data}`)
         void router.push({
             pathname: '/uppdrag/viewuppdrag',
             query: { id: data }
