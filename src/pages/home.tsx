@@ -1,26 +1,13 @@
 import { type NextPage } from "next";
 import { signOut, useSession } from "next-auth/react";
+import { NextRequest } from "next/server";
 import AssignmentData from "../components/AssignmentData";
 import MainPage from "../components/MainPage";
 import { api } from "../utils/api";
 
 const Home: NextPage = () => {
 
-    const {data: session} = useSession()
-    //const session = useSession()
-
-    //console.log(status)
-
-
-    
-    console.log(session)
-    
-    if (!session) {
-        // Handle unauthenticated state, e.g. render a SignIn component
-        console.log("client side")
-        console.log(session)
-        return <p>lol</p>;
-    }
+    const {data: session} = useSession();
     
     const uppdrag = api.uppdrag.getCurrentYearUppdrag.useQuery({ year: 2023 });
     const isMK = false;
