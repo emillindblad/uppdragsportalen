@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { uppdragCreateSchema } from "../../../pages/uppdrag/newuppdrag";
 import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
 
 export const uppdragrouter = createTRPCRouter({
@@ -30,12 +31,22 @@ export const uppdragrouter = createTRPCRouter({
         })
     }),
 
-
-
-    //addUppdrag: publicProcedure.query(({ ctx }) => {
-    //return ctx.prisma.uppdrag.create({
-    //data: undefined
-    //})
-    //})
+    add: protectedProcedure
+    .input(uppdragCreateSchema)
+    .mutation(({ ctx, input }) => {
+        return ctx.prisma.uppdrag.create({
+            data: {
+                year: input.year,
+                nollk: input.nollk,
+                title: input.title,
+                place: input.place,
+                time: input.time,
+                participants: input.participants,
+                desc: input.desc,
+                motivation: input.motivation,
+                private: input.private
+            }
+        });
+    })
 
 });

@@ -8,19 +8,22 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { ErrorText } from "../../components/LoginForm";
 
-const schema = z.object({
+export const uppdragCreateSchema = z.object({
+    year: z.number().min(4),
+    nollk: z.string().min(4),
     title: z.string().min(1,{message: 'Vänligen ange en titel på ditt uppdrag'}),
     place: z.string().min(1,{message: 'Vänligen skriv in din email'}),
     time: z.string().min(1,{message: 'Vänligen skriv in din email'}),
     participants: z.number().min(1,{ message: 'Vänligen ange antal deltagare' }),
     desc: z.string().min(1,{message: 'Vänligen skriv in din email'}),
-    motivation: z.string().min(1, { message: 'Vänligen skriv in ditt lösenord' })
+    motivation: z.string().min(1, { message: 'Vänligen skriv in ditt lösenord' }),
+    private: z.boolean()
 });
 
-type FormSchemaType = z.infer<typeof schema>;
+type FormSchemaType = z.infer<typeof uppdragCreateSchema>;
 
 const NewUppdrag: NextPage = () => {
-    const { register, handleSubmit, formState: { errors }, } = useForm<FormSchemaType>({ resolver: zodResolver(schema), });
+    const { register, handleSubmit, formState: { errors }, } = useForm<FormSchemaType>({ resolver: zodResolver(uppdragCreateSchema), });
     const onSubmit: SubmitHandler<FormSchemaType> = data => console.log("dab");
 
     return (
