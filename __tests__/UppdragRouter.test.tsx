@@ -1,6 +1,5 @@
-import type { inferProcedureInput } from "@trpc/server";
 import { createInnerTRPCContext } from "../src/server/api/trpc";
-import { type AppRouter, appRouter } from "../src/server/api/root";
+import { appRouter } from "../src/server/api/root";
 import { describe, expect, test } from "vitest"
 import { prisma } from "../src/server/db"
 import type { RouterInputs } from "../src/utils/api";
@@ -27,47 +26,47 @@ describe('uppdrag', async () => {
         },
         update: {}
     });
+
     const ctx = createInnerTRPCContext({
         session: {
             user,
             expires: "1",
         },
     });
+
     const caller = appRouter.createCaller(ctx);
 
-    test("fetch all uppdrag ", async () => {
-        const res = await caller.uppdrag.getAll();
-        expect(res).toBeDefined();
-    });
+    const input: RouterInputs["uppdrag"]["add"] = {
+        year: 2023,
+        nollk: 'test',
+        title: 'test',
+        desc: 'test',
+        place: 'test',
+        time: 'test',
+        participants: 9999,
+        motivation: 'test',
+        private: false
+    }
 
-    test("create uppdrag", async () => {
-        const input: RouterInputs["uppdrag"]["add"] = {
-            year: 1969,
-            nollk: 'MK',
-            title: 'Secret MK uppdrag',
-            desc: 'MK fick för sig att göra ett uppdrag',
-            place: 'Macken',
-            time: 'LP2',
-            participants: 1000,
-            motivation: 'Mycket bra',
-            private: false
-        }
+    const uppdrag = await caller.uppdrag.add(input)
+    const uppdragById = await caller.uppdrag.getById({ id: uppdrag.id })
 
-        const user = await caller.uppdrag.add(input)
-        const userById = await caller.uppdrag.getById({ id: user.id })
-
-        expect(userById).toMatchObject(input);
+    test("fetch by year", async () => {
+        const byYear = await caller.uppdrag.getByYear({ year: 2023 })
+        expect(byYear.length).toBeGreaterThan(1);
     })
 
-    test.todo("fetch all and delete one", async () => {
+    test("create uppdrag", () => {
+        expect(uppdragById).toMatchObject(input);
+    })
+
+    test("fetch all and delete one", async () => {
         const allUppdrag = await caller.uppdrag.getAll();
         const initalLength = allUppdrag.length;
 
-        await caller.uppdrag.delete(input);
+        await caller.uppdrag.delete({ id: uppdrag.id });
         const afterDeleteUppdrag = await caller.uppdrag.getAll();
 
         expect(afterDeleteUppdrag.length).lessThan(initalLength);
-
-
     })
 })

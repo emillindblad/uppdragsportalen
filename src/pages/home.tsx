@@ -12,8 +12,8 @@ import { api } from "../utils/api";
 const Home: NextPage = () => {
 
     const {data: session} = useSession();
-    
-    const uppdrag = api.uppdrag.getCurrentYearUppdrag.useQuery({ year: 2023 });
+
+    const uppdrag = api.uppdrag.getByYear.useQuery({ year: 2023 });
     const isMK = false;
     return (
         <>

@@ -7,22 +7,6 @@ async function main() {
 
     await prisma.uppdrag.create({
         data: {
-            id: '123456789',
-            year: 1969,
-            nollk: 'MK',
-            title: 'Secret MK uppdrag',
-            desc: 'MK fick för sig att göra ett uppdrag',
-            place: 'Macken',
-            time: 'LP2',
-            participants: 1000,
-            motivation: 'Mycket bra',
-            private: false
-        },
-    })
-
-
-    await prisma.uppdrag.create({
-        data: {
             year: 2023,
             nollk: 'NollKIT',
             title: 'Ännu ett uppdrag',

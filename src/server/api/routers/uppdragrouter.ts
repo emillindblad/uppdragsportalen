@@ -3,7 +3,7 @@ import { uppdragCreateSchema } from "../../../pages/uppdrag/newuppdrag";
 import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
 
 export const uppdragrouter = createTRPCRouter({
-    getCurrentYearUppdrag: protectedProcedure
+    getByYear: protectedProcedure
     .input(z.object({ year: z.number() }))
     .query(({ ctx, input }) => {
         return ctx.prisma.uppdrag.findMany({
