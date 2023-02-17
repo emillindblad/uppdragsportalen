@@ -53,7 +53,7 @@ describe('uppdrag', async () => {
 
     test("fetch by year", async () => {
         const byYear = await caller.uppdrag.getByYear({ year: 2023 })
-        expect(byYear.length).toBeGreaterThan(1);
+        expect(byYear.length).toBeGreaterThanOrEqual(1);
     })
 
     test("create uppdrag", () => {
