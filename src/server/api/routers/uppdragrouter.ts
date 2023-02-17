@@ -1,8 +1,8 @@
 import { z } from "zod";
-import { createTRPCRouter, publicProcedure } from "../trpc";
+import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
 
 export const uppdragrouter = createTRPCRouter({
-    getCurrentYearUppdrag: publicProcedure
+    getCurrentYearUppdrag: protectedProcedure
     .input(z.object({ year: z.number() }))
     .query(({ ctx, input }) => {
         return ctx.prisma.uppdrag.findMany({
@@ -10,11 +10,11 @@ export const uppdragrouter = createTRPCRouter({
         });
     }),
 
-    getAllUppdrag: publicProcedure.query(({ ctx }) => {
+    getAllUppdrag: protectedProcedure.query(({ ctx }) => {
         return ctx.prisma.uppdrag.findMany();
     }),
 
-    getUppdragFromId: publicProcedure
+    getUppdragFromId: protectedProcedure
     .input(z.object({ id: z.string() }))
     .query(({ ctx, input }) => {
         return ctx.prisma.uppdrag.findUnique({
@@ -22,7 +22,7 @@ export const uppdragrouter = createTRPCRouter({
         });
     }),
 
-    demoRemoveUppdrag: publicProcedure
+    demoRemoveUppdrag: protectedProcedure
     .input(z.object({ nollk: z.string() }))
     .mutation(({ ctx, input }) => {
         return ctx.prisma.uppdrag.deleteMany({
