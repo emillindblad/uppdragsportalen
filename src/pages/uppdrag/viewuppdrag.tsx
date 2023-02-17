@@ -24,7 +24,7 @@ const ViewUppdrag: NextPage<Props> = (props: Props) => {
 
     const uppdragId = props.router.query.id?.toString() as string
 
-    const { data } = api.uppdrag.getUppdragFromId.useQuery({id: uppdragId});
+    const { data } = api.uppdrag.getById.useQuery({id: uppdragId});
 
     const isMK = false;
     const isLoggedInNollK = true;

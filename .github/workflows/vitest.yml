@@ -35,5 +35,4 @@ jobs:
         cache: 'npm'
     - run: npm ci
     - run: npx prisma db push
-    - run: npm run db-seed
     - run: npm run test

@@ -73,7 +73,7 @@ model User {
     name          String
     password      String
     email         String   @unique
-    nollK         String
+    nollk         String
     year          Int
     accepted      Boolean
     accounts      Account[]
