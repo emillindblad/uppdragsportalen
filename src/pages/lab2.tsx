@@ -9,7 +9,7 @@ import { api } from "../utils/api";
 const Lab2Api: NextPage = () => {
     const [uppdragData, setUppdragData] = useState<Uppdrag[] | undefined>();
 
-    const { data, refetch } = api.uppdrag.getAllUppdrag.useQuery(undefined, {
+    const { data, refetch } = api.uppdrag.getAll.useQuery(undefined, {
         refetchOnWindowFocus: false,
         enabled: false
     });
@@ -18,10 +18,10 @@ const Lab2Api: NextPage = () => {
         setUppdragData(data)
     },[data]);
 
-    const mutation = api.uppdrag.demoRemoveUppdrag.useMutation()
+    const mutation = api.uppdrag.delete.useMutation()
 
     const handleMutation = () => {
-        mutation.mutate({ nollk: "DNollK" })
+        mutation.mutate({ id: "DNollK" })
     };
 
     if (mutation.isSuccess) {

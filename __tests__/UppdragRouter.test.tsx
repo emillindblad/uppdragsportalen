@@ -17,12 +17,12 @@ test("uppdrag router", async () => {
 });
 
 test("get uppdrag from id", async () => {
-    type Input = inferProcedureInput<AppRouter["uppdrag"]["getUppdragFromId"]>;
+    type Input = inferProcedureInput<AppRouter["uppdrag"]["getById"]>;
     const input: Input = {
         id: '123456789'
     }
 
-    const singleUppdrag = await caller.uppdrag.getUppdragFromId(input);
+    const singleUppdrag = await caller.uppdrag.getById(input);
     expect(singleUppdrag).toMatchObject(
         {
             id: '123456789',
@@ -40,17 +40,17 @@ test("get uppdrag from id", async () => {
 })
 
 test("fetch all and delete one", async () => {
-    const allUppdrag = await caller.uppdrag.getAllUppdrag();
+    const allUppdrag = await caller.uppdrag.getAll();
 
     const initalLength = allUppdrag.length;
 
-    type Input = inferProcedureInput<AppRouter["uppdrag"]["demoRemoveUppdrag"]>;
+    type Input = inferProcedureInput<AppRouter["uppdrag"]["delete"]>;
     const input: Input = {
-        nollk: allUppdrag[0]?.nollk as string
+        id: allUppdrag[0]?.nollk as string
     }
 
-    const deleteOne = await caller.uppdrag.demoRemoveUppdrag(input);
-    const afterDeleteUppdrag = await caller.uppdrag.getAllUppdrag();
+    const deleteOne = await caller.uppdrag.delete(input);
+    const afterDeleteUppdrag = await caller.uppdrag.getAll();
 
     expect(afterDeleteUppdrag.length).lessThan(initalLength);
 

@@ -10,11 +10,11 @@ export const uppdragrouter = createTRPCRouter({
         });
     }),
 
-    getAllUppdrag: protectedProcedure.query(({ ctx }) => {
+    getAll: protectedProcedure.query(({ ctx }) => {
         return ctx.prisma.uppdrag.findMany();
     }),
 
-    getUppdragFromId: protectedProcedure
+    getById: protectedProcedure
     .input(z.object({ id: z.string() }))
     .query(({ ctx, input }) => {
         return ctx.prisma.uppdrag.findUnique({
@@ -22,13 +22,14 @@ export const uppdragrouter = createTRPCRouter({
         });
     }),
 
-    demoRemoveUppdrag: protectedProcedure
-    .input(z.object({ nollk: z.string() }))
+    delete: protectedProcedure
+    .input(z.object({ id: z.string() }))
     .mutation(({ ctx, input }) => {
-        return ctx.prisma.uppdrag.deleteMany({
-            where: { nollk: input.nollk }
+        return ctx.prisma.uppdrag.delete({
+            where: { id: input.id }
         })
-    })
+    }),
+
 
 
     //addUppdrag: publicProcedure.query(({ ctx }) => {
