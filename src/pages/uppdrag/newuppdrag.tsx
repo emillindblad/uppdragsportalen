@@ -10,7 +10,7 @@ import { ErrorText } from "../../components/LoginForm";
 
 export const uppdragCreateSchema = z.object({
     year: z.number().min(4),
-    nollk: z.string().min(4),
+    nollk: z.string().min(2),
     title: z.string().min(1,{message: 'Vänligen ange en titel på ditt uppdrag'}),
     place: z.string().min(1,{message: 'Vänligen skriv in din email'}),
     time: z.string().min(1,{message: 'Vänligen skriv in din email'}),

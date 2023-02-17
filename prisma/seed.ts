@@ -126,7 +126,7 @@ async function main() {
             name: 'Dadi Andrason',
             email: 'pr@mk.chs.chalmers.se',
             password: samplePassword,
-            nollK: 'MK',
+            nollk: 'MK',
             year: 2023,
             accepted: true
         },
