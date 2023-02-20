@@ -4,23 +4,31 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { type  FC } from 'react';
 import * as z from 'zod';
 import Link from 'next/link';
+import { signIn } from 'next-auth/react';
+import { ErrorText } from './ErrorText';
 
 const schema = z.object({
     email: z.string().email({message: 'Vänligen skriv in din email'}),
     password: z.string().min(1, { message: 'Vänligen skriv in ditt lösenord' })
 });
 
+
+
+
 type FormSchemaType = z.infer<typeof schema>;
 
 const LoginForm: FC = () => {
     const { register, handleSubmit, formState: { errors }, } = useForm<FormSchemaType>({ resolver: zodResolver(schema), });
-    const onSubmit: SubmitHandler<FormSchemaType> = data => getLogin(data);
+    const onSubmit: SubmitHandler<FormSchemaType> = async (data) => {
+        await signIn('credentials', {callbackUrl: "/home", email: data.email, password: data.password })
+
+    };
 
     return (
         <form className="w-80" onSubmit={handleSubmit(onSubmit)}>
             <div className="mb-2">
                 <label className="block text-sm font-medium text-gray-700" htmlFor="">Email</label>
-                <input required className="w-full mt-1 block rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-sky-500 sm:text-sm" type="text" {...register('email')} />
+                <input required className="w-full mt-1 block rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-sky-500 sm:text-sm" type="email" {...register('email')} />
                 {errors.email?.message && <ErrorText text={errors.email?.message}/>}
             </div>
 
@@ -53,10 +61,4 @@ async function getLogin(data: FormSchemaType) {
     res.status === 200 ? console.log('success') : console.log('error')
 }
 
-const ErrorText: FC<{text: string}> = ({ text }) => {
-    return (
-        <p className="mt-1 text-sm text-red-500">{text}</p>
-    )
-}
 
-export {LoginForm, ErrorText}
