@@ -9,7 +9,7 @@ import { api } from "../utils/api";
 const Home: NextPage = () => {
 
     const uppdrag = api.uppdrag.getCurrentYearUppdrag.useQuery({ year: 2023 });
-    const isMK = false;
+    const isMK = useIsMK();
 
     return (
         <>
@@ -19,20 +19,20 @@ const Home: NextPage = () => {
                         <input className="px-4 py-2 w-full h-15 border-none placeholder-[#737373] text-2xl" type="text" placeholder="Sök.." name="search" />
                     </div>
                 </div>
-                <div className="overflow-x-auto">
-                    <table className="w-full text-sm text-left text-black">
-                        <thead className="text-xl text-[#737373] bg-white border-b-2 border-black">
-                            <tr className="text-xl font-sans">
-                                <th className="py-4" scope="col">Nolluppdrag</th>
-                                <th className="py-4" scope="col">NollK</th>
-                                <th className="py-4" scope="col">Status</th>
-                                <th className="py-4" scope="col">Övrigt</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {uppdrag.data ? <AssignmentData data={uppdrag.data}/> : <tr><td>Loading...</td></tr> }
-                        </tbody>
-                    </table>
+                <div className="overflow-y-auto flex flex-rows-2">
+                    <div className="w-full text-sm text-left text-black row-span-1">
+                        <div className="text-xl text-[#737373] bg-white border-b-2 border-black">
+                            <div className="text-xl flex flex-column-4">
+                                <p className="column-span-1">Nolluppdrag</p>
+                                <p className="column-span-1">NollK</p>
+                                <p className="column-span-1">Status</p>
+                                <p className="column-span-1">Övrigt</p>
+                            </div>
+                        </div>
+                     <div className="row-span-1">
+                            {uppdrag.data ? <AssignmentData data={uppdrag.data}/> : <p>Loading...</p> }
+                    </div>
+                    </div>
                 </div>
                 {isMK ? null :
                     (<div className="absolute bottom-4 right-8 ">
