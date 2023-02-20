@@ -8,6 +8,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { ErrorText } from "../../components/ErrorText";
 import { api } from "../../utils/api";
+import { useRouter } from "next/router";
 
 export const uppdragCreateSchema = z.object({
     year: z.number().min(4),
@@ -24,9 +25,16 @@ export const uppdragCreateSchema = z.object({
 type FormSchemaType = z.infer<typeof uppdragCreateSchema>;
 
 const NewUppdrag: NextPage = () => {
-    const createUppdrag = api.uppdrag.create.useMutation();
+    const router = useRouter();
+    const utils = api.useContext();
+    const createUppdrag = api.uppdrag.create.useMutation({
+        onSettled: async () => {
+            await utils.uppdrag.invalidate();
+            reset()
+        }
+    });
 
-    const { register, handleSubmit, formState: { errors }, } = useForm<FormSchemaType>({
+    const { register, handleSubmit, formState: { errors }, reset } = useForm<FormSchemaType>({
         resolver: zodResolver(uppdragCreateSchema),
         defaultValues: {
             year: 2023,
@@ -36,7 +44,8 @@ const NewUppdrag: NextPage = () => {
     });
 
     const onSubmit: SubmitHandler<FormSchemaType> = (data) => {
-        createUppdrag.mutate(data);
+        createUppdrag.mutate(data)
+        void router.push('/home');
     };
 
     return (
@@ -45,6 +54,7 @@ const NewUppdrag: NextPage = () => {
                     <h1 className="text-4xl text-left text-black font-bold">Skapa nytt uppdrag</h1>
                 </div>
                 <div className="max-w-[75%] min-w-[50%]">
+                    {/* eslint-disable-next-line @typescript-eslint/no-misused-promises*/}
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <input id="assignmentTitle" className="rounded-2xl w-full block p-3.5 text-xl bg-white border border-gray-300 focus:ring-mk-blue focus:border-mk-blue resize-none" placeholder="Titel" {...register('title')} />
                         {errors.title?.message && <ErrorText text={errors.title?.message}/>}
