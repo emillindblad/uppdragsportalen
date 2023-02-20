@@ -28,7 +28,7 @@ const Home: NextPage = () => {
                 <div className="overflow-y-auto flex flex-rows-2">
                     <div className="w-full text-sm text-left text-black row-span-1">
                         <div className="text-xl text-[#737373] bg-white border-b-2 border-black">
-                            <div className="text-xl flex flex-column-4">
+                            <div className="text-m flex flex-column-4">
                                 <p className="column-span-1">Nolluppdrag</p>
                                 <p className="column-span-1">NollK</p>
                                 <p className="column-span-1">Status</p>
