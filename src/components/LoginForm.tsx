@@ -5,6 +5,7 @@ import { type  FC } from 'react';
 import * as z from 'zod';
 import Link from 'next/link';
 import { signIn } from 'next-auth/react';
+import { ErrorText } from './ErrorText';
 
 const schema = z.object({
     email: z.string().email({message: 'Vänligen skriv in din email'}),
@@ -18,7 +19,7 @@ type FormSchemaType = z.infer<typeof schema>;
 
 const LoginForm: FC = () => {
     const { register, handleSubmit, formState: { errors }, } = useForm<FormSchemaType>({ resolver: zodResolver(schema), });
-    const onSubmit: SubmitHandler<FormSchemaType> = async (data) => { 
+    const onSubmit: SubmitHandler<FormSchemaType> = async (data) => {
         await signIn('credentials', {callbackUrl: "/home", email: data.email, password: data.password })
 
     };
@@ -60,10 +61,4 @@ async function getLogin(data: FormSchemaType) {
     res.status === 200 ? console.log('success') : console.log('error')
 }
 
-const ErrorText: FC<{text: string}> = ({ text }) => {
-    return (
-        <p className="mt-1 text-sm text-red-500">{text}</p>
-    )
-}
 
-export {LoginForm, ErrorText}
