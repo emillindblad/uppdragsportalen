@@ -4,7 +4,9 @@ import { type SubmitHandler } from 'react-hook-form';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { ErrorText } from "../components/LoginForm";
+import { ErrorText } from "../components/ErrorText";
+import { useSession } from "next-auth/react";
+import { api } from "../utils/api";
 
 const schema = z.object({
     fullname: z.string().min(3, { message: 'Vänligen skriv in ditt för och efternamn!' }),
@@ -19,12 +21,16 @@ const User: NextPage = () => {
     const { register, handleSubmit, formState: { errors }, } = useForm<FormSchemaType>({ resolver: zodResolver(schema), });
     const onSubmit: SubmitHandler<FormSchemaType> = data => console.log(data);
 
+    const { data: session } = useSession();
+
+    const user = api.user.getUser.useQuery({ id: session?.user?.id as string });
+
 
     return (
         <>
             <MainPage title={"Mottagningskommittén"}>
                 <div className="m-12">
-                    <h1 className="my-2 text-mk-blue text-6xl font-bold drop-shadow-lg">Hej *insert name here*!</h1>
+                    <h1 className="my-2 text-mk-blue text-6xl font-bold drop-shadow-lg">Hej {user.data?.name}!</h1>
                     <p className="text-2xl">Om du vill ändra dina uppgifter kan du göra det här!</p>
                 </div>
                 <form className='my-20' onSubmit={handleSubmit(onSubmit)}>
