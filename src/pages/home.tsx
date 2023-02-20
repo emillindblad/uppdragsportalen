@@ -1,20 +1,26 @@
 import { type NextPage } from "next";
+
+import { signOut, useSession } from "next-auth/react";
+import { NextRequest } from "next/server";
+
 import Link from "next/link";
+
 import AssignmentData from "../components/AssignmentData";
 import MainPage from "../components/MainPage";
 import useIsMK from "../hooks/useIsMK";
 import { api } from "../utils/api";
 
-
 const Home: NextPage = () => {
 
-    const uppdrag = api.uppdrag.getCurrentYearUppdrag.useQuery({ year: 2023 });
-    const isMK = useIsMK();
+    const {data: session} = useSession();
 
+    const uppdrag = api.uppdrag.getByYear.useQuery({ year: 2023 });
+    const isMK = useIsMK();
     return (
         <>
             <MainPage title={"Mottagningskommittén"}>
                 <div className="my-4">
+                    <p>{JSON.stringify(session)}</p>
                     <div className="border-b-2 border-gray-300 overflow-hidden">
                         <input className="px-4 py-2 w-full h-15 border-none placeholder-[#737373] text-2xl" type="text" placeholder="Sök.." name="search" />
                     </div>
@@ -36,7 +42,7 @@ const Home: NextPage = () => {
                 </div>
                 {isMK ? null :
                     (<div className="absolute bottom-4 right-8 ">
-                        <Link href="/newAssignment">
+                        <Link href="/uppdrag/newuppdrag">
                             <button className="bg-mk-blue hover:bg-sky-900 text-white rounded-full p-3 " type="button">
                                 <svg className="fill-white w-8 h-8" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
                                     <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"></path>

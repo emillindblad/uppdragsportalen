@@ -1,23 +1,9 @@
-import { prisma } from "../src/server/db"
+import bcrypt from "bcrypt";
+import { prisma } from "../src/server/db";
 
 async function main() {
     await prisma.uppdrag.deleteMany({})
-
-    await prisma.uppdrag.create({
-        data: {
-            id: '123456789',
-            year: 1969,
-            nollk: 'MK',
-            title: 'Secret MK uppdrag',
-            desc: 'MK fick för sig att göra ett uppdrag',
-            place: 'Macken',
-            time: 'LP2',
-            participants: 1000,
-            motivation: 'Mycket bra',
-            private: false
-        },
-    })
-
+    await prisma.user.deleteMany({})
 
     await prisma.uppdrag.create({
         data: {
@@ -117,7 +103,18 @@ async function main() {
         },
     })
 
+    const samplePassword = await bcrypt.hash("1234",10)
 
+    await prisma.user.create({
+        data: {
+            name: 'Dadi Andrason',
+            email: 'pr@mk.chs.chalmers.se',
+            password: samplePassword,
+            nollk: 'MK',
+            year: 2023,
+            accepted: true
+        },
+    })
 }
 
 main()

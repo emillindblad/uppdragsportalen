@@ -1,8 +1,9 @@
 import { z } from "zod";
-import { createTRPCRouter, publicProcedure } from "../trpc";
+import { uppdragCreateSchema } from "../../../pages/uppdrag/newuppdrag";
+import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
 
 export const uppdragrouter = createTRPCRouter({
-    getCurrentYearUppdrag: publicProcedure
+    getByYear: protectedProcedure
     .input(z.object({ year: z.number() }))
     .query(({ ctx, input }) => {
         return ctx.prisma.uppdrag.findMany({
@@ -10,11 +11,11 @@ export const uppdragrouter = createTRPCRouter({
         });
     }),
 
-    getAllUppdrag: publicProcedure.query(({ ctx }) => {
+    getAll: protectedProcedure.query(({ ctx }) => {
         return ctx.prisma.uppdrag.findMany();
     }),
 
-    getUppdragFromId: publicProcedure
+    getById: protectedProcedure
     .input(z.object({ id: z.string() }))
     .query(({ ctx, input }) => {
         return ctx.prisma.uppdrag.findUnique({
@@ -22,19 +23,30 @@ export const uppdragrouter = createTRPCRouter({
         });
     }),
 
-    demoRemoveUppdrag: publicProcedure
-    .input(z.object({ nollk: z.string() }))
+    delete: protectedProcedure
+    .input(z.object({ id: z.string() }))
     .mutation(({ ctx, input }) => {
-        return ctx.prisma.uppdrag.deleteMany({
-            where: { nollk: input.nollk }
+        return ctx.prisma.uppdrag.delete({
+            where: { id: input.id }
         })
+    }),
+
+    add: protectedProcedure
+    .input(uppdragCreateSchema)
+    .mutation(({ ctx, input }) => {
+        return ctx.prisma.uppdrag.create({
+            data: {
+                year: input.year,
+                nollk: input.nollk,
+                title: input.title,
+                place: input.place,
+                time: input.time,
+                participants: input.participants,
+                desc: input.desc,
+                motivation: input.motivation,
+                private: input.private
+            }
+        });
     })
-
-
-    //addUppdrag: publicProcedure.query(({ ctx }) => {
-    //return ctx.prisma.uppdrag.create({
-    //data: undefined
-    //})
-    //})
 
 });
