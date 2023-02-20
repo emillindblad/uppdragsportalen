@@ -31,7 +31,7 @@ export const uppdragrouter = createTRPCRouter({
         })
     }),
 
-    add: protectedProcedure
+    create: protectedProcedure
     .input(uppdragCreateSchema)
     .mutation(({ ctx, input }) => {
         return ctx.prisma.uppdrag.create({
