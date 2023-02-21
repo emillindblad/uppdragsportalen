@@ -8,14 +8,14 @@ import Link from "next/link";
 import AssignmentData from "../components/AssignmentData";
 import MainPage from "../components/MainPage";
 import { api } from "../utils/api";
-import useIsMK from "../hooks/useIsMK";
+import IsMK from "../utils/IsMK";
 
 const Home: NextPage = () => {
 
     const {data: session} = useSession();
 
     const uppdrag = api.uppdrag.getByYear.useQuery({ year: 2023 });
-    const isMK = useIsMK()
+    const isMK = IsMK()
     return (
         <>
             <MainPage title={"Mottagningskommittén"}>
@@ -25,20 +25,20 @@ const Home: NextPage = () => {
                         <input className="px-4 py-2 w-full h-15 border-none placeholder-[#737373] text-2xl" type="text" placeholder="Sök.." name="search" />
                     </div>
                 </div>
-                <div className="overflow-x-auto">
-                    <table className="w-full text-sm text-left text-black">
-                        <thead className="text-xl text-[#737373] bg-white border-b-2 border-black">
-                            <tr>
-                                <th className="py-4" scope="col">Nolluppdrag</th>
-                                <th className="py-4" scope="col">NollK</th>
-                                <th className="py-4" scope="col">Status</th>
-                                <th className="py-4" scope="col">Övrigt</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {uppdrag.data ? <AssignmentData data={uppdrag.data} /> : <tr><td>Loading...</td></tr>}
-                        </tbody>
-                    </table>
+                <div className="overflow-y-auto">
+                    <div className="w-full text-left text-black">
+                        <div className="text-xl text-[#737373] bg-white">
+                            <div className="text-xl grid grid-cols-5 justify-between border-b-2 border-gray-300">
+                                <p className="col-span-2 ml-4 mb-2">Namn på uppdrag</p>
+                                {/* <p className="col-span-1">NollK</p> */}
+                                <p className="col-span-1">Status</p>
+                                <p className="col-span-2">Övrigt</p>
+                            </div>
+                        </div>
+                     <div className="border-b-2 border-gray-300">
+                            {uppdrag.data ? <AssignmentData data={uppdrag.data}/> : <p>Loading...</p> }
+                    </div>
+                    </div>
                 </div>
                 {isMK ? null :
                     (<div className="absolute bottom-4 right-8 ">

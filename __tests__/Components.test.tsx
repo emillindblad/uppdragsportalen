@@ -16,14 +16,14 @@ test('home', () => {
 
 describe("SideMenu isMk=true/false", () => {
     test("should show buttons for MK all the time", () => {
-        render(<SideMenu isMK = {true}/>);
+        render(<SideMenu/>);
         const sideMenu = within(screen.getByRole('navigation'))
         expect(sideMenu.getByRole('button', { name: /Granska/i })).toBeDefined()
         expect(sideMenu.getByRole('button', { name: /Konton/i })).toBeDefined()
     })
 
     test("should show buttons for NollK all the time", () => {
-        render(<SideMenu isMK = {false}/>);
+        render(<SideMenu/>);
         const sideMenu = within(screen.getByRole('navigation'))
         expect(sideMenu.getByRole('button', { name: /Mina nolluppdrag/i })).toBeDefined()
         expect(sideMenu.getByRole('button', { name: /Arkiv/i })).toBeDefined()
@@ -59,10 +59,9 @@ describe("AssignmentData", () => {
 
     test("Should print info about a Uppdrag for anyone viewing", () => {
         render(<AssignmentData data={testInfo}/>);
-        const page = within(screen.getByRole('row'));
-        expect(page.getByRole('cell', {name: /NollKIT/i})).toBeDefined();
-        expect(page.getByRole('cell', {name: /Hängigt uppdrag/i})).toBeDefined();
-        expect(page.getByRole('cell', {name: /Sven hittar säkert på något som blir rent av nekat/i})).toBeDefined();
-        expect(page.getByRole('cell', {name: /false/i})).toBeDefined();
+        const page = within(screen.getByRole('assignments'));
+        expect(page.getByText(/Hängigt uppdrag/i)).toBeDefined();
+        expect(page.getByText(/Sven hittar säkert på något som blir rent av nekat/i)).toBeDefined();
+        expect(page.getByText(/false/i)).toBeDefined();
     })
 })
