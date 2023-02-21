@@ -1,7 +1,7 @@
 import { type NextPage } from "next"
 import Head from "next/head"
 import Link from "next/link";
-import { LoginForm } from "../components/LoginForm";
+import LoginForm from "../components/LoginForm";
 import Navbar from "../components/Navbar";
 import Page from "../components/Page";
 

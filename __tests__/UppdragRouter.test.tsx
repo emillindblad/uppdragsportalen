@@ -36,7 +36,7 @@ describe('uppdrag', async () => {
 
     const caller = appRouter.createCaller(ctx);
 
-    const input: RouterInputs["uppdrag"]["add"] = {
+    const input: RouterInputs["uppdrag"]["create"] = {
         year: 2023,
         nollk: 'test',
         title: 'test',
@@ -48,7 +48,7 @@ describe('uppdrag', async () => {
         private: false
     }
 
-    const uppdrag = await caller.uppdrag.add(input)
+    const uppdrag = await caller.uppdrag.create(input)
     const uppdragById = await caller.uppdrag.getById({ id: uppdrag.id })
 
     test("fetch by year", async () => {

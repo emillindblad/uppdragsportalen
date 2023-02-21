@@ -1,6 +1,6 @@
 import SideMenu from "../components/SideMenu";
 import Head from "next/head";
-import useIsMK from "../hooks/useIsMK"
+import useIsMK from "../utils/IsMK"
 
 interface MainPageProps {
     title: React.ReactNode,

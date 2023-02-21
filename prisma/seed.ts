@@ -115,6 +115,16 @@ async function main() {
             accepted: true
         },
     })
+    await prisma.user.create({
+        data: {
+            name: 'Emil Lindblad',
+            email: 'uppdrag.nollkit@chalmers.it',
+            password: samplePassword,
+            nollk: 'NollKIT',
+            year: 2023,
+            accepted: true
+        },
+    })
 }
 
 main()

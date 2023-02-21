@@ -9,13 +9,14 @@ import AssignmentData from "../components/AssignmentData";
 import MainPage from "../components/MainPage";
 import useIsMK from "../hooks/useIsMK";
 import { api } from "../utils/api";
+import IsMK from "../utils/IsMK";
 
 const Home: NextPage = () => {
 
     const {data: session} = useSession();
 
     const uppdrag = api.uppdrag.getByYear.useQuery({ year: 2023 });
-    const isMK = useIsMK();
+    const isMK = IsMK()
     return (
         <>
             <MainPage title={"Mottagningskommittén"}>
