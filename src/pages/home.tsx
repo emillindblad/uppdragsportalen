@@ -25,17 +25,17 @@ const Home: NextPage = () => {
                         <input className="px-4 py-2 w-full h-15 border-none placeholder-[#737373] text-2xl" type="text" placeholder="Sök.." name="search" />
                     </div>
                 </div>
-                <div className="overflow-y-auto flex flex-rows-2">
-                    <div className="w-full text-sm text-left text-black row-span-1">
-                        <div className="text-xl text-[#737373] bg-white border-b-2 border-black">
-                            <div className="text-m flex flex-column-4">
-                                <p className="column-span-1">Nolluppdrag</p>
-                                <p className="column-span-1">NollK</p>
-                                <p className="column-span-1">Status</p>
-                                <p className="column-span-1">Övrigt</p>
+                <div className="overflow-y-auto">
+                    <div className="w-full text-left text-black">
+                        <div className="text-xl text-[#737373] bg-white">
+                            <div className="text-xl grid grid-cols-5 justify-between border-b-2 border-gray-300">
+                                <p className="col-span-2 ml-4 mb-2">Namn på uppdrag</p>
+                                {/* <p className="col-span-1">NollK</p> */}
+                                <p className="col-span-1">Status</p>
+                                <p className="col-span-2">Övrigt</p>
                             </div>
                         </div>
-                     <div className="row-span-1">
+                     <div className="border-b-2 border-gray-300">
                             {uppdrag.data ? <AssignmentData data={uppdrag.data}/> : <p>Loading...</p> }
                     </div>
                     </div>
