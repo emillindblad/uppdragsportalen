@@ -1,5 +1,4 @@
 import { type NextPage } from "next";
-
 import { signOut, useSession } from "next-auth/react";
 import { NextRequest } from "next/server";
 import Link from "next/link";
@@ -11,33 +10,45 @@ import { useState, useEffect } from "react";
 import { Uppdrag } from "@prisma/client";
 
 
-// function to sort data in table
-function sortUppdragInTable(attribute : String, reversed = 1) {
-    return function(a : Uppdrag, b : Uppdrag) {
-        return (
-            a[attribute as keyof typeof a] > b[attribute as keyof typeof b] ? 1 : -1) * reversed
-    }
-}
-
 
 const Home: NextPage = () => {
 
+    const [sortStatus, setsortStatus] = useState<'none' | 'asc' | 'des'>();
     const [uppdragData, setUppdragData] = useState<Uppdrag[] | undefined>();
     const uppdrag = api.uppdrag.getByYear.useQuery({ year: 2023 });
-
-    useEffect(() => {
-        setUppdragData(uppdrag.data)
-    },[uppdrag.data]);
-    
     const {data: session} = useSession();
-    
     const isMK = IsMK()
 
-    // Sort a given row, i.e. row 'title'
-    function sortRow(row : string) {
-        return (
-            uppdragData ? [...uppdragData].sort(sortUppdragInTable(row)) : undefined
-        )
+    useEffect(() => {
+        setUppdragData(uppdrag.data),
+        setsortStatus('none')
+    },[uppdrag.data, 'none']);
+
+    // Sort table 
+    function sortUppdragInTable(attribute : String, order=1) {
+        return function(a : Uppdrag, b : Uppdrag) {
+            return (a[attribute as keyof typeof a] > b[attribute as keyof typeof b] ? order : -order)
+        }
+    }
+
+    // Order by status
+    function orderRow(row : string) {
+        let order;
+
+        if (sortStatus === 'none') {
+            setsortStatus('asc');
+            order = 1;
+        }
+        else if (sortStatus === 'asc') {
+            setsortStatus('des');
+            order = -1;
+        }
+        else {
+            setsortStatus('none');
+            return uppdrag.data;
+        }
+
+        return uppdragData ? [...uppdragData].sort(sortUppdragInTable(row, order)) : undefined
     }
 
     return (
@@ -53,10 +64,10 @@ const Home: NextPage = () => {
                     <div className="w-full text-left text-black">
                         <div className="text-xl text-[#737373] bg-white">
                             <div className="text-xl grid grid-cols-5 justify-between border-b-2 border-gray-300">
-                                <p onClick={() => setUppdragData(sortRow('title'))} className="col-span-1 ml-4 mb-2 hover:cursor-pointer">Namn på uppdrag</p>
-                                <p onClick={() => setUppdragData(sortRow('time'))} className="col-span-1 hover:cursor-pointer">Tid</p>
-                                <p onClick={() => setUppdragData(sortRow('status'))} className="col-span-1 hover:cursor-pointer">Status</p>
-                                <p onClick={() => setUppdragData(sortRow('desc'))} className="col-span-2 hover:cursor-pointer">Övrigt</p>
+                                <p onClick={() => setUppdragData(orderRow('title'))} className="col-span-1 ml-4 mb-2 hover:cursor-pointer">Namn på uppdrag</p>
+                                <p onClick={() => setUppdragData(orderRow('time'))} className="col-span-1 hover:cursor-pointer">Tid</p>
+                                <p onClick={() => setUppdragData(orderRow('status'))} className="col-span-1 hover:cursor-pointer">Status</p>
+                                <p onClick={() => setUppdragData(orderRow('desc'))} className="col-span-2 hover:cursor-pointer">Övrigt</p>
                                 {/* <p className="col-span-1">NollK</p> */}
                             </div>
                         </div>
