@@ -2,20 +2,39 @@ import { type NextPage } from "next";
 
 import { signOut, useSession } from "next-auth/react";
 import { NextRequest } from "next/server";
-
 import Link from "next/link";
-
 import AssignmentData from "../components/AssignmentData";
 import MainPage from "../components/MainPage";
 import { api } from "../utils/api";
 import IsMK from "../utils/IsMK";
+import { useState, useEffect } from "react";
+import { Uppdrag } from "@prisma/client";
+
+function sortData(attribute : String, reversed = 1) {
+    return function(a : Uppdrag, b : Uppdrag) {
+        return (
+            a[attribute as keyof typeof a] < b[attribute as keyof typeof b] ? -1 : 1) * reversed
+    }
+}
+
 
 const Home: NextPage = () => {
 
-    const {data: session} = useSession();
-
+    const [uppdragData, setUppdragData] = useState<Uppdrag[] | undefined>();
     const uppdrag = api.uppdrag.getByYear.useQuery({ year: 2023 });
+
+    useEffect(() => {
+        setUppdragData(uppdrag.data)
+    },[uppdrag.data]);
+    
+    const {data: session} = useSession();
+    
     const isMK = IsMK()
+
+    const sortedTitles = uppdrag.data ? [...uppdrag.data].sort(sortData("title")) : undefined;
+    const sortedStatus = uppdrag.data ? [...uppdrag.data].sort(sortData("status")) : undefined;
+    const sortedDesc = uppdrag.data ? [...uppdrag.data].sort(sortData("desc")) : undefined;
+
     return (
         <>
             <MainPage title={"Mottagningskommittén"}>
@@ -29,14 +48,14 @@ const Home: NextPage = () => {
                     <div className="w-full text-left text-black">
                         <div className="text-xl text-[#737373] bg-white">
                             <div className="text-xl grid grid-cols-5 justify-between border-b-2 border-gray-300">
-                                <p className="col-span-2 ml-4 mb-2">Namn på uppdrag</p>
+                                <p onClick={() => setUppdragData(sortedTitles)} className="col-span-2 ml-4 mb-2">Namn på uppdrag</p>
                                 {/* <p className="col-span-1">NollK</p> */}
-                                <p className="col-span-1">Status</p>
-                                <p className="col-span-2">Övrigt</p>
+                                <p onClick={() => setUppdragData(sortedStatus)} className="col-span-1">Status</p>
+                                <p onClick={() => setUppdragData(sortedDesc)} className="col-span-2">Övrigt</p>
                             </div>
                         </div>
                      <div className="border-b-2 border-gray-300">
-                            {uppdrag.data ? <AssignmentData data={uppdrag.data}/> : <p>Loading...</p> }
+                            {uppdragData ? <AssignmentData data={uppdragData}/> : (uppdrag.data ? <AssignmentData data={uppdrag.data}/> : <p>Hittar ej databasen</p>) }
                     </div>
                     </div>
                 </div>
