@@ -7,7 +7,6 @@ import Link from "next/link";
 
 import AssignmentData from "../components/AssignmentData";
 import MainPage from "../components/MainPage";
-import useIsMK from "../hooks/useIsMK";
 import { api } from "../utils/api";
 import IsMK from "../utils/IsMK";
 
