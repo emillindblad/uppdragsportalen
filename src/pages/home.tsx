@@ -12,8 +12,10 @@ import { Uppdrag } from "@prisma/client";
 
 
 const Home: NextPage = () => {
+    // Usestate hook for sorting table of Uppdrag
+    let [sortStateIndex, setSortStateIndex] = useState<number>(0);
+    const sortStates: (number | undefined)[] = [undefined, 1, -1]; // unsorted, ascending, descending
 
-    const [sortStatus, setsortStatus] = useState<number>();
     const [uppdragData, setUppdragData] = useState<Uppdrag[] | undefined>();
     const uppdrag = api.uppdrag.getByYear.useQuery({ year: 2023 });
     const {data: session} = useSession();
@@ -21,19 +23,25 @@ const Home: NextPage = () => {
 
     useEffect(() => {
         setUppdragData(uppdrag.data),
-        setsortStatus(undefined)
-    },[uppdrag.data, undefined]);
+        setSortStateIndex(1)
+    },[uppdrag.data, 1]);
 
     // Sort table 
-    function sortUppdragInTable(attribute: String, sortStatus: number) {
+    function sortUppdragInTable(attribute: String, order: number) {
         return function(a: Uppdrag, b: Uppdrag) {
-            return (a[attribute as keyof typeof a] > b[attribute as keyof typeof b] ? sortStatus : -sortStatus)
+            return (a[attribute as keyof typeof a] > b[attribute as keyof typeof b] ? order : -order)
         }
     }
 
-    // Order by status
+    // Order the rows by given status (unordered -> asecending -> descending)
     function orderRow(row: string) {
-        setsortStatus(-1 ? -1 : undefined); //case s of 0 = 1, 1 = 0, 0 = undefined
+        setSortStateIndex((sortStateIndex + 1) % sortStates.length);
+        let sortStatus = sortStates[sortStateIndex];
+
+        if (sortStatus === undefined) {
+            return uppdrag.data;
+        }
+
         return uppdragData ? [...uppdragData].sort(sortUppdragInTable(row, sortStatus)) : undefined;
     }
 
@@ -71,8 +79,7 @@ const Home: NextPage = () => {
                                 </svg>
                             </button>
                         </Link>
-                    </div>)
-                }
+                    </div>)}
             </MainPage>
         </>
     );
