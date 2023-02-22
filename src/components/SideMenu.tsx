@@ -18,10 +18,9 @@ const SideMenu = (
 //hook useLocation
     return (
         <>
-        <nav className="col-span-1 bg-mk-blue my-auto rounded-3xl grid grid-rows-5 h-full min-w-[300px]">
+        <nav className="col-span-1 bg-mk-blue my-auto rounded-3xl grid grid-rows-5 h-full min-w-[300px] max-h-[900px]">
             <div className="flex m-5 row-span-1 mb-7 flex-wrap">
                 <Link href="/login" className="col-span-1 ms-2">
-                {/* Hardcoded image values, replace later */}
                 <Image src={itLogo} height="60" width="60" alt="" className="max-w-[60px] mr-4 mb-2" />
                 </Link>
                 <div className="items-start min-w-[150px]">

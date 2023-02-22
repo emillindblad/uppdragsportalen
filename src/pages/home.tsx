@@ -35,7 +35,7 @@ const Home: NextPage = () => {
                                 <p className="col-span-2">Övrigt</p>
                             </div>
                         </div>
-                     <div className="border-b-2 border-gray-300">
+                     <div className="border-b-2 border-gray-300 max-h-[800px] overflow-y-scroll">
                             {uppdrag.data ? <AssignmentData data={uppdrag.data}/> : <p>Loading...</p> }
                     </div>
                     </div>
