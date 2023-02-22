@@ -1,21 +1,16 @@
 import { type NextPage } from "next";
-
-import { signOut, useSession } from "next-auth/react";
-import { NextRequest } from "next/server";
-
+import { useSession } from "next-auth/react";
 import Link from "next/link";
-
 import AssignmentData from "../components/AssignmentData";
 import MainPage from "../components/MainPage";
 import { api } from "../utils/api";
-import IsMK from "../utils/IsMK";
 
 const Home: NextPage = () => {
 
     const {data: session} = useSession();
 
     const uppdrag = api.uppdrag.getByYear.useQuery({ year: 2023 });
-    const isMK = IsMK()
+    const {data: isMK} = api.user.getUserStatus.useQuery();
     return (
         <>
             <MainPage title={"Mottagningskommittén"}>

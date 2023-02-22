@@ -8,4 +8,9 @@ export const userrouter = createTRPCRouter({
         });
     }),
 
+    getUserStatus: protectedProcedure
+    .query(({ ctx }) => {
+        return ctx.session.user.isAdmin;
+    }),
+
 });
