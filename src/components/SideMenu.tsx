@@ -4,7 +4,7 @@ import itLogo from "../../public/img/it-logo.png";
 import Link from "next/link";
 import { useState } from "react";
 import { signOut } from "next-auth/react";
-import IsMK from "../utils/IsMK";
+import { api } from "../utils/api";
 
 
 
@@ -12,7 +12,7 @@ import IsMK from "../utils/IsMK";
 const SideMenu = (
 ) => {
     const [activeButtonIndex, setActiveButtonIndex] = useState(0);
-    const isMK = IsMK();
+    const { data: isMK } = api.user.getUserStatus.useQuery();
 
 //TODO En check på vilken sida man är inne på (kan typ också va en hook) och setActiveButtonIndex därefter
 //hook useLocation

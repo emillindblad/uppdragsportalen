@@ -14,7 +14,7 @@ test("unauthed should not be able to fetch uppdrag", async () => {
 })
 
 describe('uppdrag', async () => {
-    const user = await prisma.user.upsert({
+    const dummyUser = await prisma.user.upsert({
         where: { email: "test@test.com" },
         create: {
             name: "test",
@@ -29,7 +29,7 @@ describe('uppdrag', async () => {
 
     const ctx = createInnerTRPCContext({
         session: {
-            user,
+            user: {...dummyUser, isAdmin: dummyUser.nollk === "MK" },
             expires: "1",
         },
     });

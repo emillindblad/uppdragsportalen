@@ -11,6 +11,7 @@ import { Uppdrag } from "@prisma/client";
 
 
 
+
 const Home: NextPage = () => {
     // Usestate hook for sorting table of Uppdrag
     const [sortStateIndex, setSortStateIndex] = useState<number>(0);
@@ -18,8 +19,8 @@ const Home: NextPage = () => {
 
     const [uppdragData, setUppdragData] = useState<Uppdrag[] | undefined>();
     const uppdrag = api.uppdrag.getByYear.useQuery({ year: 2023 });
+    const {data: isMK} = api.user.getUserStatus.useQuery();
     const {data: session} = useSession();
-    const isMK = IsMK()
 
     useEffect(() => {
         setUppdragData(uppdrag.data),
