@@ -4,13 +4,15 @@ import itLogo from "../../public/img/it-logo.png";
 import Link from "next/link";
 import { useState } from "react";
 import { signOut } from "next-auth/react";
+import { api } from "../utils/api";
 
-interface MenuProps {
-    isMK : boolean
-};
 
-const SideMenu = (props: MenuProps) => {
+
+
+const SideMenu = (
+) => {
     const [activeButtonIndex, setActiveButtonIndex] = useState(0);
+    const { data: isMK } = api.user.getUserStatus.useQuery();
 
 //TODO En check på vilken sida man är inne på (kan typ också va en hook) och setActiveButtonIndex därefter
 //hook useLocation
@@ -29,7 +31,7 @@ const SideMenu = (props: MenuProps) => {
             </div>
 
             <div className="grid grid-rows-4 items-center mx-8 mt-5 row-span-2">
-                {props.isMK ?
+                {isMK ?
                     (<SideButton link={'home'}>
                         Granska
                     </SideButton>) :
@@ -37,13 +39,13 @@ const SideMenu = (props: MenuProps) => {
                         Mina nolluppdrag
                     </SideButton>)
                 }
-                {props.isMK ?
-                    (<SideButton link={'accounts'}>
-                        Konton
-                    </SideButton >) :
-                    (<SideButton link={'accounts'}>
-                        Arkiv
-                    </SideButton>)
+                {isMK ?
+                (<SideButton link={'accounts'}>
+                    Konton
+                </SideButton >) :
+                (<SideButton link={'accounts'}>
+                Arkiv
+                 </SideButton>)
                 }
                 <SideButton link={'login'}>
                     Chalmers nolluppdrag

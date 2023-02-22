@@ -1,13 +1,8 @@
 import { z } from "zod";
-import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
+import { createTRPCRouter, protectedProcedure } from "../trpc";
 import { hashPw } from "../../hash";
 
 export const userrouter = createTRPCRouter({
-    getAdmins: protectedProcedure.query(({ ctx }) => {
-        return ctx.prisma.user.findMany({
-            where: { nollk: "MK" }
-        });
-    }),
     getUser: protectedProcedure
     .input(z.object({ id: z.string() }))
     .query(({ ctx, input }) => {
@@ -15,6 +10,7 @@ export const userrouter = createTRPCRouter({
             where: { id: input.id }
         });
     }),
+
     updateNameEmail: protectedProcedure
     .input(z.object({ id: z.string(), name: z.string(), email: z.string() }))
     .mutation(({ ctx, input }) => {
@@ -26,7 +22,7 @@ export const userrouter = createTRPCRouter({
             }
         });
     }),
-    
+
     updateAllInfo: protectedProcedure
     .input(z.object({ id: z.string(), name: z.string(), email: z.string(), password: z.string() }))
     .mutation(async ({ ctx, input }) => {
@@ -40,6 +36,12 @@ export const userrouter = createTRPCRouter({
             }
         });
     }),
+
+    getUserStatus: protectedProcedure
+    .query(({ ctx }) => {
+        return ctx.session.user.isAdmin;
+    }),
+
 });
 
 
