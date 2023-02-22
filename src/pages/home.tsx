@@ -13,7 +13,7 @@ import { Uppdrag } from "@prisma/client";
 
 const Home: NextPage = () => {
 
-    const [sortStatus, setsortStatus] = useState<'none' | 'asc' | 'des'>();
+    const [sortStatus, setsortStatus] = useState<number>();
     const [uppdragData, setUppdragData] = useState<Uppdrag[] | undefined>();
     const uppdrag = api.uppdrag.getByYear.useQuery({ year: 2023 });
     const {data: session} = useSession();
@@ -21,34 +21,20 @@ const Home: NextPage = () => {
 
     useEffect(() => {
         setUppdragData(uppdrag.data),
-        setsortStatus('none')
-    },[uppdrag.data, 'none']);
+        setsortStatus(undefined)
+    },[uppdrag.data, undefined]);
 
     // Sort table 
-    function sortUppdragInTable(attribute : String, order=1) {
-        return function(a : Uppdrag, b : Uppdrag) {
-            return (a[attribute as keyof typeof a] > b[attribute as keyof typeof b] ? order : -order)
+    function sortUppdragInTable(attribute: String, sortStatus: number) {
+        return function(a: Uppdrag, b: Uppdrag) {
+            return (a[attribute as keyof typeof a] > b[attribute as keyof typeof b] ? sortStatus : -sortStatus)
         }
     }
 
     // Order by status
-    function orderRow(row : string) {
-        let order;
-
-        if (sortStatus === 'none') {
-            setsortStatus('asc');
-            order = 1;
-        }
-        else if (sortStatus === 'asc') {
-            setsortStatus('des');
-            order = -1;
-        }
-        else {
-            setsortStatus('none');
-            return uppdrag.data;
-        }
-
-        return uppdragData ? [...uppdragData].sort(sortUppdragInTable(row, order)) : undefined
+    function orderRow(row: string) {
+        setsortStatus(-1 ? -1 : undefined); //case s of 0 = 1, 1 = 0, 0 = undefined
+        return uppdragData ? [...uppdragData].sort(sortUppdragInTable(row, sortStatus)) : undefined;
     }
 
     return (
@@ -72,7 +58,7 @@ const Home: NextPage = () => {
                             </div>
                         </div>
                         <div className="border-b-2 border-gray-300">
-                            {uppdragData ? <AssignmentData data={uppdragData}/> : <p>Hittar ej databasen</p> }
+                            {uppdragData ? <AssignmentData data={uppdragData}/> : <p>Loading...</p> }
                         </div>
                     </div>
                 </div>
