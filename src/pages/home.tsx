@@ -13,7 +13,7 @@ import { Uppdrag } from "@prisma/client";
 
 const Home: NextPage = () => {
     // Usestate hook for sorting table of Uppdrag
-    let [sortStateIndex, setSortStateIndex] = useState<number>(0);
+    const [sortStateIndex, setSortStateIndex] = useState<number>(0);
     const sortStates: (number | undefined)[] = [undefined, 1, -1]; // unsorted, ascending, descending
 
     const [uppdragData, setUppdragData] = useState<Uppdrag[] | undefined>();
@@ -24,10 +24,10 @@ const Home: NextPage = () => {
     useEffect(() => {
         setUppdragData(uppdrag.data),
         setSortStateIndex(1)
-    },[uppdrag.data, 1]);
+    },[uppdrag.data]);
 
-    // Sort table 
-    function sortUppdragInTable(attribute: String, order: number) {
+    // Sort table
+    function sortUppdragInTable(attribute: string, order: number) {
         return function(a: Uppdrag, b: Uppdrag) {
             return (a[attribute as keyof typeof a] > b[attribute as keyof typeof b] ? order : -order)
         }
@@ -36,7 +36,7 @@ const Home: NextPage = () => {
     // Order the rows by given status (unordered -> asecending -> descending)
     function orderRow(row: string) {
         setSortStateIndex((sortStateIndex + 1) % sortStates.length);
-        let sortStatus = sortStates[sortStateIndex];
+        const sortStatus = sortStates[sortStateIndex];
 
         if (sortStatus === undefined) {
             return uppdrag.data;
