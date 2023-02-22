@@ -1,15 +1,11 @@
 import { type NextPage } from "next";
-import { signOut, useSession } from "next-auth/react";
-import { NextRequest } from "next/server";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 import AssignmentData from "../components/AssignmentData";
 import MainPage from "../components/MainPage";
 import { api } from "../utils/api";
-import IsMK from "../utils/IsMK";
 import { useState, useEffect } from "react";
-import { Uppdrag } from "@prisma/client";
-
-
+import type { Uppdrag } from "@prisma/client";
 
 
 const Home: NextPage = () => {
