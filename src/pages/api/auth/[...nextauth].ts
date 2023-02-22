@@ -65,7 +65,6 @@ export const authOptions: NextAuthOptions = {
                 session.user.id = token.id as string;
                 session.user.isAdmin = token.isAdmin as boolean;
             }
-            console.log(session)
             return session;
         },
         async jwt({ token, user }) {
