@@ -11,8 +11,8 @@ import { api } from "../utils/api";
 const schema = z.object({
     fullname: z.string().min(3, { message: 'Vänligen skriv in ditt för och efternamn!' }),
     email: z.string().email({ message: 'Vänligen skriv in din email!' }),
-    password: z.optional(z.string()),
-    confirm: z.optional(z.string()),
+    password: z.optional(z.string().min(1, { message: 'Vänligen skriv in ditt lösenord!' })),
+    confirm: z.optional(z.string().min(1, { message: 'Vänligen bekräfta ditt lösenord!' })),
 }).refine((data) => data.password === data.confirm, {
     message: "Lösenorden matchar inte!",
     path: ["confirm"],
@@ -34,11 +34,11 @@ const User: NextPage = () => {
     const onSubmit: SubmitHandler<FormSchemaType> = (data) => {
         console.log(session?.user?.id)
         if (!(data.password && data.confirm)) {
-            nameMut.mutate({ id: session?.user?.id as string, name: data.fullname, email: data.email })
-            refetchInfo()
+            nameMut.mutate({ id: session?.user?.id as string, name: data.fullname, email: data.email });
+            void refetchInfo();
         } else {
-            passMut.mutate({ id: session?.user?.id as string, name: data.fullname, email: data.email, password: data.password });;
-            refetchInfo()
+            passMut.mutate({ id: session?.user?.id as string, name: data.fullname, email: data.email, password: data.password });
+            void refetchInfo();
         }
 
     };
@@ -50,6 +50,7 @@ const User: NextPage = () => {
                     <h1 className="my-2 text-mk-blue text-6xl font-bold drop-shadow-lg">Hej {user?.name}!</h1>
                     <p className="text-2xl">Om du vill ändra dina uppgifter kan du göra det här!</p>
                 </div>
+                {/*eslint-disable-next-line @typescript-eslint/no-misused-promises */}
                 <form className='my-20' onSubmit={handleSubmit(onSubmit)}>
                     <div className='flex flex-row justify-evenly my-12 flex-wrap'>
                         <div className="flex flex-col min-w-[200px] w-[40%] my-12">
@@ -59,11 +60,11 @@ const User: NextPage = () => {
                         </div>
                         <div className='flex flex-col w-[40%] min-w-[200px] my-12'>
                             <label className="text-l" htmlFor="email">E-mail:</label>
-                            <input required 
-                                className="p-4 rounded-lg bg-slate-50 focus:border-red-400 border transition-all" 
-                                defaultValue={user?.email} 
-                                placeholder='Email' type="email" id="email" 
-                                {...register('email')} 
+                            <input required
+                                className="p-4 rounded-lg bg-slate-50 focus:border-red-400 border transition-all"
+                                defaultValue={user?.email}
+                                placeholder='Email' type="email" id="email"
+                                {...register('email')}
                             />
                             {errors.email?.message && <ErrorText text={errors.email?.message} />}
                         </div>
@@ -79,9 +80,10 @@ const User: NextPage = () => {
                         </div>
                     </div>
                     <div className="flex justify-end m-12">
-                        <div className='max-w-[200px] bg-mk-yellow hover:bg-sky-900 text-white text-center font-bold text-xl py-5 px-6 rounded-2xl'>
-                            <button className='text-white' type="submit">Submit</button>
-                        </div>
+                        <button
+                            className='max-w-[200px] bg-mk-yellow hover:bg-sky-900 text-white text-center font-bold text-xl py-5 px-6 rounded-2xl'
+                            type="submit">Submit
+                        </button>
                     </div>
                 </form>
 
