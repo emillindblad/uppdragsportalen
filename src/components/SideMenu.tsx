@@ -3,16 +3,21 @@ import Image from "next/image";
 import itLogo from "../../public/img/it-logo.png";
 import Link from "next/link";
 import { useState } from "react";
-import { signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import { api } from "../utils/api";
 
 
 
 
-const SideMenu = (
-) => {
+const SideMenu = () => {
     const [activeButtonIndex, setActiveButtonIndex] = useState(0);
     const { data: isMK } = api.user.getUserStatus.useQuery();
+
+    const { data: session } = useSession();
+
+    const {data: nollk} = api.user.getUserNollk.useQuery({ id: session?.user?.id as string });
+
+
 
 //TODO En check på vilken sida man är inne på (kan typ också va en hook) och setActiveButtonIndex därefter
 //hook useLocation
@@ -22,11 +27,11 @@ const SideMenu = (
             <div className="flex m-5 row-span-1 mb-7 flex-wrap">
                 <Link href="/login" className="col-span-1 ms-2">
                 {/* Hardcoded image values, replace later */}
-                <Image src={itLogo} height="60" width="60" alt="" className="max-w-[60px] mr-4 mb-2" />
+                <Image src={`/img/${nollk?.nollk}.png`} height="60" width="60" alt={`${nollk?.nollk}`} className="max-w-[60px] mr-4 mb-2" />
                 </Link>
                 <div className="items-start min-w-[150px]">
-                <p className=" text-white font-bold text-lg tracking-wide">Julia Böckert</p>
-                <p className=" text-white text-s font-semibold tracking-wide">phadder.nollkit@chalmers.it</p>
+                <p className=" text-white font-bold text-lg tracking-wide">{session?.user?.name}</p>
+                <p className=" text-white text-s font-semibold tracking-wide">{session?.user?.email}</p>
                 </div>
             </div>
 

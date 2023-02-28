@@ -4,12 +4,21 @@ import { hashPw } from "../../hash";
 
 export const userrouter = createTRPCRouter({
     getUser: protectedProcedure
-        .input(z.object({ id: z.string() }))
-        .query(({ ctx, input }) => {
-            return ctx.prisma.user.findFirst({
-                where: { id: input.id }
-            });
-        }),
+    .input(z.object({ id: z.string() }))
+    .query(({ ctx, input }) => {
+        return ctx.prisma.user.findFirst({
+            where: { id: input.id }
+        });
+    }),
+
+    getUserNollk: protectedProcedure
+    .input(z.object({ id: z.string() }))
+    .query(({ ctx, input }) => {
+        return ctx.prisma.user.findFirst({
+            where: { id: input.id },
+            select: { nollk: true }
+        });
+    }),
 
     updateNameEmail: protectedProcedure
         .input(z.object({ id: z.string(), name: z.string(), email: z.string() }))
