@@ -54,7 +54,7 @@ export const authOptions: NextAuthOptions = {
 
                 return {
                     name: userData.name,
-                    email: userData.name,
+                    email: userData.email,
                     id: userData.id,
                     isAdmin: userData.nollk === "MK"
                 };
