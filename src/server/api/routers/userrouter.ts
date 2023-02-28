@@ -83,7 +83,7 @@ export const userrouter = createTRPCRouter({
     }),
     getAllAcceptedUsers: protectedProcedure.query(({ ctx }) => {
         return ctx.prisma.user.findMany({
-            where: { accepted: true }
+            where: { accepted: true, nollk: {not: "MK"}},
         });
     }),
 
