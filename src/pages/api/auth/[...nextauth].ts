@@ -38,6 +38,10 @@ export const authOptions: NextAuthOptions = {
                     return null
                 }
 
+                if (!userData.accepted) {
+                    return null
+                }
+
                 const isValidPass = bcrypt.compareSync(
                     credentials.password,
                     userData.password
