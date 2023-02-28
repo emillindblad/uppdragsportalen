@@ -56,6 +56,31 @@ export const userrouter = createTRPCRouter({
                 }
             });
         }),
+
+    getAllUsersPreAccept: protectedProcedure.query(({ ctx }) => {
+        return ctx.prisma.user.findMany({
+            where: { accepted: false }
+        });
+    }),
+
+    acceptUser: protectedProcedure
+        .input(z.object({ id: z.string() }))
+        .mutation(({ ctx, input }) => {
+            return ctx.prisma.user.update({
+                where: { id: input.id },
+                data: {
+                    accepted: true
+                }
+            });
+    }),
+
+    rejectUser: protectedProcedure
+        .input(z.object({ id: z.string() }))
+        .mutation(({ ctx, input }) => {
+            return ctx.prisma.user.delete({
+                where: { id: input.id }
+            });
+    }),
 });
 
 
