@@ -1,34 +1,44 @@
 import type { NextPage } from "next";
-import React from "react";
+import React, { useEffect } from "react";
 import MainPage from "../components/MainPage";
 import { api } from "../utils/api";
 
 const Accounts: NextPage = () => {
 
-    const { data: pendingUsers } = api.user.getAllUsersPendingAccept.useQuery();
-    const { data: allUsers } = api.user.getAllAcceptedUsers.useQuery();
+
+    const { data: pendingUsers, refetch: refetchPending } = api.user.getAllUsersPendingAccept.useQuery(undefined,{
+        refetchOnWindowFocus: false,
+    });
+    const { data: allUsers, refetch: refetchAccepted } = api.user.getAllAcceptedUsers.useQuery(undefined, {
+        refetchOnWindowFocus: false,
+    });
 
     const acceptMutation = api.user.acceptUser.useMutation();
-    const rejectMutation = api.user.rejectUser.useMutation();
     const deleteMutation = api.user.deleteUser.useMutation();
+
+    const refetchData = () => {
+        void refetchPending()
+        void refetchAccepted()
+    }
 
     const acceptUser = (id: string) => {
         acceptMutation.mutate({ id: id });
-        console.log("accepted", id);
-    }
-
-    const rejectUser = (id: string) => {
-        rejectMutation.mutate({ id: id });
-        console.log("rejected", id);
-    }
+    };
 
     const deleteUser = (id: string) => {
         deleteMutation.mutate({ id: id });
-        console.log("deleted", id);
-    }
+    };
 
-
-    console.log(pendingUsers)
+    useEffect(() => {
+        if (acceptMutation.isSuccess || deleteMutation.isSuccess) {
+            console.log("succ",acceptMutation.status)
+            console.log("succ",deleteMutation.status)
+            console.log("Refetching data")
+            refetchData()
+        }
+            console.log(acceptMutation.status)
+            console.log(deleteMutation.status)
+    })
 
     return (
         <>
@@ -55,15 +65,15 @@ const Accounts: NextPage = () => {
                                     :
                                     <div className="flex justify-between flex-row">
                                         {/* checkmark */}
-                                        <div onClick={() => rejectUser(u.id)} className="cursor-pointer rounded-md p-1 m-1 transition-colors bg-red-400 hover:bg-red-700">No</div>
+                                        <div onClick={() => deleteUser(u.id)} className="cursor-pointer rounded-md p-1 m-1 transition-colors bg-red-400 hover:bg-red-700">No</div>
                                         {/* xmark */}
                                         <div onClick={() => acceptUser(u.id)} className="cursor-pointer rounded-md p-1 m-1 transition-colors bg-green-400 hover:bg-green-700">Yes</div>
                                     </div>}
                             </div>
 
                         </div>
-                    )
-                })
+                        )
+                    })
                 }
                 <div className="grid grid-cols-4 mx-4 text-left text-xl border-b-2 border-gray-300">
                     <div className="flex-initial my-2 font-bold col-span-1">Email</div>

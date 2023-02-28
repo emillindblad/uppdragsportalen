@@ -32,7 +32,6 @@ const User: NextPage = () => {
 
     const { register, handleSubmit, formState: { errors }, } = useForm<FormSchemaType>({ resolver: zodResolver(schema), });
     const onSubmit: SubmitHandler<FormSchemaType> = (data) => {
-        console.log(session?.user?.id)
         if (!(data.password && data.confirm)) {
             nameMut.mutate({ id: session?.user?.id as string, name: data.fullname, email: data.email });
             void refetchInfo();
