@@ -57,7 +57,7 @@ export const userrouter = createTRPCRouter({
             });
         }),
 
-    getAllUsersPreAccept: protectedProcedure.query(({ ctx }) => {
+    getAllUsersPendingAccept: protectedProcedure.query(({ ctx }) => {
         return ctx.prisma.user.findMany({
             where: { accepted: false }
         });
@@ -75,6 +75,19 @@ export const userrouter = createTRPCRouter({
     }),
 
     rejectUser: protectedProcedure
+        .input(z.object({ id: z.string() }))
+        .mutation(({ ctx, input }) => {
+            return ctx.prisma.user.delete({
+                where: { id: input.id }
+            });
+    }),
+    getAllAcceptedUsers: protectedProcedure.query(({ ctx }) => {
+        return ctx.prisma.user.findMany({
+            where: { accepted: true }
+        });
+    }),
+
+    deleteUser: protectedProcedure
         .input(z.object({ id: z.string() }))
         .mutation(({ ctx, input }) => {
             return ctx.prisma.user.delete({
