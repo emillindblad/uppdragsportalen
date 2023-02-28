@@ -66,6 +66,7 @@ const Register: NextPage = () => {
                 <div className='m-4'>
                 Registreringen går till så att du först fyller i några uppgifter om dig själv, därefter kommer informationen att granskas av MK (för att verifiera att du sitter i årets NollK). När detta är färdigt kan du logga in och utnyttja de tjänster som Uppdragsportalen har att erbjuda.
                 </div>
+                {/*eslint-disable-next-line @typescript-eslint/no-misused-promises */}
                 <form className='m-12' onSubmit={handleSubmit(onSubmit)}>
                     <div className='flex flex-row justify-evenly my-4 flex-wrap'>
                         <div className="flex flex-col min-w-[200px] w-[40%] m-2">
