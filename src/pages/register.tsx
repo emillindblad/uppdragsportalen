@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import type { NextPage } from 'next';
 import Navbar from '../components/Navbar';
 import Page from '../components/Page';
@@ -61,7 +58,7 @@ const Register: NextPage = () => {
         await handleMutation(data);
     };
 
-    
+
     return (
         <>
             <Navbar></Navbar>
@@ -101,9 +98,10 @@ const Register: NextPage = () => {
                         </div>
                     </div>
                     <div className="flex justify-end m-12">
-                        <div className='max-w-[200px] bg-mk-yellow hover:bg-sky-900 text-white text-center font-bold text-xl py-5 px-6 rounded-2xl'>
-                            <button className='text-white' type="submit">Submit</button>
-                        </div>
+                        <button
+                            className='max-w-[200px] bg-mk-yellow hover:bg-sky-900 text-white text-center font-bold text-xl py-5 px-6 rounded-2xl'
+                            type="submit">Submit
+                        </button>
                     </div>
                 </form>
             </Page>
