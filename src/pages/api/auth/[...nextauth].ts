@@ -12,7 +12,6 @@ export const authOptions: NextAuthOptions = {
     secret: env.NEXTAUTH_SECRET,
     pages: {
         signIn: "/login",
-        newUser: "/register",
         error: "/login",
     },
     providers: [
@@ -39,6 +38,10 @@ export const authOptions: NextAuthOptions = {
                     return null
                 }
 
+                if (!userData.accepted) {
+                    return null
+                }
+
                 const isValidPass = bcrypt.compareSync(
                     credentials.password,
                     userData.password
@@ -51,7 +54,7 @@ export const authOptions: NextAuthOptions = {
 
                 return {
                     name: userData.name,
-                    email: userData.name,
+                    email: userData.email,
                     id: userData.id,
                     isAdmin: userData.nollk === "MK"
                 };

@@ -15,6 +15,14 @@ export async function middleware(request: NextRequest) {
         console.log('redirecting')
         return NextResponse.redirect(new URL('/login', request.url))
     }
+
+
+    if (request.nextUrl.pathname.startsWith('/accounts')) {
+        if (token.isAdmin) {
+            return NextResponse.next()
+        }
+        return NextResponse.redirect(new URL('/home', request.url))
+    }
 }
 
 // See "Matching Paths" below to learn more
