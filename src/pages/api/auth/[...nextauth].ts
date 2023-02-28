@@ -12,7 +12,6 @@ export const authOptions: NextAuthOptions = {
     secret: env.NEXTAUTH_SECRET,
     pages: {
         signIn: "/login",
-        newUser: "/register",
         error: "/login",
     },
     providers: [
@@ -36,6 +35,10 @@ export const authOptions: NextAuthOptions = {
                 })
 
                 if (!userData) {
+                    return null
+                }
+
+                if (!userData.accepted) {
                     return null
                 }
 
