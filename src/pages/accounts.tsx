@@ -7,14 +7,15 @@ const Accounts: NextPage = () => {
 
     const { data: users } = api.user.getAllUsersPreAccept.useQuery();
 
+    const acceptMutation = api.user.acceptUser.useMutation();
+    const rejectMutation = api.user.rejectUser.useMutation();
+
     const acceptUser = (id: string) => {
-        const acceptMutation = api.user.acceptUser.useMutation();
         acceptMutation.mutate({ id: id });
         console.log("accepted", id);
     }
 
     const rejectUser = (id: string) => {
-        const rejectMutation = api.user.rejectUser.useMutation();
         rejectMutation.mutate({ id: id });
         console.log("rejected", id);
     }
