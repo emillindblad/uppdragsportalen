@@ -60,65 +60,84 @@ const NewUppdrag: NextPage = () => {
     };
 
     return (
-            <MainPage title={"Nytt uppdrag"}>
-                <div className="border-b-2 border-black p-2 my-4">
+        <MainPage title={"Nytt uppdrag"}>
+            <div className="flex flex-col h-full justify-between pt-6">
+                <div className="border-b-2 border-black pb-2 mb-6">
                     <h1 className="text-4xl text-left text-black font-bold">Skapa nytt uppdrag</h1>
                 </div>
-                <div className="max-w-[75%] min-w-[50%]">
+                <div className="max-w-[75%] h-full">
                     {/* eslint-disable-next-line @typescript-eslint/no-misused-promises*/}
-                    <form onSubmit={handleSubmit(onSubmit)}>
-                        <input id="assignmentTitle" className="rounded-2xl w-full block p-3.5 text-xl bg-white border border-gray-300 focus:ring-mk-blue focus:border-mk-blue resize-none" placeholder="Titel" {...register('title')} />
-                        {errors.title?.message && <ErrorText text={errors.title?.message}/>}
-                        <div className="flex mt-6 gap-4">
-                            <input
-                                id="assignmentPlace"
-                                className="rounded-2xl w-full block p-3.5 text-xl bg-white border border-gray-300 focus:ring-mk-blue focus:border-mk-blue resize-none"
-                                placeholder="Plats"
-                                {...register('place')}
+                    <form className="flex flex-col justify-between h-full" onSubmit={handleSubmit(onSubmit)}>
+                        <div>
+                            <div>
+                                <input
+                                    id="assignmentTitle"
+                                    type="text"
+                                    className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                    placeholder="Titel"
+                                    {...register('title')} />
+                                {errors.title?.message && <ErrorText text={errors.title?.message}/>}
+                            </div>
+                            <div className="flex items-stretch mt-6 gap-4">
+                                <div className="w-full">
+                                    <input
+                                        id="assignmentPlace"
+                                        type="text"
+                                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                        placeholder="Plats"
+                                        {...register('place')}
+                                    />
+                                    {errors.place?.message && <ErrorText text={errors.place?.message}/>}
+                                </div>
+                                <div className="w-full">
+                                    <input
+                                        id="assignmentTime"
+                                        type="text"
+                                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                        placeholder="Tid"
+                                        {...register('time')}
+                                    />
+                                    {errors.time?.message && <ErrorText text={errors.time?.message}/>}
+                                </div>
+                                <div className="w-full">
+                                    <input
+                                        type="number"
+                                        id="assignmentParticipants"
+                                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                        placeholder="Antal deltagare"
+                                        {...register('participants', { valueAsNumber: true })}
+                                    />
+                                    {errors.participants?.message && <ErrorText text={errors.participants?.message}/>}
+                                </div>
+                            </div>
+                            <textarea
+                                id="assignmentDesc"
+                                className="mt-6 block h-[15vh] w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                placeholder="Beskrivning"
+                                {...register('desc')}
                             />
-                            {errors.place?.message && <ErrorText text={errors.place?.message}/>}
-                            <input
-                                id="assignmentTime"
-                                className="rounded-2xl w-full block p-3.5 text-xl bg-white border border-gray-300 focus:ring-mk-blue focus:border-mk-blue resize-none"
-                                placeholder="Tid"
-                                {...register('time')}
+                            {errors.desc?.message && <ErrorText text={errors.desc?.message}/>}
+                            <textarea
+                                id="assignmentMotivation"
+                                //className="mt-6 h-[15vh] w-full flex-1 rounded-2xl block p-3.5 text-xl bg-white border border-gray-300 focus:ring-mk-blue focus:border-mk-blue resize-none"
+                                className="mt-6 block h-[15vh] w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                placeholder="Motivering"
+                                {...register('motivation')}
                             />
-                            {errors.time?.message && <ErrorText text={errors.time?.message}/>}
-                            <input
-                                type="number"
-                                id="assignmentParticipants"
-                                className="rounded-2xl w-full block p-3.5 text-xl bg-white border border-gray-300 focus:ring-mk-blue focus:border-mk-blue resize-none"
-                                placeholder="Antal deltagare"
-                                {...register('participants', { valueAsNumber: true })}
-                            />
-                            {errors.participants?.message && <ErrorText text={errors.participants?.message}/>}
+                            {errors.motivation?.message && <ErrorText text={errors.motivation?.message}/>}
+                            <div className="mt-6">
+                                <input
+                                    id="privpub"
+                                    className="h-4 w-4 rounded border-gray-300 text-mk-blue focus:ring-mk-blue"
+                                    type="checkbox"
+                                    placeholder="Privat/Publikt"
+                                    {...register('private')}
+                                />
+                                {errors.private?.message && <ErrorText text={errors.private?.message}/>}
+                                <label htmlFor="privpub" className="ml-3 select-none text-l text-gray-600">Privat/Publikt</label>
+                            </div>
                         </div>
-                        <textarea
-                            id="assignmentDesc"
-                            className="mt-6 h-[35vh] w-full flex-1 rounded-2xl block p-3.5 text-xl bg-white border border-gray-300 focus:ring-mk-blue focus:border-mk-blue resize-none"
-                            placeholder="Beskrivning"
-                            {...register('desc')}
-                        />
-                        {errors.desc?.message && <ErrorText text={errors.desc?.message}/>}
-                        <textarea
-                            id="assignmentMotivation"
-                            className="mt-6 h-[15vh] w-full flex-1 rounded-2xl block p-3.5 text-xl bg-white border border-gray-300 focus:ring-mk-blue focus:border-mk-blue resize-none"
-                            placeholder="Motivering"
-                            {...register('motivation')}
-                        />
-                        {errors.motivation?.message && <ErrorText text={errors.motivation?.message}/>}
-                        <div className="mt-6">
-                            <input
-                                id="privpub"
-                                className="h-4 w-4 rounded border-gray-300 text-mk-blue focus:ring-mk-blue"
-                                type="checkbox"
-                                placeholder="Privat/Publikt"
-                                {...register('private')}
-                            />
-                        {errors.private?.message && <ErrorText text={errors.private?.message}/>}
-                            <label htmlFor="privpub" className="ml-3 select-none text-l text-gray-600">Privat/Publikt</label>
-                        </div>
-                        <div className="flex justify-between mt-6 bottom-10 bg-green-100">
+                        <div className="flex justify-between mt-6 mb-4">
                             <div className="">
                                 <Link href="/home">
                                     <button className="bg-mk-yellow hover:bg-mk-yellow-hover text-white text-lg rounded-2xl font-bold px-6 py-2" type="button">Tillbaka</button>
@@ -131,9 +150,11 @@ const NewUppdrag: NextPage = () => {
                                 <input className="bg-mk-blue hover:bg-mk-blue-hover text-white text-lg rounded-2xl font-bold px-6 py-2" type="submit" value="Skicka in"/>
                             </div>
                         </div>
+
                     </form>
                 </div>
-            </MainPage>
+            </div>
+        </MainPage>
     );
 };
 
