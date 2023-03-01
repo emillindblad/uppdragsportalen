@@ -39,7 +39,7 @@ const NewUppdrag: NextPage = () => {
     const { register, handleSubmit, formState: { errors }, reset } = useForm<FormSchemaType>({
         resolver: zodResolver(uppdragCreateSchema),
         defaultValues: {
-            year: 2023,
+            year: session?.user.year,
             nollk: "NollKIT",
             private: false
         }
