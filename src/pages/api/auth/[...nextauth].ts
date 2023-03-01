@@ -53,9 +53,11 @@ export const authOptions: NextAuthOptions = {
                 }
 
                 return {
+                    id: userData.id,
                     name: userData.name,
                     email: userData.email,
-                    id: userData.id,
+                    nollk: userData.nollk,
+                    year: userData.year,
                     isAdmin: userData.nollk === "MK"
                 };
 
@@ -66,6 +68,10 @@ export const authOptions: NextAuthOptions = {
         async session({ session, token }) {
             if (token && session.user) {
                 session.user.id = token.id as string;
+                session.user.name = token.name as string;
+                session.user.email = token.email as string;
+                session.user.nollk = token.nollk as string;
+                session.user.year = token.year as number;
                 session.user.isAdmin = token.isAdmin as boolean;
             }
             return session;
@@ -75,6 +81,8 @@ export const authOptions: NextAuthOptions = {
                 token.id = user.id;
                 token.email = user.email;
                 token.name = user.name;
+                token.nollk = user.nollk;
+                token.year = user.year;
                 token.isAdmin = user.isAdmin;
             }
             return token;

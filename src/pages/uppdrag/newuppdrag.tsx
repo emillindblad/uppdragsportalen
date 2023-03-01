@@ -9,6 +9,7 @@ import * as z from 'zod';
 import { ErrorText } from "../../components/ErrorText";
 import { api } from "../../utils/api";
 import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
 
 export const uppdragCreateSchema = z.object({
     year: z.number().min(4),
@@ -25,6 +26,7 @@ export const uppdragCreateSchema = z.object({
 type FormSchemaType = z.infer<typeof uppdragCreateSchema>;
 
 const NewUppdrag: NextPage = () => {
+    const { data: session } = useSession();
     const router = useRouter();
     const utils = api.useContext();
     const createUppdrag = api.uppdrag.create.useMutation({
