@@ -61,10 +61,7 @@ const NewUppdrag: NextPage = () => {
     };
 
     const submitDraft: SubmitHandler<FormSchemaType> = (data) => {
-<<<<<<< HEAD
         // TODO Draft submission
-=======
->>>>>>> 38009be0ac5f68566e726286970e5f5eaa83adc4
         console.log(data)
         render(<p>Hej</p>,document.getElementById('__next'))
     };
