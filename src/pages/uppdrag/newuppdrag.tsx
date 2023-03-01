@@ -1,4 +1,4 @@
-import type { NextPage } from "next";
+import type { GetServerSideProps, NextPage } from "next";
 import Link from "next/link";
 import MainPage from "../../components/MainPage";
 
@@ -10,6 +10,7 @@ import { ErrorText } from "../../components/ErrorText";
 import { api } from "../../utils/api";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
+import { getServerAuthSession } from "../../server/auth";
 
 export const uppdragCreateSchema = z.object({
     year: z.number().min(4),
@@ -25,8 +26,16 @@ export const uppdragCreateSchema = z.object({
 
 type FormSchemaType = z.infer<typeof uppdragCreateSchema>;
 
+export const getServerSideProps: GetServerSideProps = async ( ctx ) => {
+    const session = await getServerAuthSession(ctx);
+    return {
+        props: { session },
+    }
+}
+
 const NewUppdrag: NextPage = () => {
     const { data: session } = useSession();
+
     const router = useRouter();
     const utils = api.useContext();
     const createUppdrag = api.uppdrag.create.useMutation({
@@ -39,13 +48,13 @@ const NewUppdrag: NextPage = () => {
     const { register, handleSubmit, formState: { errors }, reset } = useForm<FormSchemaType>({
         resolver: zodResolver(uppdragCreateSchema),
         defaultValues: {
-            year: session?.user.year,
-            nollk: "NollKIT",
-            private: false
+            year: session?.user.year as number,
+            nollk: session?.user.nollk as string,
         }
     });
 
     const onSubmit: SubmitHandler<FormSchemaType> = (data) => {
+        console.log("form data",data)
         createUppdrag.mutate(data)
         void router.push('/home');
     };
@@ -61,19 +70,56 @@ const NewUppdrag: NextPage = () => {
                         <input id="assignmentTitle" className="rounded-2xl w-full block p-3.5 text-xl bg-white border border-gray-300 focus:ring-mk-blue focus:border-mk-blue resize-none" placeholder="Titel" {...register('title')} />
                         {errors.title?.message && <ErrorText text={errors.title?.message}/>}
                         <div className="flex mt-6 gap-4">
-                            <input id="assignmentPlace" className="rounded-2xl w-full block p-3.5 text-xl bg-white border border-gray-300 focus:ring-mk-blue focus:border-mk-blue resize-none" placeholder="Plats" {...register('place')} />
+                            <input
+                                id="assignmentPlace"
+                                className="rounded-2xl w-full block p-3.5 text-xl bg-white border border-gray-300 focus:ring-mk-blue focus:border-mk-blue resize-none"
+                                placeholder="Plats"
+                                {...register('place')}
+                            />
                             {errors.place?.message && <ErrorText text={errors.place?.message}/>}
-                            <input id="assignmentTime" className="rounded-2xl w-full block p-3.5 text-xl bg-white border border-gray-300 focus:ring-mk-blue focus:border-mk-blue resize-none" placeholder="Tid" {...register('time')} />
+                            <input
+                                id="assignmentTime"
+                                className="rounded-2xl w-full block p-3.5 text-xl bg-white border border-gray-300 focus:ring-mk-blue focus:border-mk-blue resize-none"
+                                placeholder="Tid"
+                                {...register('time')}
+                            />
                             {errors.time?.message && <ErrorText text={errors.time?.message}/>}
-                            <input type="number" id="assignmentParticipants" className="rounded-2xl w-full block p-3.5 text-xl bg-white border border-gray-300 focus:ring-mk-blue focus:border-mk-blue resize-none" placeholder="Antal deltagare" {...register('participants', { valueAsNumber: true })} />
+                            <input
+                                type="number"
+                                id="assignmentParticipants"
+                                className="rounded-2xl w-full block p-3.5 text-xl bg-white border border-gray-300 focus:ring-mk-blue focus:border-mk-blue resize-none"
+                                placeholder="Antal deltagare"
+                                {...register('participants', { valueAsNumber: true })}
+                            />
                             {errors.participants?.message && <ErrorText text={errors.participants?.message}/>}
                         </div>
-                        <textarea id="assignmentDesc" className="mt-6 h-[40vh] w-full flex-1 rounded-2xl block p-3.5 text-xl bg-white border border-gray-300 focus:ring-mk-blue focus:border-mk-blue resize-none" placeholder="Beskrivning" {...register('desc')} />
+                        <textarea
+                            id="assignmentDesc"
+                            className="mt-6 h-[35vh] w-full flex-1 rounded-2xl block p-3.5 text-xl bg-white border border-gray-300 focus:ring-mk-blue focus:border-mk-blue resize-none"
+                            placeholder="Beskrivning"
+                            {...register('desc')}
+                        />
                         {errors.desc?.message && <ErrorText text={errors.desc?.message}/>}
-                        <textarea id="assignmentMotivation" className="mt-6 h-[15vh] w-full flex-1 rounded-2xl block p-3.5 text-xl bg-white border border-gray-300 focus:ring-mk-blue focus:border-mk-blue resize-none" placeholder="Motivering" {...register('motivation')} />
+                        <textarea
+                            id="assignmentMotivation"
+                            className="mt-6 h-[15vh] w-full flex-1 rounded-2xl block p-3.5 text-xl bg-white border border-gray-300 focus:ring-mk-blue focus:border-mk-blue resize-none"
+                            placeholder="Motivering"
+                            {...register('motivation')}
+                        />
                         {errors.motivation?.message && <ErrorText text={errors.motivation?.message}/>}
-                        <div className="relative bottom-10">
-                            <div className="absolute bottom-3 left-0">
+                        <div className="mt-6">
+                            <input
+                                id="privpub"
+                                className="h-4 w-4 rounded border-gray-300 text-mk-blue focus:ring-mk-blue"
+                                type="checkbox"
+                                placeholder="Privat/Publikt"
+                                {...register('private')}
+                            />
+                        {errors.private?.message && <ErrorText text={errors.private?.message}/>}
+                            <label htmlFor="privpub" className="ml-3 select-none text-l text-gray-600">Privat/Publikt</label>
+                        </div>
+                        <div className="flex justify-between mt-6 bottom-10 bg-green-100">
+                            <div className="">
                                 <Link href="/home">
                                     <button className="bg-mk-yellow hover:bg-mk-yellow-hover text-white text-lg rounded-2xl font-bold px-6 py-2" type="button">Tillbaka</button>
                                 </Link>
@@ -81,7 +127,7 @@ const NewUppdrag: NextPage = () => {
                                     <button className="  bg-mk-blue hover:bg-mk-blue-hover text-white text-lg rounded-2xl font-bold px-6 py-2" type="button">Spara</button>
                                 </Link>
                             </div>
-                            <div className="absolute bottom-3 right-0">
+                            <div className=" justify-self-end ">
                                 <input className="bg-mk-blue hover:bg-mk-blue-hover text-white text-lg rounded-2xl font-bold px-6 py-2" type="submit" value="Skicka in"/>
                             </div>
                         </div>
