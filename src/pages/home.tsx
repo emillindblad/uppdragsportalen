@@ -20,12 +20,13 @@ const Home: NextPage = () => {
         <>
             <MainPage title={"Mottagningskommittén"}>
                 <div className="my-4">
-                    <p>{JSON.stringify(session)}</p>
+                    {/* <p>{JSON.stringify(session)}</p> */}
                     <div className="border-b-2 border-gray-300 overflow-hidden">
                         <input className="px-4 py-2 w-full h-15 border-none placeholder-[#737373] text-2xl" type="text" placeholder="Sök.." name="search" />
                     </div>
                 </div>
-                <div className="overflow-y-auto">
+                {/* overflow-y-auto */}
+                <div className="overflow-y-auto  h-[96vh]"> 
                     <div className="w-full text-left text-black">
                         <div className="text-xl text-[#737373] bg-white">
                             <div className="text-xl grid grid-cols-5 justify-between border-b-2 border-gray-300">
@@ -35,7 +36,8 @@ const Home: NextPage = () => {
                                 <p className="col-span-2">Övrigt</p>
                             </div>
                         </div>
-                     <div className="border-b-2 border-gray-300 max-h-[800px] overflow-y-scroll">
+                        {/*  overflow-y-scroll */}
+                     <div className="border-b-2 border-gray-300">
                             {uppdrag.data ? <AssignmentData data={uppdrag.data}/> : <p>Loading...</p> }
                     </div>
                     </div>

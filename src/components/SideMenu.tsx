@@ -18,45 +18,49 @@ const SideMenu = (
 //hook useLocation
     return (
         <>
-        <nav className="col-span-1 bg-mk-blue my-auto rounded-3xl grid grid-rows-5 h-full min-w-[300px] max-h-[900px]">
-            <div className="flex m-5 row-span-1 mb-7 flex-wrap">
-                <Link href="/login" className="col-span-1 ms-2">
-                <Image src={itLogo} height="60" width="60" alt="" className="max-w-[60px] mr-4 mb-2" />
-                </Link>
-                <div className="items-start min-w-[150px]">
-                <p className=" text-white font-bold text-lg tracking-wide">Julia Böckert</p>
-                <p className=" text-white text-s font-semibold tracking-wide">phadder.nollkit@chalmers.it</p>
+        <nav className="col-span-1 bg-mk-blue rounded-3xl min-w-[300px] h-[100vh]">
+            <div className="grid grid-rows-4">
+                <div className="flex m-5 row-span-1 mb-7 flex-wrap">
+                    <Link href="/login" className="col-span-1 ms-2">
+                    <Image src={itLogo} height="60" width="60" alt="" className="max-w-[60px] mr-4 mb-2" />
+                    </Link>
+                    <div className="items-start min-w-[150px]">
+                    <p className=" text-white font-bold text-lg tracking-wide">Julia Böckert</p>
+                    <p className=" text-white text-s font-semibold tracking-wide">phadder.nollkit@chalmers.it</p>
+                    </div>
                 </div>
-            </div>
 
-            <div className="grid grid-rows-4 items-center mx-8 mt-5 row-span-2">
-                {isMK ?
-                    (<SideButton link={'home'}>
-                        Granska
-                    </SideButton>) :
-                    (<SideButton link={'home'}>
-                        Mina nolluppdrag
+                <div className="grid grid-rows-4 items-center mx-8 mt-5 row-span-1">
+                    {isMK ?
+                        (<SideButton link={'home'}>
+                            Granska
+                        </SideButton>) :
+                        (<SideButton link={'home'}>
+                            Mina nolluppdrag
+                        </SideButton>)
+                    }
+                    {isMK ?
+                    (<SideButton link={'accounts'}>
+                        Konton
+                    </SideButton >) :
+                    (<SideButton link={'accounts'}>
+                    Arkiv
                     </SideButton>)
-                }
-                {isMK ?
-                (<SideButton link={'accounts'}>
-                    Konton
-                </SideButton >) :
-                (<SideButton link={'accounts'}>
-                Arkiv
-                 </SideButton>)
-                }
-                <SideButton link={'login'}>
-                    Chalmers nolluppdrag
-                </SideButton>
-                <SideButton link={'index'}>
-                    Dokument
-                </SideButton>
-            </div>
+                    }
+                    <SideButton link={'login'}>
+                        Chalmers nolluppdrag
+                    </SideButton>
+                    <SideButton link={'index'}>
+                        Dokument
+                    </SideButton>
+                </div>
 
-            <div className="row-span-2 ml-6 mb-4 flex items-end">
-                    <button onClick={() => signOut()} className="w-[125px] h-[44px] bg-mk-yellow hover:bg-mk-yellow-hover text-white text-lg rounded-2xl font-bold px-6 py-2">Logga ut</button>
-            </div>
+                    <div className="row-span-1 flex-shrink">
+                    </div>
+                <div className="mt-5 ml-6 mb-4 items-end flex-shrink row-span-1">
+                        <button onClick={() => signOut()} className="w-[125px] h-[44px] bg-mk-yellow hover:bg-mk-yellow-hover text-white text-lg rounded-2xl font-bold px-6 py-2">Logga ut</button>
+                </div>
+                </div>
         </nav>
         </>
     );
