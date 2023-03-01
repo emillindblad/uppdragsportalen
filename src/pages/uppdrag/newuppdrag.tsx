@@ -11,6 +11,7 @@ import { api } from "../../utils/api";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 import { getServerAuthSession } from "../../server/auth";
+import { render } from "react-dom";
 
 export const uppdragCreateSchema = z.object({
     year: z.number().min(4),
@@ -35,15 +36,8 @@ export const getServerSideProps: GetServerSideProps = async ( ctx ) => {
 
 const NewUppdrag: NextPage = () => {
     const { data: session } = useSession();
-
     const router = useRouter();
     const utils = api.useContext();
-    const createUppdrag = api.uppdrag.create.useMutation({
-        onSettled: async () => {
-            await utils.uppdrag.invalidate();
-            reset()
-        }
-    });
 
     const { register, handleSubmit, formState: { errors }, reset } = useForm<FormSchemaType>({
         resolver: zodResolver(uppdragCreateSchema),
@@ -53,11 +47,25 @@ const NewUppdrag: NextPage = () => {
         }
     });
 
-    const onSubmit: SubmitHandler<FormSchemaType> = (data) => {
+    const createUppdrag = api.uppdrag.create.useMutation({
+        onSettled: async () => {
+            await utils.uppdrag.invalidate();
+            reset()
+        }
+    });
+
+    const submitSubmit: SubmitHandler<FormSchemaType> = (data) => {
         console.log("form data",data)
         createUppdrag.mutate(data)
         void router.push('/home');
     };
+
+    const submitDraft: SubmitHandler<FormSchemaType> = (data) => {
+        // TODO Draft submission
+        console.log(data)
+        render(<p>Hej</p>,document.getElementById('__next'))
+    };
+
 
     return (
         <MainPage title={"Nytt uppdrag"}>
@@ -66,8 +74,7 @@ const NewUppdrag: NextPage = () => {
                     <h1 className="text-4xl text-left text-black font-bold">Skapa nytt uppdrag</h1>
                 </div>
                 <div className="max-w-[75%] h-full">
-                    {/* eslint-disable-next-line @typescript-eslint/no-misused-promises*/}
-                    <form className="flex flex-col justify-between h-full" onSubmit={handleSubmit(onSubmit)}>
+                    <form className="flex flex-col justify-between h-full" >
                         <div>
                             <div>
                                 <input
@@ -143,11 +150,25 @@ const NewUppdrag: NextPage = () => {
                                     <button className="bg-mk-yellow hover:bg-mk-yellow-hover text-white text-lg rounded-2xl font-bold px-6 py-2" type="button">Tillbaka</button>
                                 </Link>
                                 <Link href="/home" className="px-2">
-                                    <button className="  bg-mk-blue hover:bg-mk-blue-hover text-white text-lg rounded-2xl font-bold px-6 py-2" type="button">Spara</button>
+                                    <button
+                                        className="bg-mk-blue hover:bg-mk-blue-hover text-white text-lg rounded-2xl font-bold px-6 py-2"
+                                        type="button"
+                                        // eslint-disable-next-line @typescript-eslint/no-misused-promises
+                                        onClick={handleSubmit(submitDraft)}
+                                    >
+                                        Spara
+                                    </button>
                                 </Link>
                             </div>
                             <div className=" justify-self-end ">
-                                <input className="bg-mk-blue hover:bg-mk-blue-hover text-white text-lg rounded-2xl font-bold px-6 py-2" type="submit" value="Skicka in"/>
+                                <button
+                                    className="bg-mk-blue hover:bg-mk-blue-hover text-white text-lg rounded-2xl font-bold px-6 py-2"
+                                    type="submit"
+                                    // eslint-disable-next-line @typescript-eslint/no-misused-promises
+                                    onClick={handleSubmit(submitSubmit)}
+                                >
+                                    Skicka in
+                                </button>
                             </div>
                         </div>
 
