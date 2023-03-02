@@ -25,7 +25,7 @@ const SideMenu = () => {
         <>
             <nav className="col-span-1 bg-mk-blue rounded-3xl min-w-[300px] h-[96vh] flex flex-col justify-between">
                 <div className="mt-7">
-                    <div className="flex m-5 mb-7 pb-10 flex-wrap">
+                    <div className="flex mx-5 mb-7 pb-10 ">
                         <Link href="/login" className="col-span-1 ms-2">
                             {/* Hardcoded image values, replace later */}
                             <Image src={`/img/${nollk?.nollk}.png`} height="60" width="60" alt={`${nollk?.nollk}`} className="max-w-[60px] mr-4 mb-2" />
