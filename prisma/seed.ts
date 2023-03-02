@@ -121,6 +121,272 @@ async function main() {
     await prisma.uppdrag.create({
         data: {
             year: 2023,
+            nollk: 'NollKIT',
+            title: 'BrITney Spears',
+            desc: 'Nollan ska göra en parido på Britney spears musikvideo Oops I did it again.',
+            place: 'Campus',
+            time: 'Under Mottagningen',
+            participants: 4,
+            motivation: 'Banger uppdrag',
+            private: false
+        },
+    })
+
+    await prisma.uppdrag.create({
+        data: {
+            year: 2023,
+            nollk: 'NollKIT',
+            title: 'BrITney Spears',
+            desc: 'Nollan ska göra en parido på Britney spears musikvideo Oops I did it again.',
+            place: 'Campus',
+            time: 'Under Mottagningen',
+            participants: 4,
+            motivation: 'Banger uppdrag',
+            private: false
+        },
+    })
+
+    await prisma.uppdrag.create({
+        data: {
+            year: 2023,
+            nollk: 'NollKIT',
+            title: 'BrITney Spears',
+            desc: 'Nollan ska göra en parido på Britney spears musikvideo Oops I did it again.',
+            place: 'Campus',
+            time: 'Under Mottagningen',
+            participants: 4,
+            motivation: 'Banger uppdrag',
+            private: false
+        },
+    })
+
+    await prisma.uppdrag.create({
+        data: {
+            year: 2023,
+            nollk: 'NollKIT',
+            title: 'BrITney Spears',
+            desc: 'Nollan ska göra en parido på Britney spears musikvideo Oops I did it again.',
+            place: 'Campus',
+            time: 'Under Mottagningen',
+            participants: 4,
+            motivation: 'Banger uppdrag',
+            private: false
+        },
+    })
+
+    await prisma.uppdrag.create({
+        data: {
+            year: 2023,
+            nollk: 'NollKIT',
+            title: 'BrITney Spears',
+            desc: 'Nollan ska göra en parido på Britney spears musikvideo Oops I did it again.',
+            place: 'Campus',
+            time: 'Under Mottagningen',
+            participants: 4,
+            motivation: 'Banger uppdrag',
+            private: false
+        },
+    })
+
+    await prisma.uppdrag.create({
+        data: {
+            year: 2023,
+            nollk: 'NollKIT',
+            title: 'BrITney Spears',
+            desc: 'Nollan ska göra en parido på Britney spears musikvideo Oops I did it again.',
+            place: 'Campus',
+            time: 'Under Mottagningen',
+            participants: 4,
+            motivation: 'Banger uppdrag',
+            private: false
+        },
+    })
+
+    await prisma.uppdrag.create({
+        data: {
+            year: 2023,
+            nollk: 'NollKIT',
+            title: 'BrITney Spears',
+            desc: 'Nollan ska göra en parido på Britney spears musikvideo Oops I did it again.',
+            place: 'Campus',
+            time: 'Under Mottagningen',
+            participants: 4,
+            motivation: 'Banger uppdrag',
+            private: false
+        },
+    })
+
+    await prisma.uppdrag.create({
+        data: {
+            year: 2023,
+            nollk: 'NollKIT',
+            title: 'BrITney Spears',
+            desc: 'Nollan ska göra en parido på Britney spears musikvideo Oops I did it again.',
+            place: 'Campus',
+            time: 'Under Mottagningen',
+            participants: 4,
+            motivation: 'Banger uppdrag',
+            private: false
+        },
+    })
+
+    await prisma.uppdrag.create({
+        data: {
+            year: 2023,
+            nollk: 'NollKIT',
+            title: 'BrITney Spears',
+            desc: 'Nollan ska göra en parido på Britney spears musikvideo Oops I did it again.',
+            place: 'Campus',
+            time: 'Under Mottagningen',
+            participants: 4,
+            motivation: 'Banger uppdrag',
+            private: false
+        },
+    })
+
+    await prisma.uppdrag.create({
+        data: {
+            year: 2023,
+            nollk: 'NollKIT',
+            title: 'BrITney Spears',
+            desc: 'Nollan ska göra en parido på Britney spears musikvideo Oops I did it again.',
+            place: 'Campus',
+            time: 'Under Mottagningen',
+            participants: 4,
+            motivation: 'Banger uppdrag',
+            private: false
+        },
+    })
+
+    await prisma.uppdrag.create({
+        data: {
+            year: 2023,
+            nollk: 'NollKIT',
+            title: 'BrITney Spears',
+            desc: 'Nollan ska göra en parido på Britney spears musikvideo Oops I did it again.',
+            place: 'Campus',
+            time: 'Under Mottagningen',
+            participants: 4,
+            motivation: 'Banger uppdrag',
+            private: false
+        },
+    })
+
+    await prisma.uppdrag.create({
+        data: {
+            year: 2023,
+            nollk: 'NollKIT',
+            title: 'BrITney Spears',
+            desc: 'Nollan ska göra en parido på Britney spears musikvideo Oops I did it again.',
+            place: 'Campus',
+            time: 'Under Mottagningen',
+            participants: 4,
+            motivation: 'Banger uppdrag',
+            private: false
+        },
+    })
+
+    await prisma.uppdrag.create({
+        data: {
+            year: 2023,
+            nollk: 'NollKIT',
+            title: 'BrITney Spears',
+            desc: 'Nollan ska göra en parido på Britney spears musikvideo Oops I did it again.',
+            place: 'Campus',
+            time: 'Under Mottagningen',
+            participants: 4,
+            motivation: 'Banger uppdrag',
+            private: false
+        },
+    })
+
+    await prisma.uppdrag.create({
+        data: {
+            year: 2023,
+            nollk: 'NollKIT',
+            title: 'BrITney Spears',
+            desc: 'Nollan ska göra en parido på Britney spears musikvideo Oops I did it again.',
+            place: 'Campus',
+            time: 'Under Mottagningen',
+            participants: 4,
+            motivation: 'Banger uppdrag',
+            private: false
+        },
+    })
+
+    await prisma.uppdrag.create({
+        data: {
+            year: 2023,
+            nollk: 'NollKIT',
+            title: 'BrITney Spears',
+            desc: 'Nollan ska göra en parido på Britney spears musikvideo Oops I did it again.',
+            place: 'Campus',
+            time: 'Under Mottagningen',
+            participants: 4,
+            motivation: 'Banger uppdrag',
+            private: false
+        },
+    })
+
+    await prisma.uppdrag.create({
+        data: {
+            year: 2023,
+            nollk: 'NollKIT',
+            title: 'BrITney Spears',
+            desc: 'Nollan ska göra en parido på Britney spears musikvideo Oops I did it again.',
+            place: 'Campus',
+            time: 'Under Mottagningen',
+            participants: 4,
+            motivation: 'Banger uppdrag',
+            private: false
+        },
+    })
+
+    await prisma.uppdrag.create({
+        data: {
+            year: 2023,
+            nollk: 'NollKIT',
+            title: 'BrITney Spears',
+            desc: 'Nollan ska göra en parido på Britney spears musikvideo Oops I did it again.',
+            place: 'Campus',
+            time: 'Under Mottagningen',
+            participants: 4,
+            motivation: 'Banger uppdrag',
+            private: false
+        },
+    })
+
+    await prisma.uppdrag.create({
+        data: {
+            year: 2023,
+            nollk: 'NollKIT',
+            title: 'BrITney Spears',
+            desc: 'Nollan ska göra en parido på Britney spears musikvideo Oops I did it again.',
+            place: 'Campus',
+            time: 'Under Mottagningen',
+            participants: 4,
+            motivation: 'Banger uppdrag',
+            private: false
+        },
+    })
+
+    await prisma.uppdrag.create({
+        data: {
+            year: 2023,
+            nollk: 'NollKIT',
+            title: 'BrITney Spears',
+            desc: 'Nollan ska göra en parido på Britney spears musikvideo Oops I did it again.',
+            place: 'Campus',
+            time: 'Under Mottagningen',
+            participants: 4,
+            motivation: 'Banger uppdrag',
+            private: false
+        },
+    })
+
+    await prisma.uppdrag.create({
+        data: {
+            year: 2023,
             nollk: 'DNollK',
             author: {
                 connect: {
@@ -208,7 +474,6 @@ async function main() {
         },
     })
 
-   
 
 
 }
