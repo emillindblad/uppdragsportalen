@@ -29,6 +29,12 @@ const ViewUppdrag: NextPage<Props> = (props: Props) => {
 
     const {data: isMK } = api.user.getUserStatus.useQuery();
 
+    const {data: uppdragAuthor} = api.user.getUser.useQuery({id: data?.authorId as string});
+
+    const imagePath = "/img/" + (uppdragAuthor?.nollk as string) + ".png";
+
+    console.log("UppdragAuthor: ", uppdragAuthor)
+
     return (
         <>
             <MainPage title={data?.title}>
@@ -39,10 +45,10 @@ const ViewUppdrag: NextPage<Props> = (props: Props) => {
                         </div>
                             {/* Hardcoded now, change to author + nollk pic + email */}
                         <div className="flex flex-row-reverse">
-                            <Image src={dataLogo} height={60} width={60} alt="" className="max-w-[60px]" />
+                            <Image src={`${imagePath}` } height={60} width={60} alt="" className="max-w-[60px]" />
                             <div className="mr-4">
-                                <p className="text-black font-bold text-lg tracking-wide text-right">{data?.nollk}</p>
-                                <p className="text-black text-s font-semibold tracking-wide text-right">email för nollk</p>
+                                <p className="text-black font-bold text-lg tracking-wide text-right">{uppdragAuthor?.name}, {uppdragAuthor?.year}</p>
+                                <p className="text-black text-s font-semibold tracking-wide text-right">{uppdragAuthor?.email}</p>
                             </div>
                         </div>
                     </div>
