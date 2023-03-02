@@ -19,6 +19,8 @@ datasource db {
 
 model Uppdrag {
     id              String      @id @default(cuid())
+    author          User        @relation(fields: [authorId], references: [id])
+    authorId        String
     year            Int
     nollk           String
     title           String
@@ -46,4 +48,5 @@ model User {
     nollk         String
     year          Int
     accepted      Boolean  @default(false)
+    Uppdrag       Uppdrag[]
 }
