@@ -14,9 +14,12 @@ const Home: NextPage = () => {
     const sortStates: (number | undefined)[] = [undefined, 1, -1]; // unsorted, ascending, descending
 
     const [uppdragData, setUppdragData] = useState<Uppdrag[] | undefined>();
-    const uppdrag = api.uppdrag.getByYear.useQuery({ year: 2023 });
     const {data: isMK} = api.user.getUserStatus.useQuery();
     const {data: session} = useSession();
+    const uppdrag = api.uppdrag.getByNollKThisYear.useQuery({
+        year: 2023,
+        nollk: ""
+    });
 
     useEffect(() => {
         setUppdragData(uppdrag.data),

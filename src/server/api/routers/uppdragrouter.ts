@@ -11,6 +11,22 @@ export const uppdragrouter = createTRPCRouter({
         });
     }),
 
+    getByNollKThisYear: protectedProcedure
+    .input(z.object({ nollk: z.string(), year: z.number() }))
+    .query(({ctx, input }) => {
+        return ctx.prisma.uppdrag.findMany({
+            where: {nollk: ctx.session.user.nollk, year: input.year}
+        });
+    }),
+
+    getByNollK: protectedProcedure
+    .input(z.object({ nollk: z.string()}))
+    .query(({ctx, input }) => {
+        return ctx.prisma.uppdrag.findMany({
+            where: { nollk: ctx.session.user.nollk }
+        });
+    }),
+
     getAll: protectedProcedure.query(({ ctx }) => {
         return ctx.prisma.uppdrag.findMany();
     }),

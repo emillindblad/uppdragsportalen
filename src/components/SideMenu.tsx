@@ -53,7 +53,7 @@ const SideMenu = () => {
                             Arkiv
                             </SideButton>)
                             }
-                            <SideButton link={'login'}>
+                            <SideButton link={'assignments'}>
                                 Chalmers nolluppdrag
                             </SideButton>
                             <SideButton link={'index'}>
