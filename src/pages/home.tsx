@@ -52,7 +52,7 @@ const Home: NextPage = () => {
                     </div>
                 </div>
                 {/* overflow-y-auto */}
-                <div className="overflow-y-auto  h-[96vh]"> 
+                <div className="">
                     <div className="w-full text-left text-black">
                         <div className="text-xl text-[#737373] bg-white">
                             <div className="text-xl grid grid-cols-5 justify-between border-b-2 border-gray-300">
@@ -64,7 +64,7 @@ const Home: NextPage = () => {
                             </div>
                         </div>
                         {/*  overflow-y-scroll */}
-                        <div className="border-b-2 border-gray-300">
+                        <div className="overflow-y-auto h-[82vh]">
                             {uppdragData ? <AssignmentData data={uppdragData}/> : <p>Loading...</p> }
                         </div>
                     </div>
