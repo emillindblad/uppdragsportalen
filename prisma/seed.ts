@@ -103,13 +103,14 @@ async function main() {
         },
     })
 
-    const samplePassword = await bcrypt.hash("1234",10)
+    const samplePassword = "1234";
+
 
     await prisma.user.create({
         data: {
             name: 'Dadi Andrason',
             email: 'pr@mk.chs.chalmers.se',
-            password: samplePassword,
+            password: await bcrypt.hash(samplePassword,10),
             nollk: 'MK',
             year: 2023,
             accepted: true
@@ -120,7 +121,7 @@ async function main() {
         data: {
             name: 'Emil Lindblad',
             email: 'uppdrag.nollkit@chalmers.it',
-            password: samplePassword,
+            password: await bcrypt.hash(samplePassword,10),
             nollk: 'NollKIT',
             year: 2023,
             accepted: true
@@ -131,7 +132,7 @@ async function main() {
         data: {
             name: 'Kalle Anka',
             email: 'mail@chalmers.elektro',
-            password: samplePassword,
+            password: await bcrypt.hash(samplePassword,10),
             nollk: 'EØK',
             year: 2023,
             accepted: false
@@ -142,7 +143,7 @@ async function main() {
         data: {
             name: 'Foo Bar',
             email: 'lkajsd@asd.so',
-            password: samplePassword,
+            password: await bcrypt.hash(samplePassword,10),
             nollk: 'GøS',
             year: 2023,
             accepted: false
