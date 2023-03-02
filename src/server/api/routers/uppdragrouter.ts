@@ -38,6 +38,11 @@ export const uppdragrouter = createTRPCRouter({
             data: {
                 year: input.year,
                 nollk: input.nollk,
+                author: {
+                    connect: { 
+                        id: ctx.session.user.id
+                    }
+                },
                 title: input.title,
                 place: input.place,
                 time: input.time,
