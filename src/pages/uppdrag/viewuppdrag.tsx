@@ -33,8 +33,6 @@ const ViewUppdrag: NextPage<Props> = (props: Props) => {
 
     const imagePath = "/img/" + (uppdragAuthor?.nollk as string) + ".png";
 
-    console.log("UppdragAuthor: ", uppdragAuthor)
-
     return (
         <>
             <MainPage title={data?.title}>
