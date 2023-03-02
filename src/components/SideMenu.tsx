@@ -48,7 +48,7 @@ const SideMenu = () => {
                 (<SideButton link={'accounts'}>
                     Konton
                 </SideButton >) :
-                (<SideButton link={'accounts'}>
+                (<SideButton link={'archive'}>
                 Arkiv
                  </SideButton>)
                 }

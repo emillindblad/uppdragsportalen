@@ -45,14 +45,22 @@ const schema = z.object({
 type FormSchemaType = z.infer<typeof schema>;
 
 const Register: NextPage = () => {
-
-    const registerMutation = api.user.registerNewUser.useMutation();
+    const utils = api.useContext();
+    const registerMutation = api.user.registerNewUser.useMutation({
+        onSettled: async () => {
+            await utils.user.invalidate()
+            reset()
+        }
+    });
 
     const handleMutation = async (data: { email: string; password: string; fullname: string; nollk: string; }) => {
         await registerMutation.mutateAsync({email: data.email, password: data.password, name: data.fullname, nollk: data.nollk});
     }
 
-    const { register, handleSubmit, formState: { errors }, } = useForm<FormSchemaType>({ resolver: zodResolver(schema), });
+    const { register, handleSubmit, formState: { errors }, reset } = useForm<FormSchemaType>({
+        resolver: zodResolver(schema),
+    });
+
     const onSubmit: SubmitHandler<FormSchemaType> = async (data) => {
         console.log(data);
         await handleMutation(data);
@@ -91,7 +99,10 @@ const Register: NextPage = () => {
                         </div>
                         <div className='flex justify-self-start flex-col w-[40%] min-w-[200px] m-2'>
                             <label className="block text-sm font-medium text-gray-700" htmlFor="first">NollK:</label>
-                            <select required className="p-2 rounded-lg bg-slate-50 appearance-none focus:border-indigo-500 border transition-all"  id="nollk" {...register('nollk')} >
+                            <select
+                                required
+                                className="p-2 rounded-lg bg-slate-50 appearance-none focus:border-indigo-500 border transition-all"
+                                id="nollk" {...register('nollk')} >
                                 {nollkn.map((nollk) => {
                                     return <option key={nollk} value={nollk}>{nollk}</option>
                                 })}
