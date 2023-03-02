@@ -5,7 +5,6 @@ import dataLogo from "../../../public/img/dnollk.png";
 import { api } from "../../utils/api";
 import { type NextRouter, withRouter, useRouter } from "next/router";
 import { useEffect } from "react";
-import IsMK from "../../utils/IsMK";
 import UppdragComment from "../../components/UppdragComment";
 import Link from "next/link";
 
@@ -27,7 +26,8 @@ const ViewUppdrag: NextPage<Props> = (props: Props) => {
     const uppdragId = props.router.query.id?.toString() as string
 
     const { data } = api.uppdrag.getById.useQuery({id: uppdragId});
-    const isMK = IsMK();
+
+    const {data: isMK } = api.user.getUserStatus.useQuery();
 
     return (
         <>
@@ -55,7 +55,7 @@ const ViewUppdrag: NextPage<Props> = (props: Props) => {
                             <div className="text-2xl font-bold text-left px-2"> Tid: {data?.time} </div>
                             <div className="text-2xl font-bold text-left px-2"> Motivation: {data?.motivation} </div>
                     </div>
-                    {isMK ? (<UppdragComment/>) : 
+                    {isMK ? (<UppdragComment/>) :
                     (<div className="col-start-1 col-span-1">
                         <Link href="/home">
                             <button className="h-[44px] w-[125px] bg-mk-yellow hover:bg-mk-yellow-hover text-white text-lg rounded-2xl font-bold px-6 py-2" type="button">Tillbaka</button>

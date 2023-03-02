@@ -46,19 +46,3 @@ const LoginForm: FC = () => {
 };
 
 export default LoginForm;
-
-async function getLogin(data: FormSchemaType) {
-
-    const res = await fetch("./api/getLogin",
-        {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                },
-                body: JSON.stringify(data),
-            }
-        )
-    res.status === 200 ? console.log('success') : console.log('error')
-}
-
-

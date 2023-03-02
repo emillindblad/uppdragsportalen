@@ -1,21 +1,47 @@
 import { type NextPage } from "next";
-
-import { signOut, useSession } from "next-auth/react";
-import { NextRequest } from "next/server";
-
+import { useSession } from "next-auth/react";
 import Link from "next/link";
-
 import AssignmentData from "../components/AssignmentData";
 import MainPage from "../components/MainPage";
 import { api } from "../utils/api";
-import IsMK from "../utils/IsMK";
+import { useState, useEffect } from "react";
+import type { Uppdrag } from "@prisma/client";
+
 
 const Home: NextPage = () => {
+    // Usestate hook for sorting table of Uppdrag
+    const [sortStateIndex, setSortStateIndex] = useState<number>(0);
+    const sortStates: (number | undefined)[] = [undefined, 1, -1]; // unsorted, ascending, descending
 
+    const [uppdragData, setUppdragData] = useState<Uppdrag[] | undefined>();
+    const uppdrag = api.uppdrag.getByYear.useQuery({ year: 2023 });
+    const {data: isMK} = api.user.getUserStatus.useQuery();
     const {data: session} = useSession();
 
-    const uppdrag = api.uppdrag.getByYear.useQuery({ year: 2023 });
-    const isMK = IsMK()
+    useEffect(() => {
+        setUppdragData(uppdrag.data),
+        setSortStateIndex(1)
+    },[uppdrag.data]);
+
+    // Sort table
+    function sortUppdragInTable(attribute: string, order: number) {
+        return function(a: Uppdrag, b: Uppdrag) {
+            return (a[attribute as keyof typeof a] > b[attribute as keyof typeof b] ? order : -order)
+        }
+    }
+
+    // Order the rows by given status (unordered -> asecending -> descending)
+    function orderRow(row: string) {
+        setSortStateIndex((sortStateIndex + 1) % sortStates.length);
+        const sortStatus = sortStates[sortStateIndex];
+
+        if (sortStatus === undefined) {
+            return uppdrag.data;
+        }
+
+        return uppdragData ? [...uppdragData].sort(sortUppdragInTable(row, sortStatus)) : undefined;
+    }
+
     return (
         <>
             <MainPage title={"Mottagningskommittén"}>
@@ -30,16 +56,17 @@ const Home: NextPage = () => {
                     <div className="w-full text-left text-black">
                         <div className="text-xl text-[#737373] bg-white">
                             <div className="text-xl grid grid-cols-5 justify-between border-b-2 border-gray-300">
-                                <p className="col-span-2 ml-4 mb-2">Namn på uppdrag</p>
+                                <p onClick={() => setUppdragData(orderRow('title'))} className="col-span-1 ml-4 mb-2 hover:cursor-pointer">Namn på uppdrag</p>
+                                <p onClick={() => setUppdragData(orderRow('time'))} className="col-span-1 hover:cursor-pointer">Tid</p>
+                                <p onClick={() => setUppdragData(orderRow('status'))} className="col-span-1 hover:cursor-pointer">Status</p>
+                                <p onClick={() => setUppdragData(orderRow('desc'))} className="col-span-2 hover:cursor-pointer">Övrigt</p>
                                 {/* <p className="col-span-1">NollK</p> */}
-                                <p className="col-span-1">Status</p>
-                                <p className="col-span-2">Övrigt</p>
                             </div>
                         </div>
                         {/*  overflow-y-scroll */}
-                     <div className="border-b-2 border-gray-300">
-                            {uppdrag.data ? <AssignmentData data={uppdrag.data}/> : <p>Loading...</p> }
-                    </div>
+                        <div className="border-b-2 border-gray-300">
+                            {uppdragData ? <AssignmentData data={uppdragData}/> : <p>Loading...</p> }
+                        </div>
                     </div>
                 </div>
                 {isMK ? null :
@@ -51,8 +78,7 @@ const Home: NextPage = () => {
                                 </svg>
                             </button>
                         </Link>
-                    </div>)
-                }
+                    </div>)}
             </MainPage>
         </>
     );

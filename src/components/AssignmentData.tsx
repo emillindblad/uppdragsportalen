@@ -27,8 +27,8 @@ const AssignmentData: FunctionComponent<UppdragsProps> = (props: UppdragsProps) 
                         <div className="flex-initial my-2 ml-1 col-span-2 ">{u.motivation}</div>
 
                         {/*
+                        <div className="flex-initial col-span-1 max-w-[180px]">{u.nollk}</div>
                         <td className="flex-initial max-w-[180px]">{u.place}</td>
-                        <td className="flex-initial max-w-[180px]">{u.time}</td>
                         <td className="flex-initial max-w-[180px]">{u.participants}</td>
                         <td className="flex-initial max-w-[180px]">{u.motivation}</td>
                         */}

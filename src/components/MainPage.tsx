@@ -1,6 +1,5 @@
 import SideMenu from "../components/SideMenu";
 import Head from "next/head";
-import useIsMK from "../utils/IsMK"
 
 interface MainPageProps {
     title: React.ReactNode,
@@ -9,7 +8,6 @@ interface MainPageProps {
 
 
 const MainPage = (props: MainPageProps) => {
-    const isMK = useIsMK();
     return(
         <>
             <Head>

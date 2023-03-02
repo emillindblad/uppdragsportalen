@@ -381,6 +381,7 @@ async function main() {
             accepted: true
         },
     })
+
     await prisma.user.create({
         data: {
             name: 'Emil Lindblad',
@@ -391,6 +392,30 @@ async function main() {
             accepted: true
         },
     })
+
+    await prisma.user.create({
+        data: {
+            name: 'Kalle Anka',
+            email: 'mail@chalmers.elektro',
+            password: samplePassword,
+            nollk: 'EØK',
+            year: 2023,
+            accepted: false
+        },
+    })
+
+    await prisma.user.create({
+        data: {
+            name: 'Foo Bar',
+            email: 'lkajsd@asd.so',
+            password: samplePassword,
+            nollk: 'GøS',
+            year: 2023,
+            accepted: false
+        },
+    })
+
+
 }
 
 main()
