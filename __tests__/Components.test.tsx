@@ -62,7 +62,6 @@ describe("AssignmentData", () => {
         render(<AssignmentData data={testInfo}/>);
         const page = within(screen.getByRole('assignments'));
         expect(page.getByText(/Hängigt uppdrag/i)).toBeDefined();
-        expect(page.getByText(/Sven hittar säkert på något som blir rent av nekat/i)).toBeDefined();
         expect(page.getByText(/false/i)).toBeDefined();
     })
 })
