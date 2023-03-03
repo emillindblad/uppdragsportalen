@@ -1,7 +1,6 @@
 import type { NextPage } from "next";
 import Image from "next/image";
 import MainPage from "../../components/MainPage";
-import dataLogo from "../../../public/img/dnollk.png";
 import { api } from "../../utils/api";
 import { type NextRouter, withRouter, useRouter } from "next/router";
 import { useEffect } from "react";
