@@ -10,10 +10,10 @@ import { useState, useEffect } from "react";
 import { Uppdrag } from "@prisma/client";
 
 
-
 const Home: NextPage = () => {
 
     const [sortStatus, setSortStatus] = useState<number>(0); // 0 = original order, 1 = ascending order, -1 = descending order
+    const [icon, setIcon] = useState<string>("");
     const [uppdragData, setUppdragData] = useState<Uppdrag[] | undefined>();
     const uppdrag = api.uppdrag.getByYear.useQuery({ year: 2023 });
     const {data: session} = useSession();
@@ -22,7 +22,6 @@ const Home: NextPage = () => {
     useEffect(() => {
         if (uppdrag.data != null) setUppdragData([...uppdrag.data])
     },[uppdrag.data]);
-
 
     // functions to sort Uppdrag by ascending/descending order
     function sortByAscending(attribute : string) {
@@ -38,13 +37,17 @@ const Home: NextPage = () => {
     }
 
     function ascendingOrder(row : string) {
+        if (row === 'title') titleIcon = icon
         setUppdragData(uppdragData?.sort(sortByAscending(row)))
     }
 
     function descendingOrder(row : string) {
+        if (row === 'title') titleIcon = icon
         setUppdragData(uppdragData?.sort(sortByDescending(row)))
     }
 
+    
+    let titleIcon = "", timeIcon = "", statusIcon = "", miscIcon = "";
 
     // Order by row
     function orderRow(row: string) {
@@ -53,22 +56,30 @@ const Home: NextPage = () => {
             case 0: 
                 setSortStatus(1);
                 ascendingOrder(row);
+                setIcon("↑");
                 break;
             case 1:
                 setSortStatus(-1);
                 descendingOrder(row);
+                setIcon("↓");
                 break;
             case -1:
                 setSortStatus(0);
+                setIcon("");
                 if (uppdrag.data != null) setUppdragData([...uppdrag.data]) 
                     else setUppdragData(undefined)
                 break;
             default:
                 console.error(`Illegal value of sortStatus: ${sortStatus}`)
         }
+
+        if (row === 'title') titleIcon = icon
+        if (row === 'time') timeIcon = icon
+        if (row === 'status') statusIcon = icon
+        if (row === 'desc') miscIcon = icon
+
         return;
     }
-
     return (
         <>
             <MainPage title={"Mottagningskommittén"}>
@@ -82,11 +93,10 @@ const Home: NextPage = () => {
                     <div className="w-full text-left text-black">
                         <div className="text-xl text-[#737373] bg-white">
                             <div className="text-xl grid grid-cols-5 justify-between border-b-2 border-gray-300">
-                                <p onClick={() => orderRow('title')} className="col-span-1 ml-4 mb-2 hover:cursor-pointer">Namn på uppdrag</p>
-                                <p onClick={() => orderRow('time')} className="col-span-1 hover:cursor-pointer">Tid</p>
-                                <p onClick={() => orderRow('status')} className="col-span-1 hover:cursor-pointer">Status</p>
-                                <p onClick={() => orderRow('desc')} className="col-span-2 hover:cursor-pointer">Övrigt</p>
-                                {/* <p className="col-span-1">NollK</p> */}
+                                <p onClick={() => orderRow('title')} className="flex col-span-1 ml-4 mb-2 hover:cursor-pointer">Namn på uppdrag {titleIcon}</p> 
+                                <p onClick={() => orderRow('time')} className="col-span-1 hover:cursor-pointer">Tid {timeIcon}</p>
+                                <p onClick={() => orderRow('status')} className="col-span-1 hover:cursor-pointer">Status {statusIcon}</p>
+                                <p onClick={() => orderRow('desc')} className="col-span-2 hover:cursor-pointer">Övrigt {miscIcon}</p>
                             </div>
                         </div>
                         <div className="border-b-2 border-gray-300">
