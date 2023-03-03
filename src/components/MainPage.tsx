@@ -15,7 +15,7 @@ const MainPage = (props: MainPageProps) => {
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
             </Head>
             <div className="px-4 py-4">
-                <div className="grid grid-cols-5 gap-5">
+                <div className="grid grid-cols-5 gap-5 h-[96vh]">
                     <SideMenu/>
                     <div className="col-span-4 max-w-full">
                         {props.children}
