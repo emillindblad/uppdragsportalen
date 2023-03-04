@@ -1,13 +1,12 @@
 import { type NextPage } from "next";
-import { signOut, useSession } from "next-auth/react";
-import { NextRequest } from "next/server";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 import AssignmentData from "../components/AssignmentData";
 import MainPage from "../components/MainPage";
 import { api } from "../utils/api";
 import IsMK from "../utils/IsMK";
 import { useState, useEffect } from "react";
-import { Uppdrag } from "@prisma/client";
+import type { Uppdrag } from "@prisma/client";
 
 
 const Home: NextPage = () => {
@@ -18,6 +17,12 @@ const Home: NextPage = () => {
     const uppdrag = api.uppdrag.getByYear.useQuery({ year: 2023 });
     const {data: session} = useSession();
     const isMK = IsMK()
+
+    // to track which header is clicked
+    const [titleClicked, setTitleClicked] = useState(false);
+    const [timeClicked, setTimeClicked] = useState(false);
+    const [statusClicked, setStatusClicked] = useState(false);
+    const [miscClicked, setMiscClicked] = useState(false);
 
     useEffect(() => {
         if (uppdrag.data != null) setUppdragData([...uppdrag.data])
@@ -37,29 +42,29 @@ const Home: NextPage = () => {
     }
 
     function ascendingOrder(row : string) {
-        setUppdragData(uppdragData?.sort(sortByAscending(row)))
+        setUppdragData(uppdragData?.sort(sortByAscending(row)));
     }
 
     function descendingOrder(row : string) {
-        setUppdragData(uppdragData?.sort(sortByDescending(row)))
+        setUppdragData(uppdragData?.sort(sortByDescending(row)));
     }
 
     // Order by row
     function orderRow(row: string) {
-        setIcon(sortIcon(row));
-
-        //case s of 0 = 1, 1 = -1, -1 = 0
         switch (sortStatus) {
             case 0: 
                 setSortStatus(1);
                 ascendingOrder(row);
+                setIcon('↓');
                 break;
             case 1:
                 setSortStatus(-1);
                 descendingOrder(row);
+                setIcon('↑');
                 break;
             case -1:
                 setSortStatus(0);
+                setIcon('');
                 if (uppdrag.data != null) setUppdragData([...uppdrag.data]) 
                     else setUppdragData(undefined)
                 break;
@@ -68,23 +73,6 @@ const Home: NextPage = () => {
         }
         return;
     }
-
-    // Sort specfifc header
-    function sortIcon(id : string) {
-        const arrows = { ascending: '↓', descending: '↑' }
-        
-        let dir = "";
-        if (sortStatus === 1) {
-            dir = "ascending";
-        } else if (sortStatus === -1) {
-            dir = "descending";
-        } else dir = "default";
-        
-        const arrow : string = id ? arrows[dir] : '';
-      
-        return arrow; 
-    } 
-
 
 
     return (
@@ -100,13 +88,10 @@ const Home: NextPage = () => {
                     <div className="w-full text-left text-black">
                         <div className="text-xl text-[#737373] bg-white">
                             <div className="text-xl grid grid-cols-5 justify-between border-b-2 border-gray-300">
-                                <p onClick={() => orderRow('title')} className="flex col-span-1 ml-4 mb-2 hover:cursor-pointer">Namn på uppdrag {icon}</p>
-                                <p onClick={() => orderRow('time')} className="col-span-1 hover:cursor-pointer">Tid {icon}</p>
-                                <p onClick={() => orderRow('status')} className="col-span-1 hover:cursor-pointer">Status {icon}</p>
-                                <p onClick={() => orderRow('desc')} className="col-span-2 hover:cursor-pointer">Övrigt {icon}</p>
-                                {/* <SortIcon id='time' sortBy='time' label='Tid' specs='col-span-1 hover:cursor-pointer'/>
-                                <SortIcon id='status' sortBy='status' label='Status' specs='col-span-1 hover:cursor-pointer'/>
-                                <SortIcon id='desc' sortBy='desc' label='Övrigt' specs='col-span-2 hover:cursor-pointer'/> */}
+                                <p onClick={() => {orderRow('title'); setTitleClicked(true); setTimeClicked(false); setStatusClicked(false); setMiscClicked(false);}} className="flex col-span-1 ml-4 mb-2 hover:cursor-pointer select-none">Namn på uppdrag {titleClicked ? icon : ''}</p>
+                                <p onClick={() => {orderRow('time'); setTitleClicked(false); setTimeClicked(true); setStatusClicked(false); setMiscClicked(false);}} className="col-span-1 hover:cursor-pointer select-none">Tid {timeClicked ? icon : ''}</p>
+                                <p onClick={() => {orderRow('status'); setTitleClicked(false); setTimeClicked(false); setStatusClicked(true); setMiscClicked(false);}} className="col-span-1 hover:cursor-pointer select-none">Status {statusClicked ? icon : ''}</p>
+                                <p onClick={() => {orderRow('desc'); setTitleClicked(false); setTimeClicked(false); setStatusClicked(false); setMiscClicked(true);}} className="col-span-2 hover:cursor-pointer select-none">Övrigt {miscClicked ? icon : ''}</p>
                             </div>
                         </div>
                         <div className="border-b-2 border-gray-300">
