@@ -10,37 +10,70 @@ import type { Uppdrag } from "@prisma/client";
 
 const Home: NextPage = () => {
     // Usestate hook for sorting table of Uppdrag
-    const [sortStateIndex, setSortStateIndex] = useState<number>(0);
-    const sortStates: (number | undefined)[] = [undefined, 1, -1]; // unsorted, ascending, descending
+    const [sortStatus, setSortStatus] = useState<number>(0); // 0 = original order, 1 = ascending order, -1 = descending order
+    const [icon, setIcon] = useState<string>("");
 
     const [uppdragData, setUppdragData] = useState<Uppdrag[] | undefined>();
     const uppdrag = api.uppdrag.getByYear.useQuery({ year: 2023 });
     const {data: isMK} = api.user.getUserStatus.useQuery();
     const {data: session} = useSession();
 
+    // to track which header is clicked
+    const [titleClicked, setTitleClicked] = useState(false);
+    const [timeClicked, setTimeClicked] = useState(false);
+    const [statusClicked, setStatusClicked] = useState(false);
+    const [miscClicked, setMiscClicked] = useState(false);
+
     useEffect(() => {
-        setUppdragData(uppdrag.data),
-        setSortStateIndex(1)
+        if (uppdrag.data != null) setUppdragData([...uppdrag.data])
     },[uppdrag.data]);
 
-    // Sort table
-    function sortUppdragInTable(attribute: string, order: number) {
-        return function(a: Uppdrag, b: Uppdrag) {
-            return (a[attribute as keyof typeof a] > b[attribute as keyof typeof b] ? order : -order)
+    // functions to sort Uppdrag by ascending/descending order
+    function sortByAscending(attribute : string) {
+        return function(first : Uppdrag, second : Uppdrag) {
+            return (first[attribute as keyof typeof first] > second[attribute as keyof typeof second] ? 1 : -1)
         }
     }
 
-    // Order the rows by given status (unordered -> asecending -> descending)
+    function sortByDescending(attribute : string) {
+        return function(first : Uppdrag, second : Uppdrag) {
+            return (first[attribute as keyof typeof first] > second[attribute as keyof typeof second] ? -1 : 1)
+        }
+    }
+
+    function ascendingOrder(row : string) {
+        setUppdragData(uppdragData?.sort(sortByAscending(row)));
+    }
+
+    function descendingOrder(row : string) {
+        setUppdragData(uppdragData?.sort(sortByDescending(row)));
+    }
+
+    // Order by row
     function orderRow(row: string) {
-        setSortStateIndex((sortStateIndex + 1) % sortStates.length);
-        const sortStatus = sortStates[sortStateIndex];
-
-        if (sortStatus === undefined) {
-            return uppdrag.data;
+        switch (sortStatus) {
+            case 0: 
+                setSortStatus(1);
+                ascendingOrder(row);
+                setIcon('↓');
+                break;
+            case 1:
+                setSortStatus(-1);
+                descendingOrder(row);
+                setIcon('↑');
+                break;
+            case -1:
+                setSortStatus(0);
+                setIcon('');
+                if (uppdrag.data != null) setUppdragData([...uppdrag.data]) 
+                    else setUppdragData(undefined)
+                break;
+            default:
+                console.error(`Illegal value of sortStatus: ${sortStatus}`)
         }
-
-        return uppdragData ? [...uppdragData].sort(sortUppdragInTable(row, sortStatus)) : undefined;
+        return;
     }
+
 
     return (
         <>
@@ -56,11 +89,10 @@ const Home: NextPage = () => {
                     <div className="w-full text-left text-black">
                         <div className="text-xl text-[#737373] bg-white">
                             <div className="text-xl grid grid-cols-5 justify-between border-b-2 border-gray-300">
-                                <p onClick={() => setUppdragData(orderRow('title'))} className="col-span-1 ml-4 mb-2 hover:cursor-pointer">Namn på uppdrag</p>
-                                <p onClick={() => setUppdragData(orderRow('time'))} className="col-span-1 hover:cursor-pointer">Tid</p>
-                                <p onClick={() => setUppdragData(orderRow('status'))} className="col-span-1 hover:cursor-pointer">Status</p>
-                                <p onClick={() => setUppdragData(orderRow('desc'))} className="col-span-2 hover:cursor-pointer">Övrigt</p>
-                                {/* <p className="col-span-1">NollK</p> */}
+                                <p onClick={() => {orderRow('title'); setTitleClicked(true); setTimeClicked(false); setStatusClicked(false); setMiscClicked(false);}} className="flex col-span-1 ml-4 mb-2 hover:cursor-pointer select-none">Namn på uppdrag {titleClicked ? icon : ''}</p>
+                                <p onClick={() => {orderRow('time'); setTitleClicked(false); setTimeClicked(true); setStatusClicked(false); setMiscClicked(false);}} className="col-span-1 hover:cursor-pointer select-none">Tid {timeClicked ? icon : ''}</p>
+                                <p onClick={() => {orderRow('status'); setTitleClicked(false); setTimeClicked(false); setStatusClicked(true); setMiscClicked(false);}} className="col-span-1 hover:cursor-pointer select-none">Status {statusClicked ? icon : ''}</p>
+                                <p onClick={() => {orderRow('desc'); setTitleClicked(false); setTimeClicked(false); setStatusClicked(false); setMiscClicked(true);}} className="col-span-2 hover:cursor-pointer select-none">Övrigt {miscClicked ? icon : ''}</p>
                             </div>
                         </div>
                         {/*  overflow-y-scroll */}
