@@ -1,11 +1,9 @@
 import type { NextPage } from "next";
 import Image from "next/image";
 import MainPage from "../../components/MainPage";
-import dataLogo from "../../../public/img/dnollk.png";
 import { api } from "../../utils/api";
 import { type NextRouter, withRouter, useRouter } from "next/router";
 import { useEffect } from "react";
-import IsMK from "../../utils/IsMK";
 import UppdragComment from "../../components/UppdragComment";
 import Link from "next/link";
 
@@ -27,7 +25,12 @@ const ViewUppdrag: NextPage<Props> = (props: Props) => {
     const uppdragId = props.router.query.id?.toString() as string
 
     const { data } = api.uppdrag.getById.useQuery({id: uppdragId});
-    const isMK = IsMK();
+
+    const {data: isMK } = api.user.getUserStatus.useQuery();
+
+    const {data: uppdragAuthor} = api.user.getUser.useQuery({id: data?.authorId as string});
+
+    const imagePath = "/img/" + (uppdragAuthor?.nollk as string) + ".png";
 
     return (
         <>
@@ -39,10 +42,10 @@ const ViewUppdrag: NextPage<Props> = (props: Props) => {
                         </div>
                             {/* Hardcoded now, change to author + nollk pic + email */}
                         <div className="flex flex-row-reverse">
-                            <Image src={dataLogo} height={60} width={60} alt="" className="max-w-[60px]" />
+                            <Image src={`${imagePath}` } height={60} width={60} alt="" className="max-w-[60px]" />
                             <div className="mr-4">
-                                <p className="text-black font-bold text-lg tracking-wide text-right">{data?.nollk}</p>
-                                <p className="text-black text-s font-semibold tracking-wide text-right">email för nollk</p>
+                                <p className="text-black font-bold text-lg tracking-wide text-right">{uppdragAuthor?.name}, {uppdragAuthor?.year}</p>
+                                <p className="text-black text-s font-semibold tracking-wide text-right">{uppdragAuthor?.email}</p>
                             </div>
                         </div>
                     </div>
@@ -55,7 +58,7 @@ const ViewUppdrag: NextPage<Props> = (props: Props) => {
                             <div className="text-2xl font-bold text-left px-2"> Tid: {data?.time} </div>
                             <div className="text-2xl font-bold text-left px-2"> Motivation: {data?.motivation} </div>
                     </div>
-                    {isMK ? (<UppdragComment/>) : 
+                    {isMK ? (<UppdragComment/>) :
                     (<div className="col-start-1 col-span-1">
                         <Link href="/home">
                             <button className="h-[44px] w-[125px] bg-mk-yellow hover:bg-mk-yellow-hover text-white text-lg rounded-2xl font-bold px-6 py-2" type="button">Tillbaka</button>

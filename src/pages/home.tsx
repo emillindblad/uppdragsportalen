@@ -4,19 +4,19 @@ import Link from "next/link";
 import AssignmentData from "../components/AssignmentData";
 import MainPage from "../components/MainPage";
 import { api } from "../utils/api";
-import IsMK from "../utils/IsMK";
 import { useState, useEffect } from "react";
 import type { Uppdrag } from "@prisma/client";
 
 
 const Home: NextPage = () => {
-
+    // Usestate hook for sorting table of Uppdrag
     const [sortStatus, setSortStatus] = useState<number>(0); // 0 = original order, 1 = ascending order, -1 = descending order
     const [icon, setIcon] = useState<string>("");
+
     const [uppdragData, setUppdragData] = useState<Uppdrag[] | undefined>();
     const uppdrag = api.uppdrag.getByYear.useQuery({ year: 2023 });
+    const {data: isMK} = api.user.getUserStatus.useQuery();
     const {data: session} = useSession();
-    const isMK = IsMK()
 
     // to track which header is clicked
     const [titleClicked, setTitleClicked] = useState(false);
@@ -79,12 +79,13 @@ const Home: NextPage = () => {
         <>
             <MainPage title={"Mottagningskommittén"}>
                 <div className="my-4">
-                    <p>{JSON.stringify(session)}</p>
+                    {/* <p>{JSON.stringify(session)}</p> */}
                     <div className="border-b-2 border-gray-300 overflow-hidden">
                         <input className="px-4 py-2 w-full h-15 border-none placeholder-[#737373] text-2xl" type="text" placeholder="Sök.." name="search" />
                     </div>
                 </div>
-                <div className="overflow-y-auto">
+                {/* overflow-y-auto */}
+                <div className="">
                     <div className="w-full text-left text-black">
                         <div className="text-xl text-[#737373] bg-white">
                             <div className="text-xl grid grid-cols-5 justify-between border-b-2 border-gray-300">
@@ -94,7 +95,8 @@ const Home: NextPage = () => {
                                 <p onClick={() => {orderRow('desc'); setTitleClicked(false); setTimeClicked(false); setStatusClicked(false); setMiscClicked(true);}} className="col-span-2 hover:cursor-pointer select-none">Övrigt {miscClicked ? icon : ''}</p>
                             </div>
                         </div>
-                        <div className="border-b-2 border-gray-300">
+                        {/*  overflow-y-scroll */}
+                        <div className="overflow-y-auto h-[82vh]">
                             {uppdragData ? <AssignmentData data={uppdragData}/> : <p>Loading...</p> }
                         </div>
                     </div>
@@ -108,8 +110,7 @@ const Home: NextPage = () => {
                                 </svg>
                             </button>
                         </Link>
-                    </div>)
-                }
+                    </div>)}
             </MainPage>
         </>
     );

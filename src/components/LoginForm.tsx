@@ -25,6 +25,7 @@ const LoginForm: FC = () => {
     };
 
     return (
+        // eslint-disable-next-line @typescript-eslint/no-misused-promises
         <form className="w-80" onSubmit={handleSubmit(onSubmit)}>
             <div className="mb-2">
                 <label className="block text-sm font-medium text-gray-700" htmlFor="">Email</label>
@@ -39,26 +40,10 @@ const LoginForm: FC = () => {
             </div>
             <div className="flex flex-col items-center gap-3">
                 <input className="w-full inline-flex justify-center rounded-md border border-transparent bg-sky-500 py-2 px-4 text-sm font-medium text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 hover:cursor-pointer hover:bg-sky-700" type="submit" value="Logga in" />
-                <Link className="inline-flex text-xs text-sky-500 hover:cursor-pointer " href="https:lindblad.tech">Glömt lösenord?</Link>
+                <Link className="inline-flex text-xs text-sky-500 hover:cursor-pointer" href="/register">Skapa konto</Link>
             </div>
         </form>
     );
 };
 
 export default LoginForm;
-
-async function getLogin(data: FormSchemaType) {
-
-    const res = await fetch("./api/getLogin",
-        {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                },
-                body: JSON.stringify(data),
-            }
-        )
-    res.status === 200 ? console.log('success') : console.log('error')
-}
-
-
