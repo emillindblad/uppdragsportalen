@@ -8,7 +8,7 @@ import { env } from './env/server.mjs';
 export const config = {
     matcher: [
         //'/((?!api|_next/static/*|_next/image|img|favicon.ico).*)',
-        '/home','/login','/accounts','/uppdrag/:path*','/register','/user'
+        '/home','/login','/accounts','/uppdrag/:path*','/register','/user','/api:path*'
     ],
 }
 
