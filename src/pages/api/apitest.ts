@@ -11,7 +11,6 @@ const apiTestHandler = async (req: NextApiRequest, res: NextApiResponse) => {
     console.log(req.method)
 
     try {
-        const { id } = req.query;
         const user = await caller.example.hello({
             text: "Hii"
         })

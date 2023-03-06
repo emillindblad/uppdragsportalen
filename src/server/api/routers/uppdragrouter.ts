@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { uppdragCreateSchema } from "../../../pages/uppdrag/newuppdrag";
-import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
+import { createTRPCRouter, protectedProcedure } from "../trpc";
 
 export const uppdragrouter = createTRPCRouter({
     getByYear: protectedProcedure
@@ -39,7 +39,7 @@ export const uppdragrouter = createTRPCRouter({
                 year: input.year,
                 nollk: input.nollk,
                 author: {
-                    connect: { 
+                    connect: {
                         id: ctx.session.user.id
                     }
                 },

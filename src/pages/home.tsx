@@ -1,5 +1,4 @@
 import { type NextPage } from "next";
-import { useSession } from "next-auth/react";
 import Link from "next/link";
 import AssignmentData from "../components/AssignmentData";
 import MainPage from "../components/MainPage";
@@ -16,7 +15,7 @@ const Home: NextPage = () => {
     const [uppdragData, setUppdragData] = useState<Uppdrag[] | undefined>();
     const uppdrag = api.uppdrag.getByYear.useQuery({ year: 2023 });
     const {data: isMK} = api.user.getUserStatus.useQuery();
-    const {data: session} = useSession();
+
 
     // to track which header is clicked
     const [titleClicked, setTitleClicked] = useState(false);
@@ -52,7 +51,7 @@ const Home: NextPage = () => {
     // Order by row
     function orderRow(row: string) {
         switch (sortStatus) {
-            case 0: 
+            case 0:
                 setSortStatus(1);
                 ascendingOrder(row);
                 setIcon('↓');
@@ -65,7 +64,7 @@ const Home: NextPage = () => {
             case -1:
                 setSortStatus(0);
                 setIcon('');
-                if (uppdrag.data != null) setUppdragData([...uppdrag.data]) 
+                if (uppdrag.data != null) setUppdragData([...uppdrag.data])
                     else setUppdragData(undefined)
                 break;
             default:
