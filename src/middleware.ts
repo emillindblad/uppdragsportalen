@@ -36,6 +36,7 @@ export async function middleware(request: NextRequest) {
 // See "Matching Paths" below to learn more
 export const config = {
     matcher: [
-        '/((?!api|_next/static|_next/image|img|favicon.ico).*)',
+        //'/((?!api|_next/static/*|_next/image|img|favicon.ico).*)',
+        '/home','/login','/accounts','/uppdrag/:path*','/register','/user'
     ],
 }
