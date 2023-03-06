@@ -4,6 +4,14 @@ import { getToken } from 'next-auth/jwt';
 
 import { env } from './env/server.mjs';
 
+// See "Matching Paths" below to learn more
+export const config = {
+    matcher: [
+        //'/((?!api|_next/static/*|_next/image|img|favicon.ico).*)',
+        '/home','/login','/accounts','/uppdrag/:path*','/register','/user'
+    ],
+}
+
 // This function can be marked `async` if using `await` inside
 export async function middleware(request: NextRequest) {
     const token = await getToken({
@@ -33,10 +41,3 @@ export async function middleware(request: NextRequest) {
 
 }
 
-// See "Matching Paths" below to learn more
-export const config = {
-    matcher: [
-        //'/((?!api|_next/static/*|_next/image|img|favicon.ico).*)',
-        '/home','/login','/accounts','/uppdrag/:path*','/register','/user'
-    ],
-}
