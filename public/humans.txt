@@ -1,0 +1,14 @@
+Uppdragsportalen for Mottagningskommittén (MK) at Chalmers Student Union.
+
+Created as a project for the course DAT076 Web applications at Chalmers Univeristy of Technology.
+
+/* TEAM */
+
+Dadi Andrasson
+Julia Böckert
+Steffanie Kristiansson
+Emil Lindblad
+
+/* SITE */
+
+Tech: Created using the T3-Stack https://create.t3.gg
