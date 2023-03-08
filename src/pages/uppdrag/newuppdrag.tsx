@@ -57,16 +57,15 @@ const NewUppdrag: NextPage = () => {
     });
 
     const submitSubmit: SubmitHandler<FormSchemaType> = (data) => {
-        data.status = 'SUBMITTED'
-        console.log("form data",data)
-        createUppdrag.mutate(data)
+        data.status = 'SUBMITTED';
+        createUppdrag.mutate(data);
         void router.push('/home');
     };
 
     const submitDraft: SubmitHandler<FormSchemaType> = (data) => {
-        data.status = 'DRAFT'
-        createUppdrag.mutate(data)
-        render(<p>Hej</p>,document.getElementById('__next'))
+        data.status = 'DRAFT';
+        createUppdrag.mutate(data);
+        void router.push('/home');
     };
 
 

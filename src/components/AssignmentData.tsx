@@ -23,7 +23,7 @@ const AssignmentData: FunctionComponent<UppdragsProps> = (props: UppdragsProps) 
                     <div role="assignments" className="grid grid-cols-4 text-left text-xl hover:bg-gray-300" key={u.id}>
                         <div onClick={() => nav(u.id)} className="flex-initial ml-4 my-2 max-w-[180px] hover:cursor-pointer hover:underline">{u.title}</div>
                         <div className="flex-initial my-2 ml-1 max-w-[180px]">{u.status}</div>
-                        <div className="flex-initial  max-w-[180px]">{u.time}</div>
+                        <div className="flex-initial  max-w-[180px]">{u.private.toString()}</div>
                         <div className="flex-initial my-2 ml-1">{u.place}</div>
 
                         {/*

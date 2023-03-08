@@ -100,7 +100,7 @@ const Home: NextPage = () => {
                             <div className="text-xl grid grid-cols-4 justify-between border-b-2 border-gray-300">
                                 <p onClick={() => {orderRow('title'); setTitleClicked(true); setTimeClicked(false); setStatusClicked(false); setMiscClicked(false);}} className="flex col-span-1 ml-4 mb-2 hover:cursor-pointer select-none">Namn på uppdrag {titleClicked ? icon : ''}</p>
                                 <p onClick={() => {orderRow('time'); setTitleClicked(false); setTimeClicked(true); setStatusClicked(false); setMiscClicked(false);}} className="col-span-1 hover:cursor-pointer select-none">Status {timeClicked ? icon : ''}</p>
-                                <p onClick={() => {orderRow('status'); setTitleClicked(false); setTimeClicked(false); setStatusClicked(true); setMiscClicked(false);}} className="col-span-1 hover:cursor-pointer select-none">Tid {statusClicked ? icon : ''}</p>
+                                <p onClick={() => {orderRow('status'); setTitleClicked(false); setTimeClicked(false); setStatusClicked(true); setMiscClicked(false);}} className="col-span-1 hover:cursor-pointer select-none">Private {statusClicked ? icon : ''}</p>
                                 <p onClick={() => {orderRow('desc'); setTitleClicked(false); setTimeClicked(false); setStatusClicked(false); setMiscClicked(true);}} className="col-span-1 hover:cursor-pointer select-none">Plats {miscClicked ? icon : ''}</p>
                             </div>
                         </div>
