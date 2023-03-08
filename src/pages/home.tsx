@@ -1,16 +1,26 @@
-import { type NextPage } from "next";
+import { GetServerSideProps, type NextPage } from "next";
 import Link from "next/link";
 import AssignmentData from "../components/AssignmentData";
 import MainPage from "../components/MainPage";
 import { api } from "../utils/api";
 import { useState, useEffect } from "react";
 import type { Uppdrag } from "@prisma/client";
+import { getServerAuthSession } from "../server/auth";
+import { useSession } from "next-auth/react";
 
+export const getServerSideProps: GetServerSideProps = async ( ctx ) => {
+    const session = await getServerAuthSession(ctx);
+    return {
+        props: { session },
+    }
+}
 
 const Home: NextPage = () => {
     // Usestate hook for sorting table of Uppdrag
     const [sortStatus, setSortStatus] = useState<number>(0); // 0 = original order, 1 = ascending order, -1 = descending order
     const [icon, setIcon] = useState<string>("");
+
+    const { data: session } = useSession();
 
     const [uppdragData, setUppdragData] = useState<Uppdrag[] | undefined>();
     const uppdrag = api.uppdrag.getByYear.useQuery({ year: 2023 });
@@ -76,7 +86,7 @@ const Home: NextPage = () => {
 
     return (
         <>
-            <MainPage title={"Mottagningskommittén"}>
+            <MainPage session={session} title={"Mottagningskommittén"}>
                 <div className="my-4">
                     {/* <p>{JSON.stringify(session)}</p> */}
                     <div className="border-b-2 border-gray-300 overflow-hidden">
