@@ -20,7 +20,7 @@ const SideButton = (
             <Link href={`/${props.link}`}>
             {/* <button onClick={props.onClick} className={`${props.hoverColor}  text-white text-start font-bold tracking-wide w-full text-lg py-4 px-4 rounded-2xl`}> */}
             {/* {`banner large ${active ? "active" : ""} */}
-            <button className={`text-white text-start font-bold tracking-wide w-full text-lg py-4 px-4 rounded-2xl ${isActive ? "bg-mk-blue-select hover:bg-mk-blue-select" : "bg-mk-blue hover:bg-mk-blue-hover"}`}>
+            <button className={`text-white text-start font-bold tracking-wide w-full text-lg py-5 px-4 my-3 rounded-2xl ${isActive ? "bg-mk-blue-select hover:bg-mk-blue-select" : "bg-mk-blue hover:bg-mk-blue-hover"}`}>
                     {props.children}
                 </button>
             </Link>

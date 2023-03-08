@@ -48,14 +48,14 @@ const SideMenu = () => {
                             (<SideButton link={'accounts'}>
                                 Konton
                             </SideButton >) :
-                            (<SideButton link={'home'}>
+                            (<SideButton link={'assignments'}>
                                 Arkiv
                             </SideButton>)
                             }
-                            <SideButton link={'home'}>
+                            <SideButton link={'login'}>
                                 Chalmers nolluppdrag
                             </SideButton>
-                            <SideButton link={'home'}>
+                            <SideButton link={'login'}>
                                 Dokument
                             </SideButton>
                         </div>
