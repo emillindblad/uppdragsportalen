@@ -68,7 +68,7 @@ const NewUppdrag: NextPage = () => {
 
 
     return (
-        <MainPage title={"Nytt uppdrag"}>
+        <MainPage session={session} title={"Nytt uppdrag"}>
             <div className="flex flex-col h-full justify-between pt-6">
                 <div className="border-b-2 border-black pb-2 mb-6">
                     <h1 className="text-4xl text-left text-black font-bold">Skapa nytt uppdrag</h1>

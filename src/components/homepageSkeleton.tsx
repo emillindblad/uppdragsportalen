@@ -6,6 +6,8 @@ import MainPage from "./MainPage";
 import { api } from "../utils/api";
 import { useState, useEffect, FunctionComponent } from "react";
 import type { Uppdrag } from "@prisma/client";
+import { getServerAuthSession } from "../server/auth";
+
 
 
 interface HomeProps {
@@ -52,7 +54,7 @@ interface HomeProps {
  
  return (
         <>
-            <MainPage title={props.title}>
+            <MainPage title={props.title} session={session}>
                 <div className="my-4">
                     {/* <p>{JSON.stringify(session)}</p> */}
                     <div className="border-b-2 border-gray-300 overflow-hidden">

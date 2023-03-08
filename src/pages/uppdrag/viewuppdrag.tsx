@@ -6,6 +6,7 @@ import { type NextRouter, withRouter, useRouter } from "next/router";
 import { useEffect } from "react";
 import UppdragComment from "../../components/UppdragComment";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
 
 interface Props {
     id: string
@@ -15,6 +16,7 @@ interface Props {
 const ViewUppdrag: NextPage<Props> = (props: Props) => {
 
     const router = useRouter();
+    const { data: session } = useSession();
 
     useEffect(() => {
         if (Object.keys(props.router.query).length === 0) {
@@ -34,7 +36,7 @@ const ViewUppdrag: NextPage<Props> = (props: Props) => {
 
     return (
         <>
-            <MainPage title={data?.title}>
+            <MainPage session={session} title={data?.title}>
                 <div className="grid grid-cols-6 grid-rows-[100px_minmax(300px,auto)] h-full">
                     <div className="flex col-start-1 col-end-7 row-start-1 row-span-1 border-b-2 border-black p-2 h-20 items-center justify-between">
                         <div className="flex items-start text-4xl font-bold text-left">
