@@ -20,11 +20,11 @@ const AssignmentData: FunctionComponent<UppdragsProps> = (props: UppdragsProps) 
         <>
             {props.data?.map( (u) => {
                 return (
-                    <div role="assignments" className="grid grid-cols-5 text-left text-xl" key={u.id}>
-                        <div onClick={() => nav(u.id)} className="flex-initial col-span-2 ml-4 my-2 max-w-[180px] hover:cursor-pointer hover:underline">{u.title}</div>
-                        {/* <div className="flex-initial col-span-1 max-w-[180px]">{u.nollk}</div> */}
-                        <div className="flex-initial my-2 ml-1 col-span-1 max-w-[180px]">{String(u.private)}</div>
-                        <div className="flex-initial my-2 ml-1 col-span-2 ">{u.motivation}</div>
+                    <div role="assignments" className="grid grid-cols-4 text-left text-xl hover:bg-gray-300" key={u.id}>
+                        <div onClick={() => nav(u.id)} className="flex-initial ml-4 my-2 max-w-[180px] hover:cursor-pointer hover:underline">{u.title}</div>
+                        <div className="flex-initial my-2 ml-1 max-w-[180px]">{u.status}</div>
+                        <div className="flex-initial  max-w-[180px]">{u.private.toString()}</div>
+                        <div className="flex-initial my-2 ml-1">{u.place}</div>
 
                         {/*
                         <div className="flex-initial col-span-1 max-w-[180px]">{u.nollk}</div>
