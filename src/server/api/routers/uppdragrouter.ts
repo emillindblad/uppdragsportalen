@@ -50,7 +50,8 @@ export const uppdragrouter = createTRPCRouter({
                 participants: input.participants,
                 desc: input.desc,
                 motivation: input.motivation,
-                private: input.private
+                private: input.private,
+                status: input.status
             }
         });
     })

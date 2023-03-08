@@ -1,7 +1,6 @@
 import type { GetServerSideProps, NextPage } from "next";
 import Link from "next/link";
 import MainPage from "../../components/MainPage";
-
 import { useForm } from "react-hook-form";
 import { type SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -12,6 +11,7 @@ import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 import { getServerAuthSession } from "../../server/auth";
 import { render } from "react-dom";
+import { UppdragStatus } from "@prisma/client";
 
 export const uppdragCreateSchema = z.object({
     year: z.number().min(4),
@@ -22,7 +22,8 @@ export const uppdragCreateSchema = z.object({
     participants: z.number().min(1,{ message: 'Vänligen ange antal deltagare' }),
     desc: z.string().min(1,{message: 'Vänligen ange en beskrivning av uppdraget'}),
     motivation: z.string().min(1, { message: 'Vänligen ange en motviation till uppdraget' }),
-    private: z.boolean()
+    private: z.boolean(),
+    status: z.nativeEnum(UppdragStatus)
 });
 
 type FormSchemaType = z.infer<typeof uppdragCreateSchema>;
@@ -44,6 +45,7 @@ const NewUppdrag: NextPage = () => {
         defaultValues: {
             year: session?.user.year as number,
             nollk: session?.user.nollk as string,
+            status: 'DRAFT'
         }
     });
 
@@ -55,14 +57,15 @@ const NewUppdrag: NextPage = () => {
     });
 
     const submitSubmit: SubmitHandler<FormSchemaType> = (data) => {
+        data.status = 'SUBMITTED'
         console.log("form data",data)
         createUppdrag.mutate(data)
         void router.push('/home');
     };
 
     const submitDraft: SubmitHandler<FormSchemaType> = (data) => {
-        // TODO Draft submission
-        console.log(data)
+        data.status = 'DRAFT'
+        createUppdrag.mutate(data)
         render(<p>Hej</p>,document.getElementById('__next'))
     };
 
