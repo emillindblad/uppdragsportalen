@@ -26,6 +26,8 @@ const Home: NextPage = () => {
     const uppdrag = api.uppdrag.getByYear.useQuery({ year: 2023 });
     const {data: isMK} = api.user.getUserStatus.useQuery();
 
+    const [searchValue, setSearchValue] = useState("");
+
 
     // to track which header is clicked
     const [titleClicked, setTitleClicked] = useState(false);
@@ -83,6 +85,9 @@ const Home: NextPage = () => {
         return;
     }
 
+    // Serach in table
+    
+
 
     return (
         <>
@@ -90,7 +95,7 @@ const Home: NextPage = () => {
                 <div className="my-4">
                     {/* <p>{JSON.stringify(session)}</p> */}
                     <div className="border-b-2 border-gray-300 overflow-hidden">
-                        <input className="px-4 py-2 w-full h-15 border-none placeholder-[#737373] text-2xl" type="text" placeholder="Sök.." name="search" />
+                        <input className="px-4 py-2 w-full h-15 border-none placeholder-[#737373] text-2xl" type="text" placeholder="Sök.." name="search" value={searchValue} onChange={e => setSearchValue(e.target.value)} />
                     </div>
                 </div>
                 {/* overflow-y-auto */}
@@ -106,7 +111,10 @@ const Home: NextPage = () => {
                         </div>
                         {/*  overflow-y-scroll */}
                         <div className="overflow-y-auto h-[82vh]">
-                            {uppdragData ? <AssignmentData data={uppdragData}/> : <p>Loading...</p> }
+                            {uppdragData ? <AssignmentData data={uppdragData.filter(u => u.title.includes(searchValue)
+                                                                                    || u.time.includes(searchValue)
+                                                                                    || u.desc.includes(searchValue))}/> 
+                            : <p>Loading...</p> }
                         </div>
                     </div>
                 </div>
