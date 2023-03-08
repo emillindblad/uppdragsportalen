@@ -81,6 +81,13 @@ const NewUppdrag: NextPage = () => {
         }
     });
 
+    const deleteUppdrag = api.uppdrag.delete.useMutation({
+        onSettled: async () => {
+            await utils.uppdrag.invalidate();
+            reset()
+        }
+    });
+
     const submitSubmit: SubmitHandler<FormSchemaType> = (data) => {
         data.status = 'SUBMITTED';
         updateUppdrag.mutate({...data, id: id as string});
@@ -94,6 +101,7 @@ const NewUppdrag: NextPage = () => {
     };
 
     const submitDelete: SubmitHandler<FormSchemaType> = (data) => {
+        deleteUppdrag.mutate({id: id as string});
         void router.push('/home')
 
     }
