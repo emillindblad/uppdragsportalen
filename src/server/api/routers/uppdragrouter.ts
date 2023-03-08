@@ -19,7 +19,8 @@ export const uppdragrouter = createTRPCRouter({
     .input(z.object({ id: z.string() }))
     .query(({ ctx, input }) => {
         return ctx.prisma.uppdrag.findUnique({
-            where: { id: input.id }
+            where: { id: input.id },
+            include: { author: true }
         });
     }),
 

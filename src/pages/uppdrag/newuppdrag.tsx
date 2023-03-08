@@ -141,7 +141,7 @@ const NewUppdrag: NextPage = () => {
                                     {...register('private')}
                                 />
                                 {errors.private?.message && <ErrorText text={errors.private?.message}/>}
-                                <label htmlFor="privpub" className="ml-3 select-none text-l text-gray-600">Privat/Publikt</label>
+                                <label htmlFor="privpub" className="ml-3 select-none text-l text-gray-600">Privat</label>
                             </div>
                         </div>
                         <div className="flex justify-between mt-6 mb-4">
