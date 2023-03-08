@@ -69,7 +69,12 @@ const ViewUppdrag: NextPage<Props> = (props: Props) => {
                             </button>
                         </Link>
                         {uppdrag?.nollk === session?.user.nollk ?
-                            <Link href="/home">
+                            <Link
+                                    href={{
+                                        pathname: '/uppdrag/edituppdrag/[id]',
+                                        query: { id: uppdrag?.id }
+                                    }}
+                            >
                                 <button
                                     className="h-[44px] w-[125px] bg-mk-blue hover:bg-mk-blue-hover text-white text-lg rounded-2xl font-bold px-6 py-2"
                                     type="button"

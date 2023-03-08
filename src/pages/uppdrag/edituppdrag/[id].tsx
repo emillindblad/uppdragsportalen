@@ -1,17 +1,17 @@
 import type { GetServerSideProps, NextPage } from "next";
 import Link from "next/link";
-import MainPage from "../../components/MainPage";
+import MainPage from "../../../components/MainPage";
 import { useForm } from "react-hook-form";
 import { type SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
-import { ErrorText } from "../../components/ErrorText";
-import { api } from "../../utils/api";
+import { ErrorText } from "../../../components/ErrorText";
+import { api } from "../../../utils/api";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
-import { getServerAuthSession } from "../../server/auth";
-import { render } from "react-dom";
+import { getServerAuthSession } from "../../../server/auth";
 import { UppdragStatus } from "@prisma/client";
+import { useEffect } from "react";
 
 export const uppdragCreateSchema = z.object({
     year: z.number().min(4),
@@ -39,15 +39,34 @@ const NewUppdrag: NextPage = () => {
     const { data: session } = useSession();
     const router = useRouter();
     const utils = api.useContext();
+    const { id } = router.query;
 
+    if (!id) {
+        void router.push('/home');
+    }
+
+    const { data: uppdrag } = api.uppdrag.getById.useQuery({ id: id as string })
     const { register, handleSubmit, formState: { errors }, reset } = useForm<FormSchemaType>({
         resolver: zodResolver(uppdragCreateSchema),
-        defaultValues: {
-            year: session?.user.year as number,
-            nollk: session?.user.nollk as string,
-            status: 'DRAFT'
-        }
     });
+
+    useEffect(() => {
+        const defaultValues: FormSchemaType = {
+            year: uppdrag?.year as number,
+            nollk: uppdrag?.nollk as string,
+            title: uppdrag?.title as string,
+            place: uppdrag?.place as string,
+            time: uppdrag?.time as string,
+            participants: uppdrag?.participants as number,
+            desc: uppdrag?.desc as string,
+            motivation: uppdrag?.motivation as string,
+            private: uppdrag?.private as boolean,
+            status: uppdrag?.status as UppdragStatus
+        }
+        reset({...defaultValues})
+    }, [uppdrag, reset]);
+
+
 
     const createUppdrag = api.uppdrag.create.useMutation({
         onSettled: async () => {
@@ -74,6 +93,7 @@ const NewUppdrag: NextPage = () => {
             <div className="flex flex-col h-full justify-between pt-6">
                 <div className="border-b-2 border-black pb-2 mb-6">
                     <h1 className="text-4xl text-left text-black font-bold">Skapa nytt uppdrag</h1>
+                    <p>Uppdrag: {id}</p>
                 </div>
                 <div className="max-w-[75%] h-full">
                     <form className="flex flex-col justify-between h-full" >

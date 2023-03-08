@@ -10,7 +10,6 @@ import { api } from "../../utils/api";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 import { getServerAuthSession } from "../../server/auth";
-import { render } from "react-dom";
 import { UppdragStatus } from "@prisma/client";
 
 export const uppdragCreateSchema = z.object({
