@@ -9,8 +9,8 @@
     "lint": "next lint",
     "start": "next start",
     "db-seed": "NODE_ENV=development prisma db seed",
-    "test": "vitest run --config vitest.config.ts",
-    "coverage": "vitest run --coverage --config vitest.config.ts"
+    "test": "vitest run --config vitest.config.ts && npm run db-seed",
+    "coverage": "vitest run --coverage --config vitest.config.ts && npm run db-seed"
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"
