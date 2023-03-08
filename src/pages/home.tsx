@@ -13,7 +13,7 @@ const Home: NextPage = () => {
     return(
         <>
 
-    <HomePageSkeleton> </HomePageSkeleton>
+    <HomePageSkeleton uppdrag="home" query={api.uppdrag.getByNollKThisYear.useQuery({ year: 2023, nollk: "" })} title={"Mina Uppdrag"}/>
     </>
     );
 }

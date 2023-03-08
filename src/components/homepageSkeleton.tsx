@@ -4,28 +4,32 @@ import Link from "next/link";
 import AssignmentData from "./AssignmentData";
 import MainPage from "./MainPage";
 import { api } from "../utils/api";
-import { useState, useEffect } from "react";
+import { useState, useEffect, FunctionComponent } from "react";
 import type { Uppdrag } from "@prisma/client";
+
+
+interface HomeProps {
+    uppdrag : string,
+    query : any,
+    title : string
+}
  
- export const HomePageSkeleton = (props:any) => {
+ export const HomePageSkeleton  = (props: HomeProps) => {
 
      // Usestate hook for sorting table of Uppdrag
      const [sortStateIndex, setSortStateIndex] = useState<number>(0);
      const sortStates: (number | undefined)[] = [undefined, 1, -1]; // unsorted, ascending, descending
+     const propString = props.uppdrag
  
      const [uppdragData, setUppdragData] = useState<Uppdrag[] | undefined>();
      const {data: isMK} = api.user.getUserStatus.useQuery();
      const {data: session} = useSession();
-     
-     const uppdrag = api.uppdrag.getByNollKThisYear.useQuery({
-         year: 2023,
-         nollk: ""
-     });
+     const uppdragQuery = props.query
  
      useEffect(() => {
-         setUppdragData(uppdrag.data),
+         setUppdragData(uppdragQuery.data),
          setSortStateIndex(1)
-     },[uppdrag.data]);
+     },[uppdragQuery.data]);
  
      // Sort table
      function sortUppdragInTable(attribute: string, order: number) {
@@ -40,7 +44,7 @@ import type { Uppdrag } from "@prisma/client";
          const sortStatus = sortStates[sortStateIndex];
  
          if (sortStatus === undefined) {
-             return uppdrag.data;
+             return uppdragQuery.data;
          }
  
          return uppdragData ? [...uppdragData].sort(sortUppdragInTable(row, sortStatus)) : undefined;
@@ -48,7 +52,7 @@ import type { Uppdrag } from "@prisma/client";
  
  return (
         <>
-            <MainPage title={"Mottagningskommittén"}>
+            <MainPage title={props.title}>
                 <div className="my-4">
                     {/* <p>{JSON.stringify(session)}</p> */}
                     <div className="border-b-2 border-gray-300 overflow-hidden">

@@ -6,22 +6,17 @@ import MainPage from "../components/MainPage";
 import { api } from "../utils/api";
 import { useState, useEffect } from "react";
 import type { Uppdrag } from "@prisma/client";
+import HomePageSkeleton from "../components/homepageSkeleton";
 
 const Assignments: NextPage = () => {
     return (
         <>
-         <MainPage title="chalmersUppdrag">
 
-         <h1> hej</h1>
+         <HomePageSkeleton uppdrag="chalmers" query={api.uppdrag.getAll.useQuery()}/>
 
          {/* Använd props både i home och i SideMenu så att beroende på vilken knapp 
          du klickar på så använder du en annan query (getbyNollKAllyears och getbynollk) */}
 
-
-
-
-
-         </MainPage>
         </>
     );
 }
