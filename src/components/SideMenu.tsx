@@ -49,7 +49,7 @@ const SideMenu = (props: SideMenuProps) => {
                                 Arkiv
                             </SideButton>)
                             }
-                            <SideButton link={'login'}>
+                            <SideButton link={'chalmers'}>
                                 Chalmers nolluppdrag
                             </SideButton>
                             <SideButton link={'login'}>

@@ -12,7 +12,7 @@ const Assignments: NextPage = () => {
     return (
         <>
 
-         <HomePageSkeleton uppdrag="chalmers" query={api.uppdrag.getAll.useQuery()}/>
+         <HomePageSkeleton uppdrag="arkiv" query={api.uppdrag.getByNollK.useQuery({nollk: ""})} title={"Arkiv"}/>
 
          {/* Använd props både i home och i SideMenu så att beroende på vilken knapp 
          du klickar på så använder du en annan query (getbyNollKAllyears och getbynollk) */}
