@@ -1,23 +1,16 @@
 import SideButton from "../components/SideButton";
 import Image from "next/image";
-import itLogo from "../../public/img/it-logo.png";
 import Link from "next/link";
-import { useState } from "react";
 import { signOut, useSession } from "next-auth/react";
 import { api } from "../utils/api";
 
 
-
-
 const SideMenu = () => {
-    const [activeButtonIndex, setActiveButtonIndex] = useState(0);
     const { data: isMK } = api.user.getUserStatus.useQuery();
-
     const { data: session } = useSession();
-
     const {data: nollk} = api.user.getUserNollk.useQuery({ id: session?.user?.id as string });
 
-
+    const imagePath = "/img/" + (nollk?.nollk as string) + ".png";
 
 //TODO En check på vilken sida man är inne på (kan typ också va en hook) och setActiveButtonIndex därefter
 //hook useLocation
@@ -28,7 +21,7 @@ const SideMenu = () => {
                     <div className="flex mx-5 mb-7 pb-10 ">
                         <Link href="/login" className="col-span-1 ms-2">
                             {/* Hardcoded image values, replace later */}
-                            <Image src={`/img/${nollk?.nollk}.png`} height="60" width="60" alt={`${nollk?.nollk}`} className="max-w-[60px] mr-4 mb-2" />
+                            <Image src={`${imagePath}`} height="60" width="60" alt="NollK logo" className="max-w-[60px] mr-4 mb-2" />
                         </Link>
                         <div className="items-start min-w-[150px]">
                             <p className=" text-white font-bold text-lg tracking-wide">{session?.user?.name}</p>
@@ -62,7 +55,13 @@ const SideMenu = () => {
                     </div>
 
                 <div className="flex items-start mt-6 mb-6 ml-6">
-                    <button onClick={() => signOut()} className="w-[125px] h-[44px] bg-mk-yellow hover:bg-mk-yellow-hover text-white text-lg rounded-2xl font-bold px-6 py-2">Logga ut</button>
+                    <button
+                        // eslint-disable-next-line @typescript-eslint/no-misused-promises
+                        onClick={() => signOut()}
+                        className="w-[125px] h-[44px] bg-mk-yellow hover:bg-mk-yellow-hover text-white text-lg rounded-2xl font-bold px-6 py-2"
+                    >
+                        Logga ut
+                    </button>
                 </div>
             </nav>
         </>

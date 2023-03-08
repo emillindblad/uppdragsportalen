@@ -6,9 +6,9 @@ generator client {
 }
 
 datasource db {
-    provider = "sqlite"
+    //provider = "sqlite"
     // Uncomment to use CockroachDB
-    //provider = "cockroachdb"
+    provider = "cockroachdb"
 
     // NOTE: When using postgresql, mysql or sqlserver, uncomment the @db.Text annotations in model Account below
     // Further reading:

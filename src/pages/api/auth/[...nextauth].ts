@@ -65,7 +65,7 @@ export const authOptions: NextAuthOptions = {
         }),
     ],
     callbacks: {
-        async session({ session, token }) {
+        session({ session, token }) {
             if (token && session.user) {
                 session.user.image = null;
                 session.user.id = token.id as string;
@@ -77,7 +77,7 @@ export const authOptions: NextAuthOptions = {
             }
             return session;
         },
-        async jwt({ token, user }) {
+        jwt({ token, user }) {
             if (user) {
                 token.id = user.id;
                 token.email = user.email;
