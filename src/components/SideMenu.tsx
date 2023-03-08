@@ -3,14 +3,18 @@ import Image from "next/image";
 import Link from "next/link";
 import { signOut, useSession } from "next-auth/react";
 import { api } from "../utils/api";
+import type { Session } from "next-auth/core/types";
 
+interface SideMenuProps {
+    session?: Session | null,
+}
 
-const SideMenu = () => {
+const SideMenu = (props: SideMenuProps) => {
     const { data: isMK } = api.user.getUserStatus.useQuery();
-    const { data: session } = useSession();
-    const {data: nollk} = api.user.getUserNollk.useQuery({ id: session?.user?.id as string });
+    const session = props.session;
+    const nollk = session?.user.nollk;
 
-    const imagePath = "/img/" + (nollk?.nollk as string) + ".png";
+    const imagePath = "/img/" + (nollk as string) + ".png";
 
 //TODO En check på vilken sida man är inne på (kan typ också va en hook) och setActiveButtonIndex därefter
 //hook useLocation
