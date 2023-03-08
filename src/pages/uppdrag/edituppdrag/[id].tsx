@@ -41,11 +41,17 @@ const NewUppdrag: NextPage = () => {
     const utils = api.useContext();
     const { id } = router.query;
 
-    if (!id) {
-        void router.push('/home');
-    }
+    const { data: uppdrag } = api.uppdrag.getById.useQuery({ id: id as string})
 
-    const { data: uppdrag } = api.uppdrag.getById.useQuery({ id: id as string })
+    useEffect(() => {
+        if (uppdrag == undefined) {
+        } else {
+            if (uppdrag.authorId !== session?.user.id) {
+                void router.push("/home")
+            }
+        }
+    },[uppdrag, session, router])
+
     const { register, handleSubmit, formState: { errors }, reset } = useForm<FormSchemaType>({
         resolver: zodResolver(uppdragCreateSchema),
     });
@@ -68,7 +74,7 @@ const NewUppdrag: NextPage = () => {
 
 
 
-    const createUppdrag = api.uppdrag.create.useMutation({
+    const updateUppdrag = api.uppdrag.update.useMutation({
         onSettled: async () => {
             await utils.uppdrag.invalidate();
             reset()
@@ -77,23 +83,28 @@ const NewUppdrag: NextPage = () => {
 
     const submitSubmit: SubmitHandler<FormSchemaType> = (data) => {
         data.status = 'SUBMITTED';
-        createUppdrag.mutate(data);
+        updateUppdrag.mutate({...data, id: id as string});
         void router.push('/home');
     };
 
     const submitDraft: SubmitHandler<FormSchemaType> = (data) => {
         data.status = 'DRAFT';
-        createUppdrag.mutate(data);
+        updateUppdrag.mutate({ ...data, id: id as string });
         void router.push('/home');
     };
+
+    const submitDelete: SubmitHandler<FormSchemaType> = (data) => {
+        void router.push('/home')
+
+    }
 
 
     return (
         <MainPage session={session} title={"Nytt uppdrag"}>
             <div className="flex flex-col h-full justify-between pt-6">
-                <div className="border-b-2 border-black pb-2 mb-6">
-                    <h1 className="text-4xl text-left text-black font-bold">Skapa nytt uppdrag</h1>
-                    <p>Uppdrag: {id}</p>
+                <div className="flex justify-between border-b-2 border-black pb-2 mb-6">
+                    <h1 className="text-4xl text-left text-black font-bold">Redigera uppdrag</h1>
+                    <p>Uppdragsid: {id}</p>
                 </div>
                 <div className="max-w-[75%] h-full">
                     <form className="flex flex-col justify-between h-full" >
@@ -169,8 +180,23 @@ const NewUppdrag: NextPage = () => {
                         <div className="flex justify-between mt-6 mb-4">
                             <div className="">
                                 <Link href="/home">
-                                    <button className="bg-mk-yellow hover:bg-mk-yellow-hover text-white text-lg rounded-2xl font-bold px-6 py-2" type="button">Tillbaka</button>
+                                    <button
+                                        className="bg-mk-yellow hover:bg-mk-yellow-hover text-white text-lg rounded-2xl font-bold px-6 py-2"
+                                        type="button"
+                                    >
+                                        Tillbaka
+                                    </button>
                                 </Link>
+                            </div>
+                            <div className="">
+                                <button
+                                    className="bg-red-600 hover:bg-red-700 text-white text-lg rounded-2xl font-bold px-6 py-2"
+                                    type="button"
+                                    // eslint-disable-next-line @typescript-eslint/no-misused-promises
+                                    onClick={handleSubmit(submitDelete)}
+                                >
+                                    Ta bort
+                                </button>
                                 <Link href="/home" className="px-2">
                                     <button
                                         className="bg-mk-blue hover:bg-mk-blue-hover text-white text-lg rounded-2xl font-bold px-6 py-2"
@@ -178,11 +204,9 @@ const NewUppdrag: NextPage = () => {
                                         // eslint-disable-next-line @typescript-eslint/no-misused-promises
                                         onClick={handleSubmit(submitDraft)}
                                     >
-                                        Spara
+                                        Spara utkast
                                     </button>
                                 </Link>
-                            </div>
-                            <div className=" justify-self-end ">
                                 <button
                                     className="bg-mk-blue hover:bg-mk-blue-hover text-white text-lg rounded-2xl font-bold px-6 py-2"
                                     type="submit"
@@ -193,7 +217,6 @@ const NewUppdrag: NextPage = () => {
                                 </button>
                             </div>
                         </div>
-
                     </form>
                 </div>
             </div>
