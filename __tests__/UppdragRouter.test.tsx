@@ -45,7 +45,8 @@ describe('uppdrag', async () => {
         time: 'test',
         participants: 9999,
         motivation: 'test',
-        private: false
+        private: false,
+        status: 'DRAFT'
     }
 
     const uppdrag = await caller.uppdrag.create(input)
