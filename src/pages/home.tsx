@@ -116,12 +116,25 @@ const Home: NextPage = () => {
                             </div>
                         </div>
                         {/*  overflow-y-scroll */}
-                        <div className="overflow-y-auto h-[82vh]">
-                            {uppdragData ? <AssignmentData data={uppdragData.filter(u => u.title.includes(searchValue)
-                                                                                    || u.time.includes(searchValue)
-                                                                                    || u.place.includes(searchValue))}/> 
-                            : <p>Loading...</p> }
-                        </div>
+                        {isMK ? 
+                                <div className="overflow-y-auto h-[82vh]">
+                                    {uppdragData ? <AssignmentData data={uppdragData.filter(u => u.title.includes(searchValue)
+                                                                                            || u.nollk.includes(searchValue)
+                                                                                            // || u.status.includes(searchValue)
+                                                                                            || u.place.includes(searchValue))}/> 
+                                    : <p>Loading...</p> }
+                                </div>
+                            :
+                                <div className="overflow-y-auto h-[82vh]">
+                                    {uppdragData ? <AssignmentData data={uppdragData.filter(u => u.title.includes(searchValue)
+                                                                                            || u.time.includes(searchValue)
+                                                                                            // || u.status.includes(searchValue)
+                                                                                            // || u.private.tosting().includes(searchValue)
+                                                                                            || u.place.includes(searchValue))}/> 
+                                    : <p>Loading...</p> }
+                                </div>
+                        
+                        }
                     </div>
                 </div>
                 {isMK ? null :
