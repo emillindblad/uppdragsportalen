@@ -2,9 +2,7 @@ import { createInnerTRPCContext } from "../src/server/api/trpc";
 import { appRouter } from "../src/server/api/root";
 import { describe, expect, test } from "vitest"
 import { prisma } from "../src/server/db"
-import { hashPw } from "../src/server/hash";
-import { User } from "@prisma/client";
-import { compareSync, hashSync } from "bcrypt";
+import { compareSync } from "bcrypt";
 
 
 test("unauthed should not be able to fetch uppdrag", async () => {
@@ -22,7 +20,6 @@ describe('user', async () => {
     const dummyUser = await prisma.user.upsert({
         where: { email: "test@test.com" },
         create: {
-            id: "testID",
             name: "test",
             nollk: "test",
             email: "test@test.com",
@@ -30,7 +27,9 @@ describe('user', async () => {
             accepted: true,
             year: 2023
         },
-        update: {}
+        update: {
+            name: "test",
+        }
     });
     
     const ctx = createInnerTRPCContext({
@@ -43,11 +42,12 @@ describe('user', async () => {
     const caller = appRouter.createCaller(ctx);
 
     let userID: string;
+    const userID2: string = dummyUser.id;
 
 
     test("fetch user by id", async () => {
         const userID = await caller.user.getUser({ id: dummyUser.id })
-        expect(userID?.id).toBe("testID");
+        expect(userID?.id).toBe(userID2);
     })
 
     test("fetch user nollk", async () => {
@@ -97,7 +97,7 @@ describe('user', async () => {
 
     test("get all accepted users", async () => {
         const users = await caller.user.getAllAcceptedUsers()
-        const newUser = users.find(user => user.id === "test4")
+        const newUser = users.find(user => user.id === userID)
         expect(newUser?.name).toBe("test4")
     })
 
@@ -105,7 +105,7 @@ describe('user', async () => {
         await caller.user.deleteUser({ id: userID })
         await caller.user.deleteUser({id: dummyUser.id})
         const newUser = await caller.user.getUser({ id: dummyUser.id})
-        expect(newUser).toBeUndefined()
+        expect(newUser).toBeNull()
     })
 
 

@@ -20,11 +20,12 @@ model Uppdrag {
   motivation   String
   private      Boolean
   status       UppdragStatus @default(DRAFT)
-  author       User          @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  comment      String?
+  author       User          @relation(fields: [authorId], references: [id])
 }
 
 model User {
-  id       String    @id @default(cuid()) 
+  id       String    @id @default(cuid())
   name     String
   password String
   email    String    @unique

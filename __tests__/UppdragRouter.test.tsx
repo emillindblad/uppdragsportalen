@@ -24,7 +24,9 @@ describe('uppdrag', async () => {
             accepted: true,
             year: 2023
         },
-        update: {}
+        update: {
+            name: "test",
+        }
     });
 
     const ctx = createInnerTRPCContext({
