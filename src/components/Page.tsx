@@ -9,8 +9,8 @@ function Greeting() {
 
     const greeting =
     currentHour < 11 ? 'Godmorgon' :
-    currentHour > 11 && currentHour < 17 ? 'Goddag' :
-    currentHour > 17 && currentHour < 22 ? 'Godkväll' :
+    currentHour > 11 && currentHour <= 17 ? 'Goddag' :
+    currentHour > 17 && currentHour <= 22 ? 'Godkväll' :
     'Sov';
 
     return (<p>{greeting} gemene teknolog!</p>)
