@@ -35,7 +35,8 @@ export const uppdragrouter = createTRPCRouter({
     .input(z.object({ id: z.string() }))
     .query(({ ctx, input }) => {
         return ctx.prisma.uppdrag.findUnique({
-            where: { id: input.id }
+            where: { id: input.id },
+            include: { author: true }
         });
     }),
 
@@ -65,9 +66,37 @@ export const uppdragrouter = createTRPCRouter({
                 participants: input.participants,
                 desc: input.desc,
                 motivation: input.motivation,
-                private: input.private
+                private: input.private,
+                status: input.status
             }
         });
-    })
+    }),
+
+    update: protectedProcedure
+    .input(uppdragCreateSchema.and(z.object({ id: z.string() })))
+    .mutation(({ ctx, input }) => {
+        return ctx.prisma.uppdrag.update({
+            where: {
+                id: input.id
+            },
+            data: {
+                year: input.year,
+                nollk: input.nollk,
+                author: {
+                    connect: {
+                        id: ctx.session.user.id
+                    }
+                },
+                title: input.title,
+                place: input.place,
+                time: input.time,
+                participants: input.participants,
+                desc: input.desc,
+                motivation: input.motivation,
+                private: input.private,
+                status: input.status
+            }
+        });
+    }),
 
 });

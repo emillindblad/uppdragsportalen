@@ -1,16 +1,17 @@
 import type { GetServerSideProps, NextPage } from "next";
 import Link from "next/link";
-import MainPage from "../../components/MainPage";
+import MainPage from "../../../components/MainPage";
 import { useForm } from "react-hook-form";
 import { type SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
-import { ErrorText } from "../../components/ErrorText";
-import { api } from "../../utils/api";
+import { ErrorText } from "../../../components/ErrorText";
+import { api } from "../../../utils/api";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
-import { getServerAuthSession } from "../../server/auth";
+import { getServerAuthSession } from "../../../server/auth";
 import { UppdragStatus } from "@prisma/client";
+import { useEffect } from "react";
 
 export const uppdragCreateSchema = z.object({
     year: z.number().min(4),
@@ -38,17 +39,49 @@ const NewUppdrag: NextPage = () => {
     const { data: session } = useSession();
     const router = useRouter();
     const utils = api.useContext();
+    const { id } = router.query;
+
+    const { data: uppdrag } = api.uppdrag.getById.useQuery({ id: id as string})
+
+    useEffect(() => {
+        if (uppdrag == undefined) {
+        } else {
+            if (uppdrag.authorId !== session?.user.id) {
+                void router.push("/home")
+            }
+        }
+    },[uppdrag, session, router])
 
     const { register, handleSubmit, formState: { errors }, reset } = useForm<FormSchemaType>({
         resolver: zodResolver(uppdragCreateSchema),
-        defaultValues: {
-            year: session?.user.year as number,
-            nollk: session?.user.nollk as string,
-            status: 'DRAFT'
+    });
+
+    useEffect(() => {
+        const defaultValues: FormSchemaType = {
+            year: uppdrag?.year as number,
+            nollk: uppdrag?.nollk as string,
+            title: uppdrag?.title as string,
+            place: uppdrag?.place as string,
+            time: uppdrag?.time as string,
+            participants: uppdrag?.participants as number,
+            desc: uppdrag?.desc as string,
+            motivation: uppdrag?.motivation as string,
+            private: uppdrag?.private as boolean,
+            status: uppdrag?.status as UppdragStatus
+        }
+        reset({...defaultValues})
+    }, [uppdrag, reset]);
+
+
+
+    const updateUppdrag = api.uppdrag.update.useMutation({
+        onSettled: async () => {
+            await utils.uppdrag.invalidate();
+            reset()
         }
     });
 
-    const createUppdrag = api.uppdrag.create.useMutation({
+    const deleteUppdrag = api.uppdrag.delete.useMutation({
         onSettled: async () => {
             await utils.uppdrag.invalidate();
             reset()
@@ -57,22 +90,29 @@ const NewUppdrag: NextPage = () => {
 
     const submitSubmit: SubmitHandler<FormSchemaType> = (data) => {
         data.status = 'SUBMITTED';
-        createUppdrag.mutate(data);
+        updateUppdrag.mutate({...data, id: id as string});
         void router.push('/home');
     };
 
     const submitDraft: SubmitHandler<FormSchemaType> = (data) => {
         data.status = 'DRAFT';
-        createUppdrag.mutate(data);
+        updateUppdrag.mutate({ ...data, id: id as string });
         void router.push('/home');
     };
+
+    const submitDelete: SubmitHandler<FormSchemaType> = (data) => {
+        deleteUppdrag.mutate({id: id as string});
+        void router.push('/home')
+
+    }
 
 
     return (
         <MainPage session={session} title={"Nytt uppdrag"}>
             <div className="flex flex-col h-full justify-between pt-6">
-                <div className="border-b-2 border-black pb-2 mb-6">
-                    <h1 className="text-4xl text-left text-black font-bold">Skapa nytt uppdrag</h1>
+                <div className="flex justify-between border-b-2 border-black pb-2 mb-6">
+                    <h1 className="text-4xl text-left text-black font-bold">Redigera uppdrag</h1>
+                    <p>Uppdragsid: {id}</p>
                 </div>
                 <div className="max-w-[75%] h-full">
                     <form className="flex flex-col justify-between h-full" >
@@ -148,8 +188,23 @@ const NewUppdrag: NextPage = () => {
                         <div className="flex justify-between mt-6 mb-4">
                             <div className="">
                                 <Link href="/home">
-                                    <button className="bg-mk-yellow hover:bg-mk-yellow-hover text-white text-lg rounded-2xl font-bold px-6 py-2" type="button">Tillbaka</button>
+                                    <button
+                                        className="bg-mk-yellow hover:bg-mk-yellow-hover text-white text-lg rounded-2xl font-bold px-6 py-2"
+                                        type="button"
+                                    >
+                                        Tillbaka
+                                    </button>
                                 </Link>
+                            </div>
+                            <div className="">
+                                <button
+                                    className="bg-red-600 hover:bg-red-700 text-white text-lg rounded-2xl font-bold px-6 py-2"
+                                    type="button"
+                                    // eslint-disable-next-line @typescript-eslint/no-misused-promises
+                                    onClick={handleSubmit(submitDelete)}
+                                >
+                                    Ta bort
+                                </button>
                                 <Link href="/home" className="px-2">
                                     <button
                                         className="bg-mk-blue hover:bg-mk-blue-hover text-white text-lg rounded-2xl font-bold px-6 py-2"
@@ -157,11 +212,9 @@ const NewUppdrag: NextPage = () => {
                                         // eslint-disable-next-line @typescript-eslint/no-misused-promises
                                         onClick={handleSubmit(submitDraft)}
                                     >
-                                        Spara
+                                        Spara utkast
                                     </button>
                                 </Link>
-                            </div>
-                            <div className=" justify-self-end ">
                                 <button
                                     className="bg-mk-blue hover:bg-mk-blue-hover text-white text-lg rounded-2xl font-bold px-6 py-2"
                                     type="submit"
@@ -172,7 +225,6 @@ const NewUppdrag: NextPage = () => {
                                 </button>
                             </div>
                         </div>
-
                     </form>
                 </div>
             </div>

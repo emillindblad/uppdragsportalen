@@ -20,6 +20,10 @@ model Uppdrag {
   motivation   String
   private      Boolean
   status       UppdragStatus @default(DRAFT)
+<<<<<<< HEAD
+=======
+  comment      String?
+>>>>>>> dev
   author       User          @relation(fields: [authorId], references: [id])
 }
 
