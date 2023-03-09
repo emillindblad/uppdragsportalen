@@ -53,42 +53,40 @@ interface HomeProps { //va1d ska vi ersätta denna med
         {enabled: false,
         refetchOnWindowFocus: false,});
 
-    if(props.id === "chalmers"){
-        void chalmers();
+    // if(props.id === "chalmers"){
+    //     void chalmers();
         
-    }
-    if(props.id === "NollKs"){
-        void NollKs();
-    }
-    if(props.id === "myNollk"){
-        void myNollk();
-    }
-    if(props.id === "granska"){
-        void granska();
-    }
+    // }
+    // if(props.id === "NollKs"){
+    //     void NollKs();
+    // }
+    // if(props.id === "myNollk"){
+    //     void myNollk();
+    // }
+    // if(props.id === "granska"){
+    //     void granska();
+    // }
 
      //sorting algorithm
      useEffect(() => {
         if(props.id === "chalmers"){
             void chalmers();
-            console.log("hello")
-            console.log(uppdragData)
             setUppdragData(chalmersData)
-            console.log(uppdragData, "after setter")
         }
-        if(props.id === "NollKs"){
+        if(props.id === "nollks"){
+            void NollKs();
             setUppdragData(NollKData)
         }
-        if(props.id === "myNollk"){
+        if(props.id === "mynollk"){
+            void myNollk();
             setUppdragData(myNollkData)
         }
-        else {
+        if(props.id === "granska") {
+            void granska();
             setUppdragData(granskaData)
         }
-        //(props.id === "granska")
-
      setSortStateIndex(1)
-     },[NollKData, chalmersData, granskaData, myNollkData, props.id, uppdragData]);
+     },[NollKData, NollKs, chalmers, chalmersData, granska, granskaData, myNollk, myNollkData, props.id, uppdragData]);
  
      // Sort table
      function sortUppdragInTable(attribute: string, order: number) {

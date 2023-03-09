@@ -21,7 +21,7 @@ const Home: NextPage = () => {
     return(
         <>
 
-    <HomePageSkeleton id={"myNollK"} title={"Mina Uppdrag"}/>
+    <HomePageSkeleton id={"mynollk"} title={"Mina Uppdrag"}/>
     </>
     );
 }
