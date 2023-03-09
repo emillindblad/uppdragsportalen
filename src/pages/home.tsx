@@ -21,7 +21,7 @@ const Home: NextPage = () => {
     return(
         <>
 
-    <HomePageSkeleton uppdrag="home" query={api.uppdrag.getByNollKThisYear.useQuery({ year: 2023, nollk: "" })} title={"Mina Uppdrag"}/>
+    <HomePageSkeleton id={"myNollK"} title={"Mina Uppdrag"}/>
     </>
     );
 }

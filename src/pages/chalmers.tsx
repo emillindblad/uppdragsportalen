@@ -21,7 +21,7 @@ const Chalmers: NextPage = () => {
     return(
         <>
 
-    <HomePageSkeleton uppdrag="home" query={api.uppdrag.getAll.useQuery()} title={"Chalmers uppdrag"}/>
+    <HomePageSkeleton id={"chalmers"} title={"Chalmers uppdrag"}/>
     </>
     );
 }

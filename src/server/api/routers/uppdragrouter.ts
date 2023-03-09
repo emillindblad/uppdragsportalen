@@ -4,7 +4,7 @@ import { createTRPCRouter, protectedProcedure } from "../trpc";
 
 export const uppdragrouter = createTRPCRouter({
     getByYear: protectedProcedure
-    .input(z.object({ year: z.number() }))
+    .input(z.object({ year: z.number()}))
     .query(({ ctx, input }) => {
         return ctx.prisma.uppdrag.findMany({
             where: { year: input.year }
@@ -12,7 +12,7 @@ export const uppdragrouter = createTRPCRouter({
     }),
 
     getByNollKThisYear: protectedProcedure
-    .input(z.object({ nollk: z.string(), year: z.number() }))
+    .input(z.object({ nollk: z.string(), year: z.number()}))
     .query(({ctx, input }) => {
         return ctx.prisma.uppdrag.findMany({
             where: {nollk: ctx.session.user.nollk, year: input.year}
@@ -20,7 +20,7 @@ export const uppdragrouter = createTRPCRouter({
     }),
 
     getByNollK: protectedProcedure
-    .input(z.object({ nollk: z.string()}))
+    .input(z.object({ nollk: z.string() }))
     .query(({ctx, input }) => {
         return ctx.prisma.uppdrag.findMany({
             where: { nollk: ctx.session.user.nollk }

@@ -6,32 +6,89 @@ import MainPage from "./MainPage";
 import { api } from "../utils/api";
 import { useState, useEffect, FunctionComponent } from "react";
 import type { Uppdrag } from "@prisma/client";
-import { getServerAuthSession } from "../server/auth";
 
 
+//om klickar på arkiv, kör den här queryn (varje query får en metod med data/refetch, se labb2)
 
-interface HomeProps {
-    uppdrag : string,
-    query : any,
-    title : string
+interface HomeProps { //va1d ska vi ersätta denna med
+    title : string,
+    id: string
 }
  
  export const HomePageSkeleton  = (props: HomeProps) => {
 
-     // Usestate hook for sorting table of Uppdrag
-     const [sortStateIndex, setSortStateIndex] = useState<number>(0);
-     const sortStates: (number | undefined)[] = [undefined, 1, -1]; // unsorted, ascending, descending
-     const propString = props.uppdrag
- 
-     const [uppdragData, setUppdragData] = useState<Uppdrag[] | undefined>();
-     const {data: isMK} = api.user.getUserStatus.useQuery();
-     const {data: session} = useSession();
-     const uppdragQuery = props.query
- 
+    
+  // Usestate hook for sorting table of Uppdrag
+  const [sortStateIndex, setSortStateIndex] = useState<number>(0);
+  const sortStates: (number | undefined)[] = [undefined, 1, -1]; // unsorted, ascending, descending
+
+  const [uppdragData, setUppdragData] = useState<Uppdrag[] | undefined>();
+  const {data: isMK} = api.user.getUserStatus.useQuery();
+  const {data: session} = useSession();
+  //const uppdragQuery = api.uppdrag.getByNollK.useQuery({nollk: "", enabled:})
+  
+     //methods for deciding which query to run
+     const { data : chalmersData, refetch : chalmers } = api.uppdrag.getAll.useQuery(undefined,{
+        refetchOnWindowFocus: false,
+        enabled: false
+    });
+
+    const { data : myNollkData, refetch : myNollk } = api.uppdrag.getByNollKThisYear.useQuery({
+        nollk: "",
+        year: 2023},
+        {
+        enabled: false,
+        refetchOnWindowFocus: false,
+        });
+
+    const { data : NollKData, refetch : NollKs } = api.uppdrag.getByNollK.useQuery({ nollk: ""},{
+        enabled: false,
+        refetchOnWindowFocus: false,
+
+    });
+
+    const { data : granskaData, refetch : granska } = api.uppdrag.getByYear.useQuery({
+        //refetchOnWindowFocus: false,
+        year: 2023},
+        {enabled: false,
+        refetchOnWindowFocus: false,});
+
+    if(props.id === "chalmers"){
+        void chalmers();
+        
+    }
+    if(props.id === "NollKs"){
+        void NollKs();
+    }
+    if(props.id === "myNollk"){
+        void myNollk();
+    }
+    if(props.id === "granska"){
+        void granska();
+    }
+
+     //sorting algorithm
      useEffect(() => {
-         setUppdragData(uppdragQuery.data),
-         setSortStateIndex(1)
-     },[uppdragQuery.data]);
+        if(props.id === "chalmers"){
+            void chalmers();
+            console.log("hello")
+            console.log(uppdragData)
+            setUppdragData(chalmersData)
+            console.log(uppdragData, "after setter")
+        }
+        if(props.id === "NollKs"){
+            setUppdragData(NollKData)
+        }
+        if(props.id === "myNollk"){
+            setUppdragData(myNollkData)
+        }
+        else {
+            setUppdragData(granskaData)
+        }
+        //(props.id === "granska")
+
+     setSortStateIndex(1)
+     },[NollKData, chalmersData, granskaData, myNollkData, props.id, uppdragData]);
  
      // Sort table
      function sortUppdragInTable(attribute: string, order: number) {
@@ -46,11 +103,13 @@ interface HomeProps {
          const sortStatus = sortStates[sortStateIndex];
  
          if (sortStatus === undefined) {
-             return uppdragQuery.data;
+             return uppdragData;
          }
  
          return uppdragData ? [...uppdragData].sort(sortUppdragInTable(row, sortStatus)) : undefined;
      }
+
+
  
  return (
         <>
@@ -75,6 +134,7 @@ interface HomeProps {
                         </div>
                         {/*  overflow-y-scroll */}
                         <div className="overflow-y-auto h-[82vh]">
+                            {}
                             {uppdragData ? <AssignmentData data={uppdragData}/> : <p>Loading...</p> }
                         </div>
                     </div>
