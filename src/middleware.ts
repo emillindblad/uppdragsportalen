@@ -7,7 +7,8 @@ import { env } from './env/server.mjs';
 // See "Matching Paths" below to learn more
 export const config = {
     matcher: [
-        //'/((?!api|_next/static/*|_next/image|img|favicon.ico).*)',
+        //'/((?!api/*|_next/static/*|_next/image|img|favicon.ico).*)',
+        //Protected paths:
         '/home','/login','/accounts','/uppdrag/:path*','/register','/user','/api:path*'
     ],
 }

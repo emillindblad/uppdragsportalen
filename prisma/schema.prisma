@@ -30,15 +30,16 @@ model Uppdrag {
     participants    Int
     motivation      String
     private         Boolean
-    //status          UStatus     @default(SUBMITTED)
+    status          UppdragStatus     @default(DRAFT)
 }
 
-//enum UStatus {
-//    APPROVED
-//    DENIED
-//    RETURN
-//    SUBMITTED
-//}
+enum UppdragStatus {
+    APPROVED
+    DENIED
+    RETURN
+    SUBMITTED
+    DRAFT
+}
 
 model User {
     id            String    @id @default(cuid())
