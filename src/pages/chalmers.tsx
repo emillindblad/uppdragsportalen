@@ -1,4 +1,4 @@
-import type { GetServerSideProps, NextPage } from "next";
+import { GetServerSideProps, type NextPage } from "next";
 import Link from "next/link";
 import AssignmentData from "../components/AssignmentData";
 import MainPage from "../components/MainPage";
@@ -16,13 +16,13 @@ export const getServerSideProps: GetServerSideProps = async ( ctx ) => {
     }
 }
 
-const Home: NextPage = () => {
+const Chalmers: NextPage = () => {
 
     return(
         <>
 
-    <HomePageSkeleton id={"mynollk"} title={"Mina Uppdrag"}/>
+    <HomePageSkeleton id={"chalmers"} title={"Chalmers uppdrag"}/>
     </>
     );
 }
-export default Home;
+export default Chalmers;
