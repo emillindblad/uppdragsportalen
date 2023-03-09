@@ -1,11 +1,9 @@
 import { render, screen, within } from '@testing-library/react'
 import { describe, expect, test, vi } from "vitest";
-import MyApp from '../src/pages/_app'
 import Navbar from '../src/components/Navbar';
 import SideMenu from '../src/components/SideMenu';
 import SideButton from '../src/components/SideButton';
-import mockRouter from 'next-router-mock'
-import { Uppdrag } from '@prisma/client';
+import type { Uppdrag } from '@prisma/client';
 import AssignmentData from '../src/components/AssignmentData';
 
 vi.mock('next/router', () => require('next-router-mock')); //Needed for componens that use next/router
@@ -46,6 +44,7 @@ describe("AssignmentData", () => {
     const testInfo: Uppdrag[] = [
         {
             id: "123",
+            authorId : "test",
             year: 2023,
             nollk: 'NollKIT',
             title: 'Hängigt uppdrag',
@@ -54,7 +53,8 @@ describe("AssignmentData", () => {
             time: '12:01',
             participants: 2,
             motivation: 'Hej PR!',
-            private: false
+            private: false,
+            status: 'DRAFT'
         }
     ];
 
