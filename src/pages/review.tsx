@@ -1,4 +1,5 @@
 
+import { NextPage } from "next";
 import HomePageSkeleton from "../components/homepageSkeleton";
 
 const Review: NextPage = () => {
