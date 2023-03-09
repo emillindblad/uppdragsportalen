@@ -1,10 +1,12 @@
 import type { NextPage } from "next";
+import { useSession } from "next-auth/react";
 import React, { useEffect } from "react";
 import MainPage from "../components/MainPage";
 import { api } from "../utils/api";
 
 const Accounts: NextPage = () => {
 
+    const { data: session } = useSession();
 
     const { data: pendingUsers, refetch: refetchPending } = api.user.getAllUsersPendingAccept.useQuery(undefined,{
         refetchOnWindowFocus: false,
@@ -15,6 +17,7 @@ const Accounts: NextPage = () => {
 
     const acceptMutation = api.user.acceptUser.useMutation();
     const deleteMutation = api.user.deleteUser.useMutation();
+
 
     const refetchData = () => {
         void refetchPending()
@@ -42,7 +45,7 @@ const Accounts: NextPage = () => {
 
     return (
         <>
-            <MainPage title={"Konton"}>
+            <MainPage session={session} title={"Konton"}>
                 <div className="grid grid-cols-6 mx-4 text-left text-xl border-b-2 border-gray-300">
                     <div className="flex-initial my-2 font-bold col-span-2">Email</div>
                     <div className="flex-initial my-2 font-bold col-span-1">Name</div>
