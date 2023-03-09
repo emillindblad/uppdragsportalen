@@ -9,7 +9,7 @@ export const config = {
     matcher: [
         //'/((?!api/*|_next/static/*|_next/image|img|favicon.ico).*)',
         //Protected paths:
-        '/home','/login','/accounts','/uppdrag/:path*','/register','/user','/api:path*'
+        '/home','/login','/accounts','/uppdrag/:path*','/register','/user','/api:path*', '/chalmers', '/archive', '/review'
     ],
 }
 
@@ -38,6 +38,14 @@ export async function middleware(request: NextRequest) {
             return NextResponse.next()
         }
         return NextResponse.redirect(new URL('/home', request.url))
+    }
+
+    if (request.nextUrl.pathname.startsWith('/home')) {
+        if (token.isAdmin) {
+            return NextResponse.redirect(new URL('/review', request.url))
+            
+        }
+        return NextResponse.next()
     }
 
 }
