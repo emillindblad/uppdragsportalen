@@ -33,7 +33,8 @@ const Home: NextPage = () => {
     const [titleClicked, setTitleClicked] = useState(false);
     const [timeClicked, setTimeClicked] = useState(false);
     const [statusClicked, setStatusClicked] = useState(false);
-    const [miscClicked, setMiscClicked] = useState(false);
+    const [placeClicked, setPlaceClicked] = useState(false);
+    const [nollkClicked, setNollkClicked] = useState(false);
 
     useEffect(() => {
         if (uppdrag.data != null) setUppdragData([...uppdrag.data])
@@ -103,17 +104,22 @@ const Home: NextPage = () => {
                     <div className="w-full text-left text-black">
                         <div className="text-xl text-[#737373] bg-white">
                             <div className="text-xl grid grid-cols-5 justify-between border-b-2 border-gray-300">
-                                <p onClick={() => {orderRow('title'); setTitleClicked(true); setTimeClicked(false); setStatusClicked(false); setMiscClicked(false);}} className="flex col-span-1 ml-4 mb-2 hover:cursor-pointer select-none">Namn på uppdrag {titleClicked ? icon : ''}</p>
-                                <p onClick={() => {orderRow('time'); setTitleClicked(false); setTimeClicked(true); setStatusClicked(false); setMiscClicked(false);}} className="col-span-1 hover:cursor-pointer select-none">Tid {timeClicked ? icon : ''}</p>
-                                <p onClick={() => {orderRow('status'); setTitleClicked(false); setTimeClicked(false); setStatusClicked(true); setMiscClicked(false);}} className="col-span-1 hover:cursor-pointer select-none">Status {statusClicked ? icon : ''}</p>
-                                <p onClick={() => {orderRow('desc'); setTitleClicked(false); setTimeClicked(false); setStatusClicked(false); setMiscClicked(true);}} className="col-span-2 hover:cursor-pointer select-none">Övrigt {miscClicked ? icon : ''}</p>
+                                <p onClick={() => {orderRow('title'); setTitleClicked(true); setTimeClicked(false); setStatusClicked(false); setPlaceClicked(false); setNollkClicked(false);}} className="flex col-span-1 ml-4 mb-2 hover:cursor-pointer select-none">Namn på uppdrag {titleClicked ? icon : ''}</p>
+                                <p onClick={() => {orderRow('place'); setTitleClicked(false); setTimeClicked(false); setStatusClicked(false); setPlaceClicked(true); setNollkClicked(false);}} className="col-span-1 hover:cursor-pointer select-none">Plats {placeClicked ? icon : ''}</p>
+                                {isMK ? <p onClick={() => {orderRow('nollk'); setTitleClicked(false); setTimeClicked(false); setStatusClicked(false); setPlaceClicked(false); setNollkClicked(true);}} className="col-span-1 hover:cursor-pointer select-none">NollK {nollkClicked ? icon : ''}</p>
+                                      : (<>
+                                            <p onClick={() => {orderRow('time'); setTitleClicked(false); setTimeClicked(true); setStatusClicked(false); setPlaceClicked(false); setNollkClicked(false);}} className="col-span-1 hover:cursor-pointer select-none">Tid {timeClicked ? icon : ''}</p>
+                                            <p className="col-span-1 hover:cursor-pointer select-none">Privat </p>
+                                      </>)
+                                }
+                                <p onClick={() => {orderRow('status'); setTitleClicked(false); setTimeClicked(false); setStatusClicked(true); setPlaceClicked(false); setNollkClicked(false);}} className="col-span-1 hover:cursor-pointer select-none">Status {statusClicked ? icon : ''}</p>
                             </div>
                         </div>
                         {/*  overflow-y-scroll */}
                         <div className="overflow-y-auto h-[82vh]">
                             {uppdragData ? <AssignmentData data={uppdragData.filter(u => u.title.includes(searchValue)
                                                                                     || u.time.includes(searchValue)
-                                                                                    || u.desc.includes(searchValue))}/> 
+                                                                                    || u.place.includes(searchValue))}/> 
                             : <p>Loading...</p> }
                         </div>
                     </div>
