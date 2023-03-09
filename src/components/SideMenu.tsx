@@ -45,18 +45,18 @@ const SideMenu = (props: SideMenuProps) => {
                             (<SideButton link={'accounts'}>
                                 Konton
                             </SideButton >) :
-                            (<SideButton link={'archive'}>
+                            (<SideButton link={'assignments'}>
                                 Arkiv
                             </SideButton>)
-                        }
-                        <SideButton link={'login'}>
-                            Chalmers nolluppdrag
-                        </SideButton>
-                        <SideButton link={'index'}>
-                            Dokument
-                        </SideButton>
+                            }
+                            <SideButton link={'chalmers'}>
+                                Chalmers nolluppdrag
+                            </SideButton>
+                            <SideButton link={'login'}>
+                                Dokument
+                            </SideButton>
+                        </div>
                     </div>
-                </div>
 
                 <div className="flex items-start mt-6 mb-6 ml-6">
                     <button

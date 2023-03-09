@@ -6,7 +6,8 @@ import { api } from "../utils/api";
 
 const Accounts: NextPage = () => {
 
-    const { data: session } = useSession();
+
+    const { data: session } = useSession()
 
     const { data: pendingUsers, refetch: refetchPending } = api.user.getAllUsersPendingAccept.useQuery(undefined,{
         refetchOnWindowFocus: false,

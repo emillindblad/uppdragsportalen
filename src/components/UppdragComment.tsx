@@ -7,7 +7,7 @@ const UppdragComment = () => {
             <div className="flex row-start-6 col-start-1 col-span-7 items-end px-2">
                 <textarea id="mkComment" className="mt-6 h-[20vh] w-full flex-1 rounded-2xl block p-3.5 text-2xl bg-white border border-gray-300 focus:ring-mk-blue focus:border-mk-blue resize-none" placeholder="Kommentarer.."></textarea>
             </div>
-            <div className="flex row-start-7 col-start-1 col-end-7 items-end justify-between pb-4 px-2">
+            <div className="flex row-start-7 col-start-1 col-end-7 items-end justify-between px-2">
                 <div className="col-start-1 col-span-1">
                     <Link href="/home">
                         <button className="h-[44px] w-[125px] bg-mk-yellow hover:bg-mk-yellow-hover text-white text-lg rounded-2xl font-bold px-6 py-2" type="button">Tillbaka</button>
