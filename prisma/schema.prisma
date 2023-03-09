@@ -1,20 +1,10 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
-    provider = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
 datasource db {
-    //provider = "sqlite"
-    // Uncomment to use CockroachDB
-    provider = "cockroachdb"
-
-    // NOTE: When using postgresql, mysql or sqlserver, uncomment the @db.Text annotations in model Account below
-    // Further reading:
-    // https://next-auth.js.org/adapters/prisma#create-the-prisma-schema
-    // https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#string
-    url      = env("DATABASE_URL")
+  provider = "cockroachdb"
+  url      = env("DATABASE_URL")
 }
 
 model Uppdrag {
@@ -41,13 +31,22 @@ enum UppdragStatus {
     DRAFT
 }
 
+
 model User {
-    id            String    @id @default(cuid())
-    name          String
-    password      String
-    email         String   @unique
-    nollk         String
-    year          Int
-    accepted      Boolean  @default(false)
-    Uppdrag       Uppdrag[]
+  id       String    @id @default(cuid())
+  name     String
+  password String
+  email    String    @unique
+  nollk    String
+  year     Int
+  accepted Boolean   @default(false)
+  Uppdrag  Uppdrag[]
+}
+
+enum UppdragStatus {
+  APPROVED
+  DENIED
+  RETURN
+  SUBMITTED
+  DRAFT
 }
