@@ -57,7 +57,7 @@ interface HomeProps { //va1d ska vi ersätta denna med
         refetchOnWindowFocus: false,
         });
 
-    const { data : ArchiveData, refetch : NollKs } = api.uppdrag.getByNollK.useQuery({},{
+    const { data : ArchiveData, refetch : NollKs } = api.uppdrag.getByNollK.useQuery({ nollk: ""},{
         enabled: false,
         refetchOnWindowFocus: false,
 
@@ -80,7 +80,7 @@ interface HomeProps { //va1d ska vi ersätta denna med
             setUppdragData(ArchiveData)
         }
         if(props.id === "myAssignments"){
-            void myNollk();
+            void myNollk;
             setUppdragData(thisYearData)
         }
         if(props.id === "review") {
