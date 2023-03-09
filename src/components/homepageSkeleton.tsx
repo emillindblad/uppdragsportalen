@@ -50,45 +50,45 @@ interface HomeProps { //va1d ska vi ersätta denna med
         enabled: false
     });
 
-    const { data : myNollkData, refetch : myNollk } = api.uppdrag.getByNollKThisYear.useQuery({
-        nollk: "",
+    const { data : thisYearData, refetch : myNollk } = api.uppdrag.getByNollKThisYear.useQuery({
         year: 2023},
         {
         enabled: false,
         refetchOnWindowFocus: false,
         });
 
-    const { data : NollKData, refetch : NollKs } = api.uppdrag.getByNollK.useQuery({ nollk: ""},{
+    const { data : ArchiveData, refetch : NollKs } = api.uppdrag.getByNollK.useQuery({},{
         enabled: false,
         refetchOnWindowFocus: false,
 
     });
 
-    const { data : granskaData, refetch : granska } = api.uppdrag.getByYear.useQuery({
-        //refetchOnWindowFocus: false,
-        year: 2023},
-        {enabled: false,
-        refetchOnWindowFocus: false,});
+    const { data : reviewData, refetch : granska } = api.uppdrag.getAllbyStatus.useQuery({
+        status: 'SUBMITTED'
+     },{
+        refetchOnWindowFocus: false,
+        enabled: false
+    });
 
      useEffect(() => {
         if(props.id === "chalmers"){
             void chalmers();
             setUppdragData(chalmersData)
         }
-        if(props.id === "nollks"){
+        if(props.id === "archive"){
             void NollKs();
-            setUppdragData(NollKData)
+            setUppdragData(ArchiveData)
         }
-        if(props.id === "mynollk"){
+        if(props.id === "myAssignments"){
             void myNollk();
-            setUppdragData(myNollkData)
+            setUppdragData(thisYearData)
         }
-        if(props.id === "granska") {
+        if(props.id === "review") {
             void granska();
-            setUppdragData(granskaData)
+            setUppdragData(reviewData)
         }
      //setSortStateIndex(1)
-     },[NollKData, NollKs, chalmers, chalmersData, granska, granskaData, myNollk, myNollkData, props.id, uppdragData]);
+     },[ArchiveData, NollKs, chalmers, chalmersData, granska, myNollk, props.id, reviewData, thisYearData, uppdragData]);
  
 
     //  function sortByAscending(attribute : string) {

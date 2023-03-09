@@ -8,11 +8,11 @@ import { useState, useEffect } from "react";
 import type { Uppdrag } from "@prisma/client";
 import HomePageSkeleton from "../components/homepageSkeleton";
 
-const Assignments: NextPage = () => {
+const Archive: NextPage = () => {
     return (
         <>
 
-         <HomePageSkeleton id={"nollks"} title={"Arkiv"}/>
+         <HomePageSkeleton id={"archive"} title={"Arkiv"}/>
 
          {/* Använd props både i home och i SideMenu så att beroende på vilken knapp 
          du klickar på så använder du en annan query (getbyNollKAllyears och getbynollk) */}
@@ -21,4 +21,4 @@ const Assignments: NextPage = () => {
     );
 }
 
-export default Assignments;
+export default Archive;

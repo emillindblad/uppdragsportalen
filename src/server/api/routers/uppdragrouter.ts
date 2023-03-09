@@ -1,3 +1,4 @@
+import { UppdragStatus } from "@prisma/client";
 import { z } from "zod";
 import { uppdragCreateSchema } from "../../../pages/uppdrag/newuppdrag";
 import { createTRPCRouter, protectedProcedure } from "../trpc";
@@ -12,7 +13,7 @@ export const uppdragrouter = createTRPCRouter({
     }),
 
     getByNollKThisYear: protectedProcedure
-    .input(z.object({ nollk: z.string(), year: z.number()}))
+    .input(z.object({ year: z.number()}))
     .query(({ctx, input }) => {
         return ctx.prisma.uppdrag.findMany({
             where: {nollk: ctx.session.user.nollk, year: input.year}
@@ -20,10 +21,18 @@ export const uppdragrouter = createTRPCRouter({
     }),
 
     getByNollK: protectedProcedure
-    .input(z.object({ nollk: z.string() }))
+    .input(z.object({}))
     .query(({ctx, input }) => {
         return ctx.prisma.uppdrag.findMany({
             where: { nollk: ctx.session.user.nollk }
+        });
+    }),
+
+    getAllbyStatus: protectedProcedure
+    .input(z.object({ status: z.nativeEnum(UppdragStatus) }))
+    .query(({ctx, input }) => {
+        return ctx.prisma.uppdrag.findMany({
+            where: { status: input.status}
         });
     }),
 
