@@ -33,8 +33,7 @@ const AssignmentData: FunctionComponent<UppdragsProps> = (props: UppdragsProps) 
                                     <div className="flex-initial  max-w-[180px]">{u.private.toString()}</div>
                                 </>)
                         }
-                        {/* <div className="flex-initial my-2 ml-1 max-w-[180px]">{u.status}</div> */}
-                        
+                        <div className="flex-initial my-2 ml-1 max-w-[180px]">{u.status}</div>
 
                         {/*
                         <div className="flex-initial col-span-1 max-w-[180px]">{u.nollk}</div>

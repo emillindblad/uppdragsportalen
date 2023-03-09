@@ -24,7 +24,7 @@ const Home: NextPage = () => {
 
     const [uppdragData, setUppdragData] = useState<Uppdrag[] | undefined>();
     const uppdrag = api.uppdrag.getByYear.useQuery({ year: 2023 });
-    const {data: isMK} = api.user.getUserStatus.useQuery();
+    const { data: isMK } = api.user.getUserStatus.useQuery();
 
     const [searchValue, setSearchValue] = useState("");
 

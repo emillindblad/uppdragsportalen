@@ -8,21 +8,29 @@ datasource db {
 }
 
 model Uppdrag {
-  id           String        @id @default(cuid())
-  authorId     String
-  year         Int
-  nollk        String
-  title        String
-  desc         String
-  place        String
-  time         String
-  participants Int
-  motivation   String
-  private      Boolean
-  status       UppdragStatus @default(DRAFT)
-  comment      String?
-  author       User          @relation(fields: [authorId], references: [id])
+    id              String      @id @default(cuid())
+    author          User        @relation(fields: [authorId], references: [id])
+    authorId        String
+    year            Int
+    nollk           String
+    title           String
+    desc            String
+    place           String
+    time            String
+    participants    Int
+    motivation      String
+    private         Boolean
+    status          UppdragStatus     @default(DRAFT)
 }
+
+enum UppdragStatus {
+    APPROVED
+    DENIED
+    RETURN
+    SUBMITTED
+    DRAFT
+}
+
 
 model User {
   id       String    @id @default(cuid())

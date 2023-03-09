@@ -44,7 +44,7 @@ const User: NextPage = () => {
 
     return (
         <>
-            <MainPage title={"Mottagningskommittén"}>
+            <MainPage session={session} title={"Mottagningskommittén"}>
                 <div className="m-12">
                     <h1 className="my-2 text-mk-blue text-6xl font-bold drop-shadow-lg">Hej {user?.name}!</h1>
                     <p className="text-2xl">Om du vill ändra dina uppgifter kan du göra det här!</p>
