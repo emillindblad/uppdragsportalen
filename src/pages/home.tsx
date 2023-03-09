@@ -1,4 +1,4 @@
-import { GetServerSideProps, type NextPage } from "next";
+import type { GetServerSideProps, NextPage } from "next";
 import Link from "next/link";
 import AssignmentData from "../components/AssignmentData";
 import MainPage from "../components/MainPage";
