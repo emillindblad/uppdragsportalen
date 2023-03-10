@@ -7,10 +7,20 @@ import { useState, useEffect} from "react";
 import type { Uppdrag } from "@prisma/client";
 
 
-//om klickar på arkiv, kör den här queryn (varje query får en metod med data/refetch, se labb2)
+ /**
+ * Has the skeleton of the pages Granska, Arkiv, Mina Nolluppdrag etc. Has the core structure for
+ * every page displaying the list of assignments.
+ */
 
-interface HomeProps { //va1d ska vi ersätta denna med
+
+interface HomeProps { 
+     /**
+     * The title of the MainPage tag
+    */
     title : string,
+     /**
+    * The id of the page, which tells us which query to run
+    */
     id: string
 }
 
@@ -66,7 +76,11 @@ interface HomeProps { //va1d ska vi ersätta denna med
         enabled: false
     });
 
-    useEffect(() => {
+
+    /**
+    * Does a refetch and gets the correct query to display the correct data, depending on the id of the page.
+    */
+     useEffect(() => {
         if(props.id === "chalmers"){
             void chalmers();
             setUppdragData(chalmersData)
@@ -164,7 +178,6 @@ interface HomeProps { //va1d ska vi ersätta denna med
         }
         return;
     }
-
 
 
     return (
