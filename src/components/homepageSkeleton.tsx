@@ -33,26 +33,24 @@ interface HomeProps {
 
  export const HomePageSkeleton  = (props: HomeProps) => {
 
+    // Usestate hook for sorting table of Uppdrag
+    const [sortStateIndex, setSortStateIndex] = useState<number>(0); // unsorted, ascending, descending
+    const [icon, setIcon] = useState<string>("");
 
-  // Usestate hook for sorting table of Uppdrag
-//   const [sortStateIndex, setSortStateIndex] = useState<number>(0);
-//   const sortStates: (number | undefined)[] = [undefined, 1, -1]; // unsorted, ascending, descending
+    const [uppdragData, setUppdragData] = useState<Uppdrag[] | undefined>();
+    const {data: isMK} = api.user.getUserStatus.useQuery();
+    const {data: session} = useSession();
+    //const uppdragQuery = api.uppdrag.getByNollK.useQuery({nollk: "", enabled:})
 
-  const [uppdragData, setUppdragData] = useState<Uppdrag[] | undefined>();
-  const {data: isMK} = api.user.getUserStatus.useQuery();
-  const {data: session} = useSession();
-  //const uppdragQuery = api.uppdrag.getByNollK.useQuery({nollk: "", enabled:})
-
-  const [searchValue, setSearchValue] = useState("");
-  const icon = ""
+    const [searchValue, setSearchValue] = useState("");
 
 
-  // to track which header is clicked
-  const [titleClicked, setTitleClicked] = useState(false);
-  const [timeClicked, setTimeClicked] = useState(false);
-  const [statusClicked, setStatusClicked] = useState(false);
-  const [placeClicked, setPlaceClicked] = useState(false);
-  const [nollkClicked, setNollkClicked] = useState(false);
+    // to track which header is clicked
+    const [titleClicked, setTitleClicked] = useState(false);
+    const [timeClicked, setTimeClicked] = useState(false);
+    const [statusClicked, setStatusClicked] = useState(false);
+    const [placeClicked, setPlaceClicked] = useState(false);
+    const [nollkClicked, setNollkClicked] = useState(false);
 
      //methods for deciding which query to run
      const { data : chalmersData, refetch : chalmers } = api.uppdrag.getAll.useQuery(undefined,{
@@ -99,61 +97,88 @@ interface HomeProps {
             void granska();
             setUppdragData(reviewData)
         }
-     //setSortStateIndex(1)
-     },[archiveData, nollKs, chalmers, chalmersData, granska, myNollk, props.id, reviewData, thisYearData, uppdragData]);
+    },[archiveData, nollKs, chalmers, chalmersData, granska, myNollk, props.id, reviewData, thisYearData, uppdragData]);
 
-
-      /**
-    * Sorts the data depending on which rubric is clicked,
-    * but not fully implemented yet
+    
+    /* 
+    * Function to sort table by ascending order 
+    * (non-case-sensetive)
     */
+    function sortByAscending(attribute : string) {
+        return function(first : Uppdrag, second : Uppdrag) {
+            let firstValue = first[attribute as keyof typeof first];
+            let secondValue = second[attribute as keyof typeof second];
 
-    //  function sortByAscending(attribute : string) {
-    //     return function(first : Uppdrag, second : Uppdrag) {
-    //         return (first[attribute as keyof typeof first] > second[attribute as keyof typeof second] ? 1 : -1)
-    //     }
-    // }
+            if (typeof firstValue === 'string' && typeof secondValue === 'string') {
+                firstValue = firstValue.toLowerCase();
+                secondValue = secondValue.toLowerCase();
+            }
 
-    // function sortByDescending(attribute : string) {
-    //     return function(first : Uppdrag, second : Uppdrag) {
-    //         return (first[attribute as keyof typeof first] > second[attribute as keyof typeof second] ? -1 : 1)
-    //     }
-    // }
+            if (firstValue === null || secondValue === null) return 0;
+            return ( firstValue > secondValue ? 1 : -1)
+        }
+    }
 
-    // function ascendingOrder(row : string) {
-    //     setUppdragData(uppdragData?.sort(sortByAscending(row)));
-    // }
+    /* 
+    * Function to sort table by descending order 
+    * (non-case-sensetive)
+    */
+    function sortByDescending(attribute : string) {
+        return function(first : Uppdrag, second : Uppdrag) {
+            let firstValue = first[attribute as keyof typeof first];
+            let secondValue = second[attribute as keyof typeof second];
 
-    // function descendingOrder(row : string) {
-    //     setUppdragData(uppdragData?.sort(sortByDescending(row)));
-    // }
+            if (typeof firstValue === 'string' && typeof secondValue === 'string') {
+                firstValue = firstValue.toLowerCase();
+                secondValue = secondValue.toLowerCase();
+            }
 
-    // Order by row
-    // function orderRow(row: string) {
-    //     switch (sortStatus) {
-    //         case 0:
-    //             setSortStatus(1);
-    //             ascendingOrder(row);
-    //             setIcon('↓');
-    //             break;
-    //         case 1:
-    //             setSortStatus(-1);
-    //             descendingOrder(row);
-    //             setIcon('↑');
-    //             break;
-    //         case -1:
-    //             setSortStatus(0);
-    //             setIcon('');
-    //             if (uppdragData != null) setUppdragData([...uppdragData])
-    //                 else setUppdragData(undefined)
-    //             break;
-    //         default:
-    //             console.error(`Illegal value of sortStatus: ${sortStatus}`)
-    //     }
-    //     return;
-    // }
+            if (firstValue === null || secondValue === null) return 0;
+            return ( firstValue < secondValue ? 1 : -1)
+       }
+    }
 
-    function orderRow(row: string){return;}
+    /*
+    * Set data with ascending order
+    */
+    function ascendingOrder(row : string) {
+        setUppdragData(uppdragData?.sort(sortByAscending(row)));
+    }
+
+    /*
+    * Set data with descending order
+    */
+    function descendingOrder(row : string) {
+        setUppdragData(uppdragData?.sort(sortByDescending(row)));
+    }
+
+    /*
+    * Function to set resp. state, order and icon by sorting order
+    */
+    function orderRow(row: string) {
+        switch (sortStateIndex) {
+            case 0:
+                setSortStateIndex(1);
+                ascendingOrder(row);
+                setIcon('↓');
+                break;
+            case 1:
+                setSortStateIndex(-1);
+                descendingOrder(row);
+                setIcon('↑');
+                break;
+            case -1:
+                setSortStateIndex(0);
+                setIcon('');
+                if (uppdragData != null) setUppdragData([...uppdragData])
+                    else setUppdragData(undefined)
+                break;
+            default:
+                console.error(`Illegal value of sortStateIndex: ${sortStateIndex}`)
+        }
+        return;
+    }
+
 
     return (
         <>
