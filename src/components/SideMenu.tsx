@@ -34,7 +34,7 @@ const SideMenu = (props: SideMenuProps) => {
                     </div>
                     <div className="grid grid-rows-4 items-center mx-8 mt-5 row-span-2">
                         {isMK ?
-                            (<SideButton link={'home'}>
+                            (<SideButton link={'review'}>
                                 Granska
                             </SideButton>) :
                             (<SideButton link={'home'}>
@@ -48,15 +48,15 @@ const SideMenu = (props: SideMenuProps) => {
                             (<SideButton link={'archive'}>
                                 Arkiv
                             </SideButton>)
-                        }
-                        <SideButton link={'login'}>
-                            Chalmers nolluppdrag
-                        </SideButton>
-                        <SideButton link={'index'}>
-                            Dokument
-                        </SideButton>
+                            }
+                            <SideButton link={'chalmers'}>
+                                Chalmers nolluppdrag
+                            </SideButton>
+                            <SideButton link={'login'}>
+                                Dokument
+                            </SideButton>
+                        </div>
                     </div>
-                </div>
 
                 <div className="flex items-start mt-6 mb-6 ml-6">
                     <button

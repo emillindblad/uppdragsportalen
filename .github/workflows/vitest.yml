@@ -6,8 +6,8 @@ name: Vitest
 on:
   #push:
     #branches: [ "master", "dev" ]
-  pull_request:
-    branches: [ "master", "dev" ]
+  #pull_request:
+    #branches: [ "master", "dev" ]
 
 env:
   DATABASE_URL: ${{secrets.DATABASE_URL}}

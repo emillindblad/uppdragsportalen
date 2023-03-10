@@ -54,7 +54,9 @@ describe("AssignmentData", () => {
             time: '12:01',
             participants: 2,
             motivation: 'Hej PR!',
-            private: false
+            private: false,
+            authorId: 'MK',
+            status: 'APPROVED'
         }
     ];
 
