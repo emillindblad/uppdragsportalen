@@ -1,7 +1,7 @@
 import SideButton from "../components/SideButton";
 import Image from "next/image";
 import Link from "next/link";
-import { signOut, useSession } from "next-auth/react";
+import { signOut } from "next-auth/react";
 import { api } from "../utils/api";
 import type { Session } from "next-auth/core/types";
 
