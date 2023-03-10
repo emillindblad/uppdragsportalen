@@ -1,5 +1,6 @@
 import { UppdragStatus } from "@prisma/client";
 import { z } from "zod";
+import { commentSchema } from "../../../components/UppdragComment";
 import { uppdragCreateSchema } from "../../../pages/uppdrag/newuppdrag";
 import { createTRPCRouter, protectedProcedure } from "../trpc";
 
@@ -107,5 +108,20 @@ export const uppdragrouter = createTRPCRouter({
             }
         });
     }),
+
+    review: protectedProcedure
+    .input(commentSchema)
+    .mutation(({ ctx, input }) => {
+        return ctx.prisma.uppdrag.update({
+            where: {
+                id: input.id
+            },
+            data: {
+                status: input.status,
+                comment: input.comment
+            }
+        });
+    }),
+
 
 });

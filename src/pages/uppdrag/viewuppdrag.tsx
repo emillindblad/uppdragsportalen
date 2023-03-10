@@ -87,19 +87,23 @@ const ViewUppdrag: NextPage<Props> = (props: Props) => {
                             {uppdrag?.motivation}
                         </p>
                     </div>
+                    <div className="row-start-3 col-start-1 col-span-7 font-bold text-xl text-left px-2"> Kommentar:
+                        <p className="font-normal">
+                            {uppdrag?.comment}
+                        </p>
+                    </div>
                     </div>
                     <div>
-                        {isMK ? (<UppdragComment/>) :
+                        {isMK ? (<UppdragComment uppdragId={uppdrag?.id as string}/>) :
                             (
                                 <div className="flex gap-9 col-start-1 col-span-2 ">
-                                    <Link href="/home">
                                     <button
                                         className="h-[44px] w-[125px] bg-mk-yellow hover:bg-mk-yellow-hover text-white text-lg rounded-2xl font-bold px-6 py-2"
                                         type="button"
+                                        onClick={() => router.back()}
                                     >
                                         Tillbaka
                                     </button>
-                                </Link>
                                 {uppdrag?.nollk === session?.user.nollk ?
                                     <Link href={{
                                             pathname: '/uppdrag/edituppdrag/[id]',

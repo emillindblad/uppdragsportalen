@@ -5,31 +5,46 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { UppdragStatus } from "@prisma/client";
 import { ErrorText } from "./ErrorText";
+import { api } from "../utils/api";
+import { useRouter } from "next/router";
 
-const commentSchema = z.object({
+export const commentSchema = z.object({
+    id: z.string().min(1),
     comment: z.string().min(2,{ message: "Vänligen skriv in en kommentar" }),
     status: z.nativeEnum(UppdragStatus)
 });
 
 type FormSchemaType = z.infer<typeof commentSchema>;
 
-const UppdragComment = () => {
+const UppdragComment = (props: {uppdragId: string}) => {
+    const router = useRouter();
+    const id = props.uppdragId;
 
+    const utils = api.useContext();
     const { register, handleSubmit, formState: { errors }, reset } = useForm<FormSchemaType>({
         resolver: zodResolver(commentSchema),
         defaultValues: {
-            //status: 'DRAFT'
+            id: id
+        }
+    });
+
+    const reviewUppdrag = api.uppdrag.review.useMutation({
+        onSettled: async () => {
+            await utils.uppdrag.invalidate();
+            reset()
         }
     });
 
     const submit: SubmitHandler<FormSchemaType> = (data) => {
-        console.log(data)
+        reviewUppdrag.mutate(data)
+        router.back()
     };
 
 
     return (
         <>
-            <form action="">
+            <form>
+                {id}
                 <div className="flex flex-col gap-4">
                     <div className="flex row-start-6 col-start-1 col-span-7 items-end px-2">
                         <form action=""></form>
@@ -43,9 +58,13 @@ const UppdragComment = () => {
                     </div>
                     <div className="flex row-start-7 col-start-1 col-end-7 items-end justify-between px-2">
                         <div className="flex gap-5">
-                            <Link href="/home">
-                                <button className="h-[44px] w-[125px] bg-mk-yellow hover:bg-mk-yellow-hover text-white text-lg rounded-2xl font-bold px-6 py-2" type="button">Tillbaka</button>
-                            </Link>
+                            <button
+                                className="h-[44px] w-[125px] bg-mk-yellow hover:bg-mk-yellow-hover text-white text-lg rounded-2xl font-bold px-6 py-2"
+                                type="button"
+                                onClick={() => router.back()}
+                            >
+                                Tillbaka
+                            </button>
                             {errors.comment?.message && <ErrorText text={errors.comment?.message}/>}
                             {errors.status?.message && <ErrorText text='Vänligen välj en status på uppdraget'/>}
                         </div>
