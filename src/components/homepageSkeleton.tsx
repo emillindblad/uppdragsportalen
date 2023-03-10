@@ -20,10 +20,10 @@ interface HomeProps { //va1d ska vi ersätta denna med
 //         props: { session },
 //     }
 // }
- 
+
  export const HomePageSkeleton  = (props: HomeProps) => {
 
-    
+
   // Usestate hook for sorting table of Uppdrag
 //   const [sortStateIndex, setSortStateIndex] = useState<number>(0);
 //   const sortStates: (number | undefined)[] = [undefined, 1, -1]; // unsorted, ascending, descending
@@ -43,21 +43,19 @@ interface HomeProps { //va1d ska vi ersätta denna med
   const [statusClicked, setStatusClicked] = useState(false);
   const [placeClicked, setPlaceClicked] = useState(false);
   const [nollkClicked, setNollkClicked] = useState(false);
-  
+
      //methods for deciding which query to run
      const { data : chalmersData, refetch : chalmers } = api.uppdrag.getAll.useQuery(undefined,{
         refetchOnWindowFocus: false,
         enabled: false
     });
 
-    const { data : thisYearData, refetch : myNollk } = api.uppdrag.getByNollKThisYear.useQuery({
-        year: 2023},
-        {
+    const { data : thisYearData, refetch : myNollk } = api.uppdrag.getByNollKThisYear.useQuery({ year: 2023},{
         enabled: false,
         refetchOnWindowFocus: false,
         });
 
-    const { data : ArchiveData, refetch : NollKs } = api.uppdrag.getByNollK.useQuery({ nollk: ""},{
+    const { data : archiveData, refetch : nollKs } = api.uppdrag.getByNollK.useQuery({ nollk: ""},{
         enabled: false,
         refetchOnWindowFocus: false,
 
@@ -76,11 +74,11 @@ interface HomeProps { //va1d ska vi ersätta denna med
             setUppdragData(chalmersData)
         }
         if(props.id === "archive"){
-            void NollKs();
-            setUppdragData(ArchiveData)
+            void nollKs();
+            setUppdragData(archiveData)
         }
         if(props.id === "myAssignments"){
-            void myNollk;
+            void myNollk();
             setUppdragData(thisYearData)
         }
         if(props.id === "review") {
@@ -88,8 +86,8 @@ interface HomeProps { //va1d ska vi ersätta denna med
             setUppdragData(reviewData)
         }
      //setSortStateIndex(1)
-     },[ArchiveData, NollKs, chalmers, chalmersData, granska, myNollk, props.id, reviewData, thisYearData, uppdragData]);
- 
+     },[archiveData, nollKs, chalmers, chalmersData, granska, myNollk, props.id, reviewData, thisYearData, uppdragData]);
+
 
     //  function sortByAscending(attribute : string) {
     //     return function(first : Uppdrag, second : Uppdrag) {
@@ -141,7 +139,7 @@ interface HomeProps { //va1d ska vi ersätta denna med
     // Serach in table
 
 
- 
+
     return (
         <>
             <MainPage session={session} title={"Mottagningskommittén"}>
@@ -168,12 +166,12 @@ interface HomeProps { //va1d ska vi ersätta denna med
                             </div>
                         </div>
                         {/*  overflow-y-scroll */}
-                        {isMK ? 
+                        {isMK ?
                                 <div className="overflow-y-auto h-[82vh]">
                                     {uppdragData ? <AssignmentData data={uppdragData.filter(u => u.title.includes(searchValue)
                                                                                             || u.nollk.includes(searchValue)
                                                                                             // || u.status.includes(searchValue)
-                                                                                            || u.place.includes(searchValue))}/> 
+                                                                                            || u.place.includes(searchValue))}/>
                                     : <p>Loading...</p> }
                                 </div>
                             :
@@ -182,10 +180,10 @@ interface HomeProps { //va1d ska vi ersätta denna med
                                                                                             || u.time.includes(searchValue)
                                                                                             // || u.status.includes(searchValue)
                                                                                             // || u.private.tosting().includes(searchValue)
-                                                                                            || u.place.includes(searchValue))}/> 
+                                                                                            || u.place.includes(searchValue))}/>
                                     : <p>Loading...</p> }
                                 </div>
-                        
+
                         }
                     </div>
                 </div>
