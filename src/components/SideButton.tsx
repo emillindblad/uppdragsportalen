@@ -2,8 +2,16 @@ import Link from "next/link.js";
 import { useRouter } from "next/router";
 
 
+ /**
+ * Handles the buttons in the side menu.
+ * Commented code is a previous solution that might become relevant again.
+ */
+
 interface ButtonProps {
     children: React.ReactNode;
+     /**
+    * The URL connected to the button, if link is active, the styling of the button changes.
+    */
     link: string;
 
     //hoverColor: String;

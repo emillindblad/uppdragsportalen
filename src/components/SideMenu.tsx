@@ -5,6 +5,12 @@ import { signOut, useSession } from "next-auth/react";
 import { api } from "../utils/api";
 import type { Session } from "next-auth/core/types";
 
+
+ /**
+ * Handles the side menu shown on each page. 
+ * Shows a different name and picture depending on the logged in user.
+ */
+
 interface SideMenuProps {
     session?: Session | null,
 }
@@ -16,8 +22,6 @@ const SideMenu = (props: SideMenuProps) => {
 
     const imagePath = "/img/" + (nollk as string) + ".png";
 
-//TODO En check på vilken sida man är inne på (kan typ också va en hook) och setActiveButtonIndex därefter
-//hook useLocation
     return (
         <>
             <nav className="col-span-1 bg-mk-blue rounded-3xl min-w-[300px] h-[96vh] flex flex-col justify-between">

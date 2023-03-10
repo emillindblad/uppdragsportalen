@@ -3,7 +3,16 @@ import { useRouter } from "next/router";
 import type { FunctionComponent } from "react";
 import { api } from "../utils/api";
 
+
+
+/**
+ * Handles the structure of how the assignment-data from queries are displayed.
+ */
+
 interface UppdragsProps {
+ /**
+ * Array of assignments coming from the query
+ */
     data: Uppdrag[]
 }
 

@@ -1,5 +1,10 @@
 import Link from "next/link";
 
+
+ /**
+ * Handles the comments the admin user can put on each assignment for the assignment-creator to see.
+ */
+
 {/* Only for MK */}
 const UppdragComment = () => {
     return (
