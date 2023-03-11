@@ -23,9 +23,6 @@ const UppdragComment = (props: {uppdragId: string}) => {
     const utils = api.useContext();
     const { register, handleSubmit, formState: { errors }, reset } = useForm<FormSchemaType>({
         resolver: zodResolver(commentSchema),
-        defaultValues: {
-            id: id
-        }
     });
 
     const reviewUppdrag = api.uppdrag.review.useMutation({
@@ -36,6 +33,7 @@ const UppdragComment = (props: {uppdragId: string}) => {
     });
 
     const submit: SubmitHandler<FormSchemaType> = (data) => {
+        data.id = id;
         reviewUppdrag.mutate(data)
         router.back()
     };
@@ -65,6 +63,7 @@ const UppdragComment = (props: {uppdragId: string}) => {
                             >
                                 Tillbaka
                             </button>
+                            {errors.id?.message && <ErrorText text={errors.id?.message}/>}
                             {errors.comment?.message && <ErrorText text={errors.comment?.message}/>}
                             {errors.status?.message && <ErrorText text='Vänligen välj en status på uppdraget'/>}
                         </div>
