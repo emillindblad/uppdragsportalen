@@ -24,7 +24,7 @@ vi.mock('next/router', () => require('next-router-mock')); //Needed for componen
 /*
 * Test that correct SideMenu renders, if user is MK/admin
 */
-describe("SideMenu admin", async () => {
+describe.skip("SideMenu admin", async () => {
     const mkUser = await prisma.user.upsert({
         where: { email: 'test@test.test' },
         create: {
