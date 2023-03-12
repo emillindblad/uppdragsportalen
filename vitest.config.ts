@@ -7,7 +7,7 @@ loadEnvConfig(process.cwd());
 export default defineConfig({
     plugins: [ react() ],
     test: {
-        exclude: [...configDefaults.exclude, 'packages/template/*'],
+        exclude: [...configDefaults.exclude,"**/e2e/**", 'packages/template/*'],
         environment: "jsdom",
         globals: true,
         coverage: {
