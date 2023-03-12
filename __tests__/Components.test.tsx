@@ -25,8 +25,9 @@ vi.mock('next/router', () => require('next-router-mock')); //Needed for componen
 * Test that correct SideMenu renders, if user is MK/admin
 */
 describe("SideMenu admin", async () => {
-    const mkUser = await prisma.user.create({
-        data: {
+    const mkUser = await prisma.user.upsert({
+        where: { email: 'test@test.test' },
+        create: {
             name: 'Test Testsson',
             email: 'test@test.test',
             password: 'testing',
@@ -34,8 +35,9 @@ describe("SideMenu admin", async () => {
             year: 2023,
             accepted: true
         },
+        update: {}
     })
-    
+
     const ctx = createInnerTRPCContext({
         session: {
             user: {...mkUser, isAdmin: mkUser.nollk === "MK" },
@@ -79,7 +81,7 @@ describe("SideMenu admin", async () => {
 //             name: "test",
 //         }
 //     });
-    
+
 //     const ctx = createInnerTRPCContext({
 //         session: {
 //             user: {...dummyUser, isAdmin: dummyUser.nollk === "NollKIT" },
