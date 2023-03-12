@@ -5,6 +5,7 @@
         "plugin:@typescript-eslint/recommended-requiring-type-checking"
       ],
       "files": ["*.ts", "*.tsx"],
+      "excludedFiles": ["**/*.test.ts", "**/*.test.tsx"],
       "parserOptions": {
         "project": "tsconfig.json"
       }
