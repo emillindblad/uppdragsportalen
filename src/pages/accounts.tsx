@@ -4,8 +4,11 @@ import React, { useEffect } from "react";
 import MainPage from "../components/MainPage";
 import { api } from "../utils/api";
 
-const Accounts: NextPage = () => {
 
+/**
+ * Handles the page for the admin to accept/reject accounts
+*/
+const Accounts: NextPage = () => {
 
     const { data: session } = useSession()
 

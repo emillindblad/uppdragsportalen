@@ -41,6 +41,7 @@ describe('uppdrag', async () => {
     const input: RouterInputs["uppdrag"]["create"] = {
         year: 2023,
         nollk: 'test',
+        status: 'SUBMITTED',
         title: 'test',
         desc: 'test',
         place: 'test',

@@ -24,7 +24,6 @@ export const authOptions: NextAuthOptions = {
             authorize: async (credentials) => {
 
                 if (credentials == null ) {
-                    console.log("credentials null")
                     return null
                 }
 
@@ -35,11 +34,11 @@ export const authOptions: NextAuthOptions = {
                 })
 
                 if (!userData) {
-                    return null
+                    throw new Error("Ingen användare med den eposten finns i systemet. Skapa ett konto först.")
                 }
 
                 if (!userData.accepted) {
-                    return null
+                    throw new Error("Användaren har inte blivit accepterad in i systemet av MK. Kontakta MK så löser vi det.")
                 }
 
                 const isValidPass = bcrypt.compareSync(
@@ -48,8 +47,7 @@ export const authOptions: NextAuthOptions = {
                 );
 
                 if (!isValidPass) {
-                    console.log("passwords dont match")
-                    return null;
+                    throw new Error("Uppgifterna stämmer inte.")
                 }
 
                 return {

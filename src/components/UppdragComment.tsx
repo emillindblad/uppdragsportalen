@@ -42,6 +42,11 @@ const UppdragComment = (props: {uppdragId: string}) => {
     };
 
 
+ /**
+ * Handles the comments the admin user can put on each assignment for the assignment-creator to see.
+ */
+const UppdragComment = () => {
+
     return (
         <>
             <form>

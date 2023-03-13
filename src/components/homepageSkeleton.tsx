@@ -7,10 +7,20 @@ import { useState, useEffect} from "react";
 import type { Uppdrag } from "@prisma/client";
 
 
-//om klickar på arkiv, kör den här queryn (varje query får en metod med data/refetch, se labb2)
+ /**
+ * Has the skeleton of the pages Granska, Arkiv, Mina Nolluppdrag etc. Has the core structure for
+ * every page displaying the list of assignments.
+ */
 
-interface HomeProps { //va1d ska vi ersätta denna med
+
+interface HomeProps { 
+     /**
+     * The title of the MainPage tag
+    */
     title : string,
+     /**
+    * The id of the page, which tells us which query to run
+    */
     id: string
 }
 
@@ -23,26 +33,24 @@ interface HomeProps { //va1d ska vi ersätta denna med
 
  export const HomePageSkeleton  = (props: HomeProps) => {
 
+    // Usestate hook for sorting table of Uppdrag
+    const [sortStateIndex, setSortStateIndex] = useState<number>(0); // unsorted, ascending, descending
+    const [icon, setIcon] = useState<string>("");
 
-  // Usestate hook for sorting table of Uppdrag
-//   const [sortStateIndex, setSortStateIndex] = useState<number>(0);
-//   const sortStates: (number | undefined)[] = [undefined, 1, -1]; // unsorted, ascending, descending
+    const [uppdragData, setUppdragData] = useState<Uppdrag[] | undefined>();
+    const {data: isMK} = api.user.getUserStatus.useQuery();
+    const {data: session} = useSession();
+    //const uppdragQuery = api.uppdrag.getByNollK.useQuery({nollk: "", enabled:})
 
-  const [uppdragData, setUppdragData] = useState<Uppdrag[] | undefined>();
-  const {data: isMK} = api.user.getUserStatus.useQuery();
-  const {data: session} = useSession();
-  //const uppdragQuery = api.uppdrag.getByNollK.useQuery({nollk: "", enabled:})
-
-  const [searchValue, setSearchValue] = useState("");
-  const icon = ""
+    const [searchValue, setSearchValue] = useState("");
 
 
-  // to track which header is clicked
-  const [titleClicked, setTitleClicked] = useState(false);
-  const [timeClicked, setTimeClicked] = useState(false);
-  const [statusClicked, setStatusClicked] = useState(false);
-  const [placeClicked, setPlaceClicked] = useState(false);
-  const [nollkClicked, setNollkClicked] = useState(false);
+    // to track which header is clicked
+    const [titleClicked, setTitleClicked] = useState(false);
+    const [timeClicked, setTimeClicked] = useState(false);
+    const [statusClicked, setStatusClicked] = useState(false);
+    const [placeClicked, setPlaceClicked] = useState(false);
+    const [nollkClicked, setNollkClicked] = useState(false);
 
      //methods for deciding which query to run
      const { data : chalmersData, refetch : chalmers } = api.uppdrag.getAll.useQuery(undefined,{
@@ -68,6 +76,10 @@ interface HomeProps { //va1d ska vi ersätta denna med
         enabled: false
     });
 
+
+    /**
+    * Does a refetch and gets the correct query to display the correct data, depending on the id of the page.
+    */
      useEffect(() => {
         if(props.id === "chalmers"){
             void chalmers();
@@ -85,59 +97,87 @@ interface HomeProps { //va1d ska vi ersätta denna med
             void granska();
             setUppdragData(reviewData)
         }
-     //setSortStateIndex(1)
-     },[archiveData, nollKs, chalmers, chalmersData, granska, myNollk, props.id, reviewData, thisYearData, uppdragData]);
+    },[archiveData, nollKs, chalmers, chalmersData, granska, myNollk, props.id, reviewData, thisYearData, uppdragData]);
 
+    
+    /* 
+    * Function to sort table by ascending order 
+    * (non-case-sensetive)
+    */
+    function sortByAscending(attribute : string) {
+        return function(first : Uppdrag, second : Uppdrag) {
+            let firstValue = first[attribute as keyof typeof first];
+            let secondValue = second[attribute as keyof typeof second];
 
-    //  function sortByAscending(attribute : string) {
-    //     return function(first : Uppdrag, second : Uppdrag) {
-    //         return (first[attribute as keyof typeof first] > second[attribute as keyof typeof second] ? 1 : -1)
-    //     }
-    // }
+            if (typeof firstValue === 'string' && typeof secondValue === 'string') {
+                firstValue = firstValue.toLowerCase();
+                secondValue = secondValue.toLowerCase();
+            }
 
-    // function sortByDescending(attribute : string) {
-    //     return function(first : Uppdrag, second : Uppdrag) {
-    //         return (first[attribute as keyof typeof first] > second[attribute as keyof typeof second] ? -1 : 1)
-    //     }
-    // }
+            if (firstValue === null || secondValue === null) return 0;
+            return ( firstValue > secondValue ? 1 : -1)
+        }
+    }
 
-    // function ascendingOrder(row : string) {
-    //     setUppdragData(uppdragData?.sort(sortByAscending(row)));
-    // }
+    /* 
+    * Function to sort table by descending order 
+    * (non-case-sensetive)
+    */
+    function sortByDescending(attribute : string) {
+        return function(first : Uppdrag, second : Uppdrag) {
+            let firstValue = first[attribute as keyof typeof first];
+            let secondValue = second[attribute as keyof typeof second];
 
-    // function descendingOrder(row : string) {
-    //     setUppdragData(uppdragData?.sort(sortByDescending(row)));
-    // }
+            if (typeof firstValue === 'string' && typeof secondValue === 'string') {
+                firstValue = firstValue.toLowerCase();
+                secondValue = secondValue.toLowerCase();
+            }
 
-    // Order by row
-    // function orderRow(row: string) {
-    //     switch (sortStatus) {
-    //         case 0:
-    //             setSortStatus(1);
-    //             ascendingOrder(row);
-    //             setIcon('↓');
-    //             break;
-    //         case 1:
-    //             setSortStatus(-1);
-    //             descendingOrder(row);
-    //             setIcon('↑');
-    //             break;
-    //         case -1:
-    //             setSortStatus(0);
-    //             setIcon('');
-    //             if (uppdragData != null) setUppdragData([...uppdragData])
-    //                 else setUppdragData(undefined)
-    //             break;
-    //         default:
-    //             console.error(`Illegal value of sortStatus: ${sortStatus}`)
-    //     }
-    //     return;
-    // }
+            if (firstValue === null || secondValue === null) return 0;
+            return ( firstValue < secondValue ? 1 : -1)
+       }
+    }
 
-    function orderRow(row: string){return;}
+    /*
+    * Set data with ascending order
+    */
+    function ascendingOrder(row : string) {
+        setUppdragData(uppdragData?.sort(sortByAscending(row)));
+    }
 
-    // Serach in table
+    /*
+    * Set data with descending order
+    */
+    function descendingOrder(row : string) {
+        setUppdragData(uppdragData?.sort(sortByDescending(row)));
+    }
 
+    /*
+    * Function to set resp. state, order and icon by sorting order
+    */
+    function orderRow(row: string) {
+        switch (sortStateIndex) {
+            case 0:
+                setSortStateIndex(1);
+                ascendingOrder(row);
+                setIcon('↓');
+                break;
+            case 1:
+                setSortStateIndex(-1);
+                descendingOrder(row);
+                setIcon('↑');
+                break;
+            case -1:
+                setSortStateIndex(0);
+                setIcon('');
+                if (uppdragData != null) setUppdragData([...uppdragData])
+                    else setUppdragData(undefined)
+                break;
+            default:
+                console.error(`Illegal value of sortStateIndex: ${sortStateIndex}`)
+        }
+        return;
+    }
 
 
     return (

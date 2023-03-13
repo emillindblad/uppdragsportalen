@@ -5,6 +5,10 @@ import { uppdragCreateSchema } from "../../../pages/uppdrag/newuppdrag";
 import { createTRPCRouter, protectedProcedure } from "../trpc";
 
 export const uppdragrouter = createTRPCRouter({
+
+     /**
+    * Gets an array of assignments by year
+    */
     getByYear: protectedProcedure
     .input(z.object({ year: z.number()}))
     .query(({ ctx, input }) => {
@@ -13,6 +17,10 @@ export const uppdragrouter = createTRPCRouter({
         });
     }),
 
+
+     /**
+    * Gets an array of assignments with a specific year and the logged-in nollk
+    */
     getByNollKThisYear: protectedProcedure
     .input(z.object({ year: z.number()}))
     .query(({ctx, input }) => {
@@ -20,6 +28,10 @@ export const uppdragrouter = createTRPCRouter({
             where: {nollk: ctx.session.user.nollk, year: input.year}
         });
     }),
+
+     /**
+    * Gets an array of assignments belonging to the logged-in nollk
+    */
 
     getByNollK: protectedProcedure
     .input(z.object({}))
@@ -29,6 +41,9 @@ export const uppdragrouter = createTRPCRouter({
         });
     }),
 
+    /**
+    * Gets an array of assignments by status
+    */
     getAllbyStatus: protectedProcedure
     .input(z.object({ status: z.nativeEnum(UppdragStatus) }))
     .query(({ctx, input }) => {
@@ -37,10 +52,16 @@ export const uppdragrouter = createTRPCRouter({
         });
     }),
 
+    /**
+    * Gets an array of all available assignments
+    */
     getAll: protectedProcedure.query(({ ctx }) => {
         return ctx.prisma.uppdrag.findMany();
     }),
 
+    /**
+    * Gets an assignment by its Id
+    */
     getById: protectedProcedure
     .input(z.object({ id: z.string() }))
     .query(({ ctx, input }) => {
@@ -50,6 +71,9 @@ export const uppdragrouter = createTRPCRouter({
         });
     }),
 
+    /**
+    * Deletes an assignment based on its Id
+    */
     delete: protectedProcedure
     .input(z.object({ id: z.string() }))
     .mutation(({ ctx, input }) => {
@@ -58,6 +82,9 @@ export const uppdragrouter = createTRPCRouter({
         })
     }),
 
+    /**
+    * Creates an assignment, where the author becomes the logged-in user
+    */
     create: protectedProcedure
     .input(uppdragCreateSchema)
     .mutation(({ ctx, input }) => {
@@ -82,6 +109,9 @@ export const uppdragrouter = createTRPCRouter({
         });
     }),
 
+    /**
+    * Updates an assignment (e.g. if the creator edits it)
+    */
     update: protectedProcedure
     .input(uppdragCreateSchema.and(z.object({ id: z.string() })))
     .mutation(({ ctx, input }) => {
