@@ -19,6 +19,10 @@ const schema = z.object({
 });
 
 
+/**
+ * Handles the User-page, where you can change your user-information
+*/
+
 type FormSchemaType = z.infer<typeof schema>;
 
 const User: NextPage = () => {

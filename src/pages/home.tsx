@@ -10,6 +10,10 @@ export const getServerSideProps: GetServerSideProps = async ( ctx ) => {
     }
 }
 
+/**
+ * Handles the Mina Uppdrag-page, i.e. the home-page for a NollK-user, displaying this year's assignments made by that user
+*/
+
 const Home: NextPage = () => {
 
     return(

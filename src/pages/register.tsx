@@ -9,6 +9,11 @@ import { z } from 'zod';
 import { ErrorText } from '../components/ErrorText';
 import { api } from '../utils/api';
 
+
+/**
+ * Handles the page for registering
+*/
+
 const nollkn: string[] = [
     "AØK",
     "ÆØK",
