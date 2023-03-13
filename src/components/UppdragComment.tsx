@@ -22,7 +22,6 @@ type FormSchemaType = z.infer<typeof commentSchema>;
 const UppdragComment = (props: {uppdragId: string}) => {
     const router = useRouter();
     const id = props.uppdragId;
-    console.log("id",id)
     const utils = api.useContext();
 
     const { register, handleSubmit, formState: { errors }, reset } = useForm<FormSchemaType>({
