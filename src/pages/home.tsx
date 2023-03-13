@@ -1,46 +1,26 @@
-import { type NextPage } from "next";
-import AssignmentData from "../components/AssignmentData";
-import MainPage from "../components/MainPage";
-import { api } from "../utils/api";
+import type { GetServerSideProps, NextPage } from "next";
+import { getServerAuthSession } from "../server/auth";
 
+import HomePageSkeleton from "../components/homepageSkeleton";
 
-const UppdragBrowser: NextPage = () => {
+export const getServerSideProps: GetServerSideProps = async ( ctx ) => {
+    const session = await getServerAuthSession(ctx);
+    return {
+        props: { session },
+    }
+}
 
-    const uppdrag = api.uppdrag.getCurrentYearUppdrag.useQuery({ year: 2023 });
+/**
+ * Handles the Mina Uppdrag-page, i.e. the home-page for a NollK-user, displaying this year's assignments made by that user
+*/
 
-    return (
+const Home: NextPage = () => {
+
+    return(
         <>
-            <MainPage title={"Mottagningskommittén"}>
-                <div className="my-4">
-                    <div className="border-b-2 border-gray-300 overflow-hidden">
-                        <input className="px-4 py-2 w-full h-15 border-none placeholder-[#737373] text-2xl" type="text" placeholder="Sök.." name="search" />
-                    </div>
-                </div>
-                <div className="overflow-x-auto">
-                    <table className="w-full text-sm text-left text-black">
-                        <thead className="text-lg text-[#737373] bg-white border-b-2 border-black">
-                            <tr>
-                                <th className="px-6 py-4" scope="col">Nolluppdrag</th>
-                                <th className="px-6 py-4" scope="col">NollK</th>
-                                <th className="px-6 py-4" scope="col">Status</th>
-                                <th className="px-6 py-4" scope="col">Övrigt</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {uppdrag.data ? <AssignmentData data={uppdrag.data}/> : <tr><td>Loading...</td></tr> }
-                        </tbody>
-                    </table>
-                </div>
-                <div className="absolute bottom-4 right-8 ">
-                    <button className="bg-mk-blue hover:bg-sky-900 text-white rounded-full p-3 " type="button">
-                        <svg className="fill-white w-8 h-8" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
-                            <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"></path>
-                        </svg>
-                    </button>
-                </div>
-            </MainPage>
-        </>
-    );
-};
 
-export default UppdragBrowser;
+    <HomePageSkeleton id={"myAssignments"} title={"Mina Uppdrag"}/>
+    </>
+    );
+}
+export default Home;

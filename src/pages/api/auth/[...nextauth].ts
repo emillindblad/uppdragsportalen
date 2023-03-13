@@ -1,38 +1,92 @@
 import NextAuth, { type NextAuthOptions } from "next-auth";
-import DiscordProvider from "next-auth/providers/discord";
-// Prisma adapter for NextAuth, optional and can be removed
-import { PrismaAdapter } from "@next-auth/prisma-adapter";
+import CredentialsProvider from "next-auth/providers/credentials";
+import bcrypt from "bcrypt";
 
 import { env } from "../../../env/server.mjs";
 import { prisma } from "../../../server/db";
 
 export const authOptions: NextAuthOptions = {
-  // Include user.id on session
-  callbacks: {
-    session({ session, user }) {
-      if (session.user) {
-        session.user.id = user.id;
-      }
-      return session;
+    session: {
+        strategy: "jwt"
     },
-  },
-  // Configure one or more authentication providers
-  adapter: PrismaAdapter(prisma),
-  providers: [
-    DiscordProvider({
-      clientId: env.DISCORD_CLIENT_ID,
-      clientSecret: env.DISCORD_CLIENT_SECRET,
-    }),
-    /**
-     * ...add more providers here
-     *
-     * Most other providers require a bit more work than the Discord provider.
-     * For example, the GitHub provider requires you to add the
-     * `refresh_token_expires_in` field to the Account model. Refer to the
-     * NextAuth.js docs for the provider you want to use. Example:
-     * @see https://next-auth.js.org/providers/github
-     */
-  ],
+    secret: env.NEXTAUTH_SECRET,
+    pages: {
+        signIn: "/login",
+        error: "/login",
+    },
+    providers: [
+        CredentialsProvider({
+            name: 'Credentials',
+            credentials: {
+                email: { label: "Email", type: "text", placeholder: "info@mk.chs.chalmers.se" },
+                password: { label: "Password", type: "password" }
+            },
+            authorize: async (credentials) => {
+
+                if (credentials == null ) {
+                    return null
+                }
+
+                const userData = await prisma.user.findUnique({
+                    where: {
+                        email: credentials.email
+                    }
+                })
+
+                if (!userData) {
+                    throw new Error("Ingen användare med den eposten finns i systemet. Skapa ett konto först.")
+                }
+
+                if (!userData.accepted) {
+                    throw new Error("Användaren har inte blivit accepterad in i systemet av MK. Kontakta MK så löser vi det.")
+                }
+
+                const isValidPass = bcrypt.compareSync(
+                    credentials.password,
+                    userData.password
+                );
+
+                if (!isValidPass) {
+                    throw new Error("Uppgifterna stämmer inte.")
+                }
+
+                return {
+                    id: userData.id,
+                    name: userData.name,
+                    email: userData.email,
+                    nollk: userData.nollk,
+                    year: userData.year,
+                    isAdmin: userData.nollk === "MK"
+                };
+
+            },
+        }),
+    ],
+    callbacks: {
+        session({ session, token }) {
+            if (token && session.user) {
+                session.user.image = null;
+                session.user.id = token.id as string;
+                session.user.name = token.name as string;
+                session.user.email = token.email as string;
+                session.user.nollk = token.nollk as string;
+                session.user.year = token.year as number;
+                session.user.isAdmin = token.isAdmin as boolean;
+            }
+            return session;
+        },
+        jwt({ token, user }) {
+            if (user) {
+                token.id = user.id;
+                token.email = user.email;
+                token.name = user.name;
+                token.nollk = user.nollk;
+                token.year = user.year;
+                token.isAdmin = user.isAdmin;
+            }
+            return token;
+        },
+    },
 };
 
 export default NextAuth(authOptions);
