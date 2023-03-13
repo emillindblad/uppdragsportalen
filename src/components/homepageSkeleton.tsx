@@ -13,7 +13,7 @@ import type { Uppdrag } from "@prisma/client";
  */
 
 
-interface HomeProps { 
+interface HomeProps {
      /**
      * The title of the MainPage tag
     */
@@ -54,25 +54,18 @@ interface HomeProps {
 
      //methods for deciding which query to run
      const { data : chalmersData, refetch : chalmers } = api.uppdrag.getByYear.useQuery({year: 2023},{
-        refetchOnWindowFocus: false,
         enabled: false
     });
 
     const { data : thisYearData, refetch : myNollk } = api.uppdrag.getByNollKThisYear.useQuery({ year: 2023},{
         enabled: false,
-        refetchOnWindowFocus: false,
         });
 
-    const { data : archiveData, refetch : nollKs } = api.uppdrag.getByNollK.useQuery({ nollk: ""},{
+    const { data : archiveData, refetch : nollKs } = api.uppdrag.getByNollK.useQuery(undefined,{
         enabled: false,
-        refetchOnWindowFocus: false,
-
     });
 
-    const { data : reviewData, refetch : granska } = api.uppdrag.getAllbyStatus.useQuery({
-        status: 'SUBMITTED'
-     },{
-        refetchOnWindowFocus: false,
+    const { data : reviewData, refetch : granska } = api.uppdrag.getAllbyStatus.useQuery({ status: 'SUBMITTED' },{
         enabled: false
     });
 
@@ -99,9 +92,9 @@ interface HomeProps {
         }
     },[archiveData, nollKs, chalmers, chalmersData, granska, myNollk, props.id, reviewData, thisYearData, uppdragData]);
 
-    
-    /* 
-    * Function to sort table by ascending order 
+
+    /*
+    * Function to sort table by ascending order
     * (non-case-sensetive)
     */
     function sortByAscending(attribute : string) {
@@ -119,8 +112,8 @@ interface HomeProps {
         }
     }
 
-    /* 
-    * Function to sort table by descending order 
+    /*
+    * Function to sort table by descending order
     * (non-case-sensetive)
     */
     function sortByDescending(attribute : string) {

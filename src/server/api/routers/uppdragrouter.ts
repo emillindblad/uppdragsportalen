@@ -31,11 +31,13 @@ export const uppdragrouter = createTRPCRouter({
 
      /**
     * Gets an array of assignments belonging to the logged-in nollk
+    * If logged in as MK, fetch all uppdrag
     */
-
     getByNollK: protectedProcedure
-    .input(z.object({}))
-    .query(({ctx, input }) => {
+    .query(({ ctx }) => {
+        if (ctx.session.user.isAdmin) {
+            return ctx.prisma.uppdrag.findMany()
+        }
         return ctx.prisma.uppdrag.findMany({
             where: { nollk: ctx.session.user.nollk }
         });

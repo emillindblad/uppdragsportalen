@@ -50,7 +50,7 @@ const SideMenu = (props: SideMenuProps) => {
                             <SideButton link={'home'}> Mina nolluppdrag </SideButton>
                             )
                         }
-                        <SideButton link={'chalmers'}> Chalmers nolluppdrag </SideButton>
+                        <SideButton link={'chalmers'}> Årets NollUppdrag </SideButton>
                         <SideButton link={'archive'}> Arkiv </SideButton>
                         <SideButton link={'user'}> Mitt konto </SideButton>
                         </div>
