@@ -6,13 +6,21 @@ interface PageProps {
 function Greeting() {
     // Creating time variable
     const currentHour = new Date().getHours();
-    const greeting =
-        currentHour < 11 ? 'Godmorgon' :
-        currentHour > 11 && currentHour <= 17 ? 'Goddag' :
-        currentHour > 17 && currentHour <= 22 ? 'Godkväll' :
-        'Sov';
+    let greeting ='';
 
-    return (<p>{greeting} gemene teknolog!</p>)
+    if (currentHour >= 6 && currentHour < 10) {
+        greeting = 'Godmorgon';
+    } else if (currentHour >= 11 && currentHour <= 17) {
+        greeting = 'Goddag';
+    } else {
+        greeting = 'Godkväll';
+    }
+
+    return (
+        <>
+            <p>{greeting} gemene teknolog!</p>
+        </>
+    );
 }
 
 const Page = (props: PageProps) => {
