@@ -21,7 +21,7 @@ model Uppdrag {
   private      Boolean
   status       UppdragStatus @default(DRAFT)
   comment      String?
-  author       User          @relation(fields: [authorId], references: [id])
+  author       User          @relation(fields: [authorId], references: [id], onDelete: Cascade)
 }
 
 model User {
