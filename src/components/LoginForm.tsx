@@ -32,7 +32,6 @@ const LoginForm: FC = () => {
         if (res?.ok) {
             await router.push("/home");
         } else {
-            console.log(res);
             setErrorMessage(res?.error)
         }
     };

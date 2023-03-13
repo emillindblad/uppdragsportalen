@@ -38,13 +38,8 @@ const Accounts: NextPage = () => {
 
     useEffect(() => {
         if (acceptMutation.isSuccess || deleteMutation.isSuccess) {
-            console.log("succ",acceptMutation.status)
-            console.log("succ",deleteMutation.status)
-            console.log("Refetching data")
             refetchData()
         }
-            console.log(acceptMutation.status)
-            console.log(deleteMutation.status)
     })
 
     return (

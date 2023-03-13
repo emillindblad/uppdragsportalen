@@ -28,12 +28,10 @@ export async function middleware(request: NextRequest) {
     }
 
     if (!token) {
-        console.log('redirecting')
         return NextResponse.redirect(new URL('/login', request.url))
     }
 
     if (request.nextUrl.pathname.startsWith('/accounts')) {
-        console.log('accounts')
         if (token.isAdmin) {
             return NextResponse.next()
         }
@@ -43,7 +41,7 @@ export async function middleware(request: NextRequest) {
     if (request.nextUrl.pathname.startsWith('/home')) {
         if (token.isAdmin) {
             return NextResponse.redirect(new URL('/review', request.url))
-            
+
         }
         return NextResponse.next()
     }
