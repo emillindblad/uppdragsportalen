@@ -28,7 +28,6 @@ const AssignmentData: FunctionComponent<UppdragsProps> = (props: UppdragsProps) 
 
     // different data depending on user (MK or Nollk)
     const {data: isMK} = api.user.getUserStatus.useQuery();
-    console.log(props.data.length)
     if (props.data.length === 0) {
         return <p>Nothing to show</p>
     }
