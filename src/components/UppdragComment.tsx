@@ -16,6 +16,9 @@ export const commentSchema = z.object({
 
 type FormSchemaType = z.infer<typeof commentSchema>;
 
+ /**
+ * Handles the comments the admin user can put on each assignment for the assignment-creator to see.
+ */
 const UppdragComment = (props: {uppdragId: string}) => {
     const router = useRouter();
     const id = props.uppdragId;
@@ -41,11 +44,6 @@ const UppdragComment = (props: {uppdragId: string}) => {
         router.back()
     };
 
-
- /**
- * Handles the comments the admin user can put on each assignment for the assignment-creator to see.
- */
-const UppdragComment = () => {
 
     return (
         <>
