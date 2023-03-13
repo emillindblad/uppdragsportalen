@@ -12,7 +12,7 @@ export const uppdragrouter = createTRPCRouter({
     .input(z.object({ year: z.number()}))
     .query(({ ctx, input }) => {
         return ctx.prisma.uppdrag.findMany({
-            where: { year: input.year }
+            where: { year: input.year, private: false, status: 'APPROVED' }
         });
     }),
 

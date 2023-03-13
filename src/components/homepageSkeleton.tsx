@@ -53,7 +53,7 @@ interface HomeProps {
     const [nollkClicked, setNollkClicked] = useState(false);
 
      //methods for deciding which query to run
-     const { data : chalmersData, refetch : chalmers } = api.uppdrag.getAll.useQuery(undefined,{
+     const { data : chalmersData, refetch : chalmers } = api.uppdrag.getByYear.useQuery({year: 2023},{
         refetchOnWindowFocus: false,
         enabled: false
     });
