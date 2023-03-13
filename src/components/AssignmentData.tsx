@@ -28,7 +28,7 @@ const AssignmentData: FunctionComponent<UppdragsProps> = (props: UppdragsProps) 
 
     // different data depending on user (MK or Nollk)
     const {data: isMK} = api.user.getUserStatus.useQuery();
-    console.log(props.data.length)
+
     if (props.data.length === 0) {
         return <p>Nothing to show</p>
     }
@@ -38,7 +38,7 @@ const AssignmentData: FunctionComponent<UppdragsProps> = (props: UppdragsProps) 
         <>
             {props.data?.map( (u) => {
                 return (
-                    <div role="assignments" className="grid grid-cols-5 text-left text-xl" key={u.id}>
+                    <div role="assignments" className="grid grid-cols-5 text-left text-xl hover:bg-gray-300" key={u.id}>
                         <div onClick={() => nav(u.id)} className="flex-initial ml-4 my-2 max-w-[180px] hover:cursor-pointer hover:underline">{u.title}</div>
                         <div className="flex-initial my-2 ml-1 max-w-[180px]">{u.place}</div>
                         {isMK ? <div className="flex-initial col-span-1 max-w-[180px]">{u.nollk}</div>
