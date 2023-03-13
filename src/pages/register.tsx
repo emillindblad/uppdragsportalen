@@ -10,6 +10,11 @@ import { ErrorText } from '../components/ErrorText';
 import { api } from '../utils/api';
 import { useRouter } from 'next/router';
 
+
+/**
+ * Handles the page for registering
+*/
+
 const nollkn: string[] = [
     "AØK",
     "ÆØK",

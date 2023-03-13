@@ -8,6 +8,10 @@ import { useState, useEffect } from "react";
 import type { Uppdrag } from "@prisma/client";
 import HomePageSkeleton from "../components/homepageSkeleton";
 
+/**
+ * Handles the Arkiv-page, i.e. the page displaying all the existing and previous Assigments made by the logged-in user
+*/
+
 const Archive: NextPage = () => {
     return (
         <>
