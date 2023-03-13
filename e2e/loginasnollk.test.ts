@@ -22,6 +22,12 @@ test('login as nollk', async ({ page }) => {
 
 
 test('filter table by asc, desc, default order', async ({ page }) => {
+  await page.goto('http://localhost:3000/login');
+    await page.locator('input[name="email"]').click();
+    await page.locator('input[name="email"]').fill('uppdrag.nollkit@chalmers.it');
+    await page.locator('input[name="password"]').click();
+    await page.locator('input[name="password"]').fill('1234');
+    await page.getByRole('button', { name: 'Logga in' }).click();
     await page.goto('http://localhost:3000/home');
     await expect(page).toHaveURL('/home');
 
