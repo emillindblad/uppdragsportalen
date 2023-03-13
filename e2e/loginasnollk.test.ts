@@ -1,39 +1,43 @@
 import { test, expect } from '@playwright/test';
 
-// test('login as nollk', async ({ page }) => {
+// test('login as nollk and show correct buttons', async ({ page }) => {
 //     await page.goto('http://localhost:3000/login');
 //     await page.locator('input[name="email"]').click();
 //     await page.locator('input[name="email"]').fill('uppdrag.nollkit@chalmers.it');
 //     await page.locator('input[name="password"]').click();
 //     await page.locator('input[name="password"]').fill('1234');
 //     await page.getByRole('button', { name: 'Logga in' }).click();
-    
 //     await expect(page).toHaveURL('/home');
+    
+//     //show correct buttons (that differ from admin-view) 
 //     await expect(page.getByRole('button', { name: 'Mina nolluppdrag' })).toHaveText('Mina nolluppdrag');
 //     await expect(page.getByRole('button', { name: 'Arkiv' })).toHaveText('Arkiv');
     
+//     // check that arkiv button navigates correct
 //     await page.getByRole('button', { name: 'Arkiv'}).click();
 //     await expect(page).toHaveURL('/archive');
 // });
 
 
 // test('filter table by asc, desc, default order', async ({ page }) => {
-//   await page.goto('http://localhost:3000/login');
+//     await page.goto('http://localhost:3000/login');
 //     await page.locator('input[name="email"]').click();
 //     await page.locator('input[name="email"]').fill('uppdrag.nollkit@chalmers.it');
 //     await page.locator('input[name="password"]').click();
 //     await page.locator('input[name="password"]').fill('1234');
 //     await page.getByRole('button', { name: 'Logga in' }).click();
 
+//     // show ascending order arrow
 //     await page.getByText('Namn på uppdrag').click();
 //     await expect(page.getByText('Namn på uppdrag')).toHaveText('Namn på uppdrag ↓');
 
+//     // show descending order arrow
 //     await page.getByText('Namn på uppdrag ↓').click();
 //     await expect(page.getByText('Namn på uppdrag')).toHaveText('Namn på uppdrag ↑');
 
+//     // show defalut order (no arrow)
 //     await page.getByText('Namn på uppdrag ↑').click();
 //     await expect(page.getByText('Namn på uppdrag')).toHaveText('Namn på uppdrag');
-
 // });
 
 // test('search after an uppdrag', async ({ page }) => {
@@ -101,10 +105,11 @@ test('cant edit another nollk:s uppdrag', async ({ page }) => {
     await page.getByRole('button', { name: 'Logga in' }).click();
 
     // navigate to all nolluppdrag
-    await page.getByRole('button', { name: 'Chalmers nolluppdrag'}).click();
+    await page.getByRole('button', { name: 'Årets nolluppdrag'}).click();
     await expect(page).toHaveURL('/uppdrag/viewuppdrag');
 
-    // can edit your own uppdrag
-    await page.getByRole('button', { name: 'Redigera'}).click();
-    await expect(page).toHaveURL('/uppdrag/edituppdrag/clf15spkz000cxevoe1n23743');
+    // can not edit another nollk:s uppdrag
+    await page.getByText('Ännu ett uppdrag').click();
+    await expect(page).toHaveURL('/uppdrag/viewuppdrag');
+    await expect(page.getByRole('button', { name: 'Redigera'})).toBeHidden();
 });
