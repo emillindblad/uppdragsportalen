@@ -16,6 +16,10 @@ export const getServerSideProps: GetServerSideProps = async ( ctx ) => {
     }
 }
 
+/**
+ * Handles the Chalmers nolluppdrag-page, i.e. the page displaying every single previous and new assignment by every user
+*/
+
 const Chalmers: NextPage = () => {
 
     return(

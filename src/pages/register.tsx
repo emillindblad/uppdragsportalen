@@ -8,6 +8,12 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { ErrorText } from '../components/ErrorText';
 import { api } from '../utils/api';
+import { useRouter } from 'next/router';
+
+
+/**
+ * Handles the page for registering
+*/
 
 const nollkn: string[] = [
     "AØK",
@@ -45,6 +51,7 @@ const schema = z.object({
 type FormSchemaType = z.infer<typeof schema>;
 
 const Register: NextPage = () => {
+    const router = useRouter();
     const utils = api.useContext();
     const registerMutation = api.user.registerNewUser.useMutation({
         onSettled: async () => {
@@ -64,6 +71,7 @@ const Register: NextPage = () => {
     const onSubmit: SubmitHandler<FormSchemaType> = async (data) => {
         console.log(data);
         await handleMutation(data);
+        await router.push('/login')
     };
 
 

@@ -21,13 +21,18 @@ const AssignmentData: FunctionComponent<UppdragsProps> = (props: UppdragsProps) 
 
     const nav = (data: string) => {
         void router.push({
-            pathname: '/uppdrag/viewuppdrag',
+            pathname: '/uppdrag/viewuppdrag/[id]',
             query: { id: data }
-        }, '/uppdrag/viewuppdrag')
+        })
     }
 
     // different data depending on user (MK or Nollk)
     const {data: isMK} = api.user.getUserStatus.useQuery();
+    console.log(props.data.length)
+    if (props.data.length === 0) {
+        return <p>Nothing to show</p>
+    }
+
 
     return (
         <>
@@ -42,7 +47,15 @@ const AssignmentData: FunctionComponent<UppdragsProps> = (props: UppdragsProps) 
                                     <div className="flex-initial  max-w-[180px]">{u.private.toString()}</div>
                                 </>)
                         }
-                        <div className="flex-initial my-2 ml-1 max-w-[180px]">{u.status}</div>
+                        <div
+                            className={
+                                `flex-initial my-2 ml-1 max-w-[180px]
+                                ${u.status === 'APPROVED' ? 'font-bold text-green-500'
+                                : u.status === 'DENIED' ? 'font-bold text-red-500'
+                                : u.status === 'RETURN' ? 'font-bold text-amber-500'
+                                : '' }`
+                            }>
+                            {u.status}</div>
 
                         {/*
                         <div className="flex-initial col-span-1 max-w-[180px]">{u.nollk}</div>

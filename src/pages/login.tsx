@@ -4,6 +4,10 @@ import LoginForm from "../components/LoginForm";
 import Navbar from "../components/Navbar";
 import Page from "../components/Page";
 
+/**
+ * Handles the Login-page, where you start and/or get redirected to if you are not logged-in or authorized
+*/
+
 const Login: NextPage = () => {
     return (
         <>
