@@ -59,7 +59,7 @@ export const uppdragrouter = createTRPCRouter({
     }),
 
     /**
-    * 
+    * Gets an assignment by its Id
     */
     getById: protectedProcedure
     .input(z.object({ id: z.string() }))
@@ -71,7 +71,7 @@ export const uppdragrouter = createTRPCRouter({
     }),
 
     /**
-    * 
+    * Deletes an assignment based on its Id
     */
     delete: protectedProcedure
     .input(z.object({ id: z.string() }))
@@ -82,7 +82,7 @@ export const uppdragrouter = createTRPCRouter({
     }),
 
     /**
-    * 
+    * Creates an assignment, where the author becomes the logged-in user
     */
     create: protectedProcedure
     .input(uppdragCreateSchema)
@@ -109,7 +109,7 @@ export const uppdragrouter = createTRPCRouter({
     }),
 
     /**
-    * 
+    * Updates an assignment (e.g. if the creator edits it)
     */
     update: protectedProcedure
     .input(uppdragCreateSchema.and(z.object({ id: z.string() })))
