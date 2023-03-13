@@ -18,6 +18,8 @@ const config: PlaywrightTestConfig = {
         baseURL: baseUrl,
         //headless: opts.headless,
         headless: true,
+        // Use prepared auth state.
+        storageState: 'playwright/.auth/user.json',
     },
 };
 
