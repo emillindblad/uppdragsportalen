@@ -30,7 +30,7 @@ const LoginForm: FC = () => {
         const res = await signIn('credentials', {callbackUrl: "/home", email: data.email, password: data.password, redirect: false })
 
         if (res?.ok) {
-            router.push("/home");
+            await router.push("/home");
         } else {
             console.log(res);
             setErrorMessage(res?.error)

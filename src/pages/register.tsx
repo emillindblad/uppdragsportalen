@@ -66,7 +66,7 @@ const Register: NextPage = () => {
     const onSubmit: SubmitHandler<FormSchemaType> = async (data) => {
         console.log(data);
         await handleMutation(data);
-        router.push('/login')
+        await router.push('/login')
     };
 
 
