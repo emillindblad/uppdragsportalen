@@ -19,10 +19,14 @@ type FormSchemaType = z.infer<typeof commentSchema>;
 const UppdragComment = (props: {uppdragId: string}) => {
     const router = useRouter();
     const id = props.uppdragId;
-
+    console.log("id",id)
     const utils = api.useContext();
+
     const { register, handleSubmit, formState: { errors }, reset } = useForm<FormSchemaType>({
         resolver: zodResolver(commentSchema),
+        defaultValues: {
+            id: id
+        }
     });
 
     const reviewUppdrag = api.uppdrag.review.useMutation({
@@ -33,7 +37,6 @@ const UppdragComment = (props: {uppdragId: string}) => {
     });
 
     const submit: SubmitHandler<FormSchemaType> = (data) => {
-        data.id = id;
         reviewUppdrag.mutate(data)
         router.back()
     };
@@ -42,7 +45,6 @@ const UppdragComment = (props: {uppdragId: string}) => {
     return (
         <>
             <form>
-                {id}
                 <div className="flex flex-col gap-4">
                     <div className="flex row-start-6 col-start-1 col-span-7 items-end px-2">
                         <form action=""></form>

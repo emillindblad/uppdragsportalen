@@ -12,9 +12,9 @@ const AssignmentData: FunctionComponent<UppdragsProps> = (props: UppdragsProps) 
 
     const nav = (data: string) => {
         void router.push({
-            pathname: '/uppdrag/viewuppdrag',
+            pathname: '/uppdrag/viewuppdrag/[id]',
             query: { id: data }
-        }, '/uppdrag/viewuppdrag')
+        })
     }
 
     // different data depending on user (MK or Nollk)

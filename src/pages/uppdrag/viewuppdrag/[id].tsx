@@ -1,10 +1,10 @@
 import type { NextPage } from "next";
 import Image from "next/image";
-import MainPage from "../../components/MainPage";
-import { api } from "../../utils/api";
+import MainPage from "../../../components/MainPage";
+import { api } from "../../../utils/api";
 import { type NextRouter, withRouter, useRouter } from "next/router";
 import { useEffect } from "react";
-import UppdragComment from "../../components/UppdragComment";
+import UppdragComment from "../../../components/UppdragComment";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 
@@ -16,21 +16,22 @@ interface Props {
 const ViewUppdrag: NextPage<Props> = (props: Props) => {
 
     const router = useRouter();
+    const { id: queryId } = router.query;
     const { data: session } = useSession();
-
-    useEffect(() => {
-        if (Object.keys(props.router.query).length === 0) {
-            void router.push('/home');
-        }
-    }, [props.router.query, router]);
-
-    const uppdragId = props.router.query.id?.toString() as string
-
-    const { data: uppdrag } = api.uppdrag.getById.useQuery({id: uppdragId});
-
     const { data: isMK } = api.user.getUserStatus.useQuery();
 
+    const { data: uppdrag } = api.uppdrag.getById.useQuery({id: queryId as string});
     const imagePath = "/img/" + (uppdrag?.author.nollk as string) + ".png";
+
+    //useEffect(() => {
+        //if (uppdrag == undefined) {
+        //} else {
+            //if (uppdrag.authorId !== session?.user.id) {
+                //void router.push("/home")
+            //}
+        //}
+    //},[uppdrag, session, router])
+
 
     return (
         <>
@@ -94,7 +95,7 @@ const ViewUppdrag: NextPage<Props> = (props: Props) => {
                     </div>
                     </div>
                     <div>
-                        {isMK ? (<UppdragComment uppdragId={uppdrag?.id as string}/>) :
+                        {isMK ? (<UppdragComment uppdragId={queryId as string}/>) :
                             (
                                 <div className="flex gap-9 col-start-1 col-span-2 ">
                                     <button
