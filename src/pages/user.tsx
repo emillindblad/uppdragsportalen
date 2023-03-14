@@ -37,7 +37,7 @@ const User: NextPage = () => {
             reset()
             await refetchInfo();
             // currently a hack since session cannot be updated client-side
-            signOut()
+            await signOut()
         }
     });
     const passMut = api.user.updateAllInfo.useMutation({
@@ -46,7 +46,7 @@ const User: NextPage = () => {
             reset()
             await refetchInfo();
             // currently a hack since session cannot be updated client-side
-            signOut()
+            await signOut()
         }
     });
 
