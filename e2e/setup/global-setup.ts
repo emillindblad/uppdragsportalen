@@ -3,6 +3,7 @@ import { chromium } from '@playwright/test';
 
 async function globalSetup (config: FullConfig) {
     const browserMk = await chromium.launch()
+    // Change username /password when needed
     await saveStorage(browserMk, 'pr@mk.chs.chalmers.se', '1234', './e2e/setup/mk.json')
     await browserMk.close()
     const browserNollk = await chromium.launch()
