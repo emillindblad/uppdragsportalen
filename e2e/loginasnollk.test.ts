@@ -7,10 +7,11 @@ test('login as nollk and show correct buttons', async ({ page }) => {
     await page.locator('input[name="password"]').click();
     await page.locator('input[name="password"]').fill('1234');
     await page.getByRole('button', { name: 'Logga in' }).click();
-    await expect(page).toHaveURL('/home');
+    
     
     //show correct buttons (that differ from admin-view) 
-    await expect(page.getByRole('button', { name: 'Mina nolluppdrag' })).toHaveText('Mina nolluppdrag');
+    await expect(page).toHaveURL('/home');
+    await expect(page.getByRole('button', { name: 'Mina Nolluppdrag' })).toHaveText('Mina Nolluppdrag');
     await expect(page.getByRole('button', { name: 'Arkiv' })).toHaveText('Arkiv');
     
     // check that arkiv button navigates correct
@@ -108,7 +109,7 @@ test('cant edit another nollk:s uppdrag', async ({ page }) => {
     await page.getByRole('button', { name: 'Logga in' }).click();
 
     // navigate to all nolluppdrag
-    await page.getByRole('button', { name: 'Årets nolluppdrag'}).click();
+    await page.getByRole('button', { name: 'Årets Nolluppdrag'}).click();
     await expect(page).toHaveURL('/chalmers');
 
     // can not edit another nollk:s uppdrag
