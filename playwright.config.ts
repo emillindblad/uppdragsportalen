@@ -10,6 +10,7 @@ const opts = {
 
 const config: PlaywrightTestConfig = {
     testDir: "./e2e",
+    globalSetup: require.resolve('./e2e/setup/global-setup.ts'),
     reporter: 'html',
     //globalSetup: "./e2e/setup/global.ts",
     use: {
