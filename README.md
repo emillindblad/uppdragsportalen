@@ -1,6 +1,6 @@
 # Uppdragsportalen
 > A project in DAT076 Web applications at Chalmers University of Technology
-> The final report can be found here
+> The final report can be found [here](https://github.com/emillindblad/uppdragsportalen/blob/master/docs/final_report.pdf)
 
 Uppdragsportalen is a portal where [Mottagningskommittén](https://mk.chs.chalmers.se) can mange Nolluppdrag in preperation for the reception weeks.
 
