@@ -24,14 +24,12 @@ describe('uppdrag', async () => {
             accepted: true,
             year: 2023
         },
-        update: {
-            name: "test",
-        }
+        update: {}
     });
 
     const ctx = createInnerTRPCContext({
         session: {
-            user: {...dummyUser, isAdmin: dummyUser.nollk === "MK" },
+            user: {...dummyUser, isAdmin: true },
             expires: "1",
         },
     });
@@ -48,7 +46,8 @@ describe('uppdrag', async () => {
         time: 'test',
         participants: 9999,
         motivation: 'test',
-        private: false
+        private: false,
+        status: 'DRAFT'
     }
 
     const uppdrag = await caller.uppdrag.create(input)
