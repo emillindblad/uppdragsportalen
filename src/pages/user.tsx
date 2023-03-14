@@ -5,15 +5,15 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { ErrorText } from "../components/ErrorText";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import { api } from "../utils/api";
 import { useEffect } from "react";
 
 const schema = z.object({
     fullname: z.string().min(3, { message: 'Vänligen skriv in ditt för och efternamn!' }),
     email: z.string().email({ message: 'Vänligen skriv in din email!' }),
-    password: z.optional(z.string().min(1, { message: 'Vänligen skriv in ditt lösenord!' })),
-    confirm: z.optional(z.string().min(1, { message: 'Vänligen bekräfta ditt lösenord!' })),
+    password: z.string().min(1, { message: 'Vänligen skriv in ditt lösenord!' }).optional().or(z.literal('')),
+    confirm: z.string().min(1, { message: 'Vänligen bekräfta in ditt lösenord!' }).optional().or(z.literal('')),
 }).refine((data) => data.password === data.confirm, {
     message: "Lösenorden matchar inte!",
     path: ["confirm"],
@@ -36,6 +36,8 @@ const User: NextPage = () => {
             await utils.user.invalidate();
             reset()
             await refetchInfo();
+            // currently a hack since session cannot be updated client-side
+            await signOut()
         }
     });
     const passMut = api.user.updateAllInfo.useMutation({
@@ -43,6 +45,8 @@ const User: NextPage = () => {
             await utils.user.invalidate();
             reset()
             await refetchInfo();
+            // currently a hack since session cannot be updated client-side
+            await signOut()
         }
     });
 
