@@ -16,29 +16,27 @@ test("unauthed should not be able to fetch uppdrag", async () => {
 
 describe('user', async () => {
 
-    
+
     const dummyUser = await prisma.user.upsert({
-        where: { email: "test@test.com" },
+        where: { email: "user@test.com" },
         create: {
             name: "test",
             nollk: "test",
-            email: "test@test.com",
+            email: "user@test.com",
             password: "test",
             accepted: true,
             year: 2023
         },
-        update: {
-            name: "test",
-        }
+        update: {}
     });
-    
+
     const ctx = createInnerTRPCContext({
         session: {
             user: {...dummyUser, isAdmin: dummyUser.nollk === "MK" },
             expires: "1",
         },
     });
-    
+
     const caller = appRouter.createCaller(ctx);
 
     let userID: string;
@@ -68,10 +66,10 @@ describe('user', async () => {
         const updatedUser = await caller.user.getUser({ id: dummyUser.id })
         expect(updatedUser?.name).toBe("test3");
         expect(updatedUser?.email).toBe("test3@test.com")
-        const isPasswordSame = compareSync("test2", updatedUser!.password)
+        const isPasswordSame = compareSync("test2", updatedUser?.password as string)
         expect(isPasswordSame).toBe(true)
     })
-   
+
     test("get user status", async () => {
         const status = await caller.user.getUserStatus()
         expect(status).toBe(false)

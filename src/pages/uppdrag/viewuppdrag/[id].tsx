@@ -2,36 +2,20 @@ import type { NextPage } from "next";
 import Image from "next/image";
 import MainPage from "../../../components/MainPage";
 import { api } from "../../../utils/api";
-import { type NextRouter, withRouter, useRouter } from "next/router";
-import { useEffect } from "react";
+import { useRouter } from "next/router";
 import UppdragComment from "../../../components/UppdragComment";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 
-interface Props {
-    id: string
-    router: NextRouter
-}
-
-const ViewUppdrag: NextPage<Props> = (props: Props) => {
-
+const ViewUppdrag: NextPage= () => {
     const router = useRouter();
     const { id: queryId } = router.query;
+
     const { data: session } = useSession();
     const { data: isMK } = api.user.getUserStatus.useQuery();
 
     const { data: uppdrag } = api.uppdrag.getById.useQuery({id: queryId as string});
     const imagePath = "/img/" + (uppdrag?.author.nollk as string) + ".png";
-
-    //useEffect(() => {
-        //if (uppdrag == undefined) {
-        //} else {
-            //if (uppdrag.authorId !== session?.user.id) {
-                //void router.push("/home")
-            //}
-        //}
-    //},[uppdrag, session, router])
-
 
     return (
         <>
@@ -128,4 +112,4 @@ const ViewUppdrag: NextPage<Props> = (props: Props) => {
     );
 };
 
-export default withRouter(ViewUppdrag);
+export default ViewUppdrag;

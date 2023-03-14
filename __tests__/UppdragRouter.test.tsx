@@ -15,23 +15,21 @@ test("unauthed should not be able to fetch uppdrag", async () => {
 
 describe('uppdrag', async () => {
     const dummyUser = await prisma.user.upsert({
-        where: { email: "test@test.com" },
+        where: { email: "uppdrag@test.com" },
         create: {
             name: "test",
             nollk: "test",
-            email: "test@test.com",
+            email: "uppdrag@test.com",
             password: "test",
             accepted: true,
             year: 2023
         },
-        update: {
-            name: "test",
-        }
+        update: {}
     });
 
     const ctx = createInnerTRPCContext({
         session: {
-            user: {...dummyUser, isAdmin: dummyUser.nollk === "MK" },
+            user: {...dummyUser, isAdmin: true },
             expires: "1",
         },
     });
@@ -48,7 +46,7 @@ describe('uppdrag', async () => {
         time: 'test',
         participants: 9999,
         motivation: 'test',
-        private: false
+        private: false,
     }
 
     const uppdrag = await caller.uppdrag.create(input)
@@ -71,5 +69,6 @@ describe('uppdrag', async () => {
         const afterDeleteUppdrag = await caller.uppdrag.getAll();
 
         expect(afterDeleteUppdrag.length).lessThan(initalLength);
+        await caller.user.deleteUser({id: dummyUser.id})
     })
 })
