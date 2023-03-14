@@ -12,8 +12,8 @@ import { useEffect } from "react";
 const schema = z.object({
     fullname: z.string().min(3, { message: 'Vänligen skriv in ditt för och efternamn!' }),
     email: z.string().email({ message: 'Vänligen skriv in din email!' }),
-    password: z.optional(z.string().min(0, { message: 'Vänligen skriv in ditt lösenord!' })),
-    confirm: z.optional(z.string().min(0, { message: 'Vänligen bekräfta ditt lösenord!' })),
+    password: z.string().min(1, { message: 'Vänligen skriv in ditt lösenord!' }).optional().or(z.literal('')),
+    confirm: z.string().min(1, { message: 'Vänligen bekräfta in ditt lösenord!' }).optional().or(z.literal('')),
 }).refine((data) => data.password === data.confirm, {
     message: "Lösenorden matchar inte!",
     path: ["confirm"],
@@ -36,6 +36,7 @@ const User: NextPage = () => {
             await utils.user.invalidate();
             reset()
             await refetchInfo();
+            // currently a hack since session cannot be updated client-side
             signOut()
         }
     });
@@ -44,6 +45,7 @@ const User: NextPage = () => {
             await utils.user.invalidate();
             reset()
             await refetchInfo();
+            // currently a hack since session cannot be updated client-side
             signOut()
         }
     });
