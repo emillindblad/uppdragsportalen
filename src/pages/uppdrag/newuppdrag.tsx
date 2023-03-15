@@ -18,7 +18,7 @@ export const uppdragCreateSchema = z.object({
     title: z.string().min(1,{message: 'Vänligen ange en titel på ditt uppdrag'}),
     place: z.string().min(1,{message: 'Vänligen ange plats för uppdraget'}),
     time: z.string().min(1,{message: 'Vänligen ange den tid uppdraget kommer ske'}),
-    participants: z.number().min(1,{ message: 'Vänligen ange antal deltagare' }),
+    participants: z.number().int().positive().min(1,{ message: 'Vänligen ange antal deltagare' }),
     desc: z.string().min(1,{message: 'Vänligen ange en beskrivning av uppdraget'}),
     motivation: z.string().min(1, { message: 'Vänligen ange en motviation till uppdraget' }),
     private: z.boolean(),
@@ -150,16 +150,14 @@ const NewUppdrag: NextPage = () => {
                                 <Link href="/home">
                                     <button className="bg-mk-yellow hover:bg-mk-yellow-hover text-white text-lg rounded-2xl font-bold px-6 py-2" type="button">Tillbaka</button>
                                 </Link>
-                                <Link href="/home" className="px-2">
                                     <button
-                                        className="bg-mk-blue hover:bg-mk-blue-hover text-white text-lg rounded-2xl font-bold px-6 py-2"
+                                        className="bg-mk-blue hover:bg-mk-blue-hover text-white text-lg rounded-2xl font-bold px-6 py-2 ml-3"
                                         type="button"
                                         // eslint-disable-next-line @typescript-eslint/no-misused-promises
                                         onClick={handleSubmit(submitDraft)}
                                     >
                                         Spara
                                     </button>
-                                </Link>
                             </div>
                             <div className=" justify-self-end ">
                                 <button
