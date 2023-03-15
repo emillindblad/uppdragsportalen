@@ -150,16 +150,14 @@ const NewUppdrag: NextPage = () => {
                                 <Link href="/home">
                                     <button className="bg-mk-yellow hover:bg-mk-yellow-hover text-white text-lg rounded-2xl font-bold px-6 py-2" type="button">Tillbaka</button>
                                 </Link>
-                                <Link href="/home" className="px-2">
                                     <button
-                                        className="bg-mk-blue hover:bg-mk-blue-hover text-white text-lg rounded-2xl font-bold px-6 py-2"
+                                        className="bg-mk-blue hover:bg-mk-blue-hover text-white text-lg rounded-2xl font-bold px-6 py-2 ml-3"
                                         type="button"
                                         // eslint-disable-next-line @typescript-eslint/no-misused-promises
                                         onClick={handleSubmit(submitDraft)}
                                     >
                                         Spara
                                     </button>
-                                </Link>
                             </div>
                             <div className=" justify-self-end ">
                                 <button
