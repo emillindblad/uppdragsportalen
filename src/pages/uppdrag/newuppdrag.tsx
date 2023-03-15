@@ -18,7 +18,7 @@ export const uppdragCreateSchema = z.object({
     title: z.string().min(1,{message: 'Vänligen ange en titel på ditt uppdrag'}),
     place: z.string().min(1,{message: 'Vänligen ange plats för uppdraget'}),
     time: z.string().min(1,{message: 'Vänligen ange den tid uppdraget kommer ske'}),
-    participants: z.number().min(1,{ message: 'Vänligen ange antal deltagare' }),
+    participants: z.number().int().positive().min(1,{ message: 'Vänligen ange antal deltagare' }),
     desc: z.string().min(1,{message: 'Vänligen ange en beskrivning av uppdraget'}),
     motivation: z.string().min(1, { message: 'Vänligen ange en motviation till uppdraget' }),
     private: z.boolean(),
